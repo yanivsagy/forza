@@ -120,10 +120,10 @@ final class Functions
 //      }
 //   }
 
-   public static void nextImage(Entity entity)
-   {
-      entity.imageIndex = (entity.imageIndex + 1) % entity.images.size();
-   }
+//   public static void nextImage(Entity entity)
+//   {
+//      entity.imageIndex = (entity.imageIndex + 1) % entity.images.size();
+//   }
 
    public static void executeAction(Action action, EventScheduler scheduler)
    {
@@ -142,7 +142,7 @@ final class Functions
    public static void executeAnimationAction(Action action,
       EventScheduler scheduler)
    {
-      nextImage(action.entity);
+      action.entity.nextImage();
 
       if (action.repeatCount != 1)
       {
