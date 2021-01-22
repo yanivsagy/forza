@@ -415,7 +415,7 @@ final class Functions
    public static boolean moveToNotFull(Entity octo, WorldModel world,
       Entity target, EventScheduler scheduler)
    {
-      if (adjacent(octo.position, target.position))
+      if (octo.position.adjacent(target.position))
       {
          octo.resourceCount += 1;
          removeEntity(world, target);
@@ -444,7 +444,7 @@ final class Functions
    public static boolean moveToFull(Entity octo, WorldModel world,
       Entity target, EventScheduler scheduler)
    {
-      if (adjacent(octo.position, target.position))
+      if (octo.position.adjacent(target.position))
       {
          return true;
       }
@@ -469,7 +469,7 @@ final class Functions
    public static boolean moveToCrab(Entity crab, WorldModel world,
       Entity target, EventScheduler scheduler)
    {
-      if (adjacent(crab.position, target.position))
+      if (crab.position.adjacent(target.position))
       {
          removeEntity(world, target);
          unscheduleAllEvents(scheduler, target);
@@ -541,11 +541,11 @@ final class Functions
       return newPos;
    }
 
-   public static boolean adjacent(Point p1, Point p2)
-   {
-      return (p1.x == p2.x && Math.abs(p1.y - p2.y) == 1) ||
-         (p1.y == p2.y && Math.abs(p1.x - p2.x) == 1);
-   }
+//   public static boolean adjacent(Point p1, Point p2)
+//   {
+//      return (p1.x == p2.x && Math.abs(p1.y - p2.y) == 1) ||
+//         (p1.y == p2.y && Math.abs(p1.x - p2.x) == 1);
+//   }
 
    public static Optional<Point> findOpenAround(WorldModel world, Point pos)
    {
