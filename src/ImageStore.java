@@ -19,4 +19,9 @@ final class ImageStore
       defaultImages = new LinkedList<>();
       defaultImages.add(defaultImage);
    }
+
+   public List<PImage> getImageList(String key)
+   {
+      return images.getOrDefault(key, defaultImages);
+   }
 }

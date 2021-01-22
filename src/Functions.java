@@ -251,7 +251,7 @@ final class Functions
               pos, entity.actionPeriod / CRAB_PERIOD_SCALE,
               CRAB_ANIMATION_MIN +
                       Functions.rand.nextInt(CRAB_ANIMATION_MAX - CRAB_ANIMATION_MIN),
-              getImageList(imageStore, CRAB_KEY));
+              imageStore.getImageList(CRAB_KEY));
 
       addEntity(world, crab);
       scheduleActions(crab, scheduler, world, imageStore);
@@ -271,7 +271,7 @@ final class Functions
          if (moveToCrab(entity, world, crabTarget.get(), scheduler))
          {
             Entity quake = createQuake(tgtPos,
-               getImageList(imageStore, QUAKE_KEY));
+                    imageStore.getImageList(QUAKE_KEY));
 
             addEntity(world, quake);
             nextPeriod += entity.actionPeriod;
@@ -308,7 +308,7 @@ final class Functions
          Entity fish = createFish(FISH_ID_PREFIX + entity.id,
                  openPt.get(), FISH_CORRUPT_MIN +
                          Functions.rand.nextInt(FISH_CORRUPT_MAX - FISH_CORRUPT_MIN),
-                 getImageList(imageStore,FISH_KEY));
+                 imageStore.getImageList(FISH_KEY));
          addEntity(world, fish);
          scheduleActions(fish, scheduler, world, imageStore);
       }
@@ -619,10 +619,10 @@ final class Functions
       }
    }
 
-   public static List<PImage> getImageList(ImageStore imageStore, String key)
-   {
-      return imageStore.images.getOrDefault(key, imageStore.defaultImages);
-   }
+//   public static List<PImage> getImageList(ImageStore imageStore, String key)
+//   {
+//      return imageStore.images.getOrDefault(key, imageStore.defaultImages);
+//   }
 
    public static void loadImages(Scanner in, ImageStore imageStore,
       PApplet screen)
@@ -773,7 +773,7 @@ final class Functions
             Integer.parseInt(properties[BGND_ROW]));
          String id = properties[BGND_ID];
          setBackground(world, pt,
-            new Background(id, getImageList(imageStore, id)));
+            new Background(id, imageStore.getImageList(id)));
       }
 
       return properties.length == BGND_NUM_PROPERTIES;
@@ -791,7 +791,7 @@ final class Functions
             pt,
             Integer.parseInt(properties[OCTO_ACTION_PERIOD]),
             Integer.parseInt(properties[OCTO_ANIMATION_PERIOD]),
-            getImageList(imageStore, OCTO_KEY));
+                 imageStore.getImageList(OCTO_KEY));
          tryAddEntity(world, entity);
       }
 
@@ -807,7 +807,7 @@ final class Functions
             Integer.parseInt(properties[OBSTACLE_COL]),
             Integer.parseInt(properties[OBSTACLE_ROW]));
          Entity entity = createObstacle(properties[OBSTACLE_ID],
-            pt, getImageList(imageStore, OBSTACLE_KEY));
+            pt, imageStore.getImageList(OBSTACLE_KEY));
          tryAddEntity(world, entity);
       }
 
@@ -823,7 +823,7 @@ final class Functions
             Integer.parseInt(properties[FISH_ROW]));
          Entity entity = createFish(properties[FISH_ID],
             pt, Integer.parseInt(properties[FISH_ACTION_PERIOD]),
-            getImageList(imageStore, FISH_KEY));
+                 imageStore.getImageList(FISH_KEY));
          tryAddEntity(world, entity);
       }
 
@@ -838,7 +838,7 @@ final class Functions
          Point pt = new Point(Integer.parseInt(properties[ATLANTIS_COL]),
             Integer.parseInt(properties[ATLANTIS_ROW]));
          Entity entity = createAtlantis(properties[ATLANTIS_ID],
-            pt, getImageList(imageStore, ATLANTIS_KEY));
+            pt, imageStore.getImageList(ATLANTIS_KEY));
          tryAddEntity(world, entity);
       }
 
@@ -855,7 +855,7 @@ final class Functions
          Entity entity = createSgrass(properties[SGRASS_ID],
             pt,
             Integer.parseInt(properties[SGRASS_ACTION_PERIOD]),
-            getImageList(imageStore, SGRASS_KEY));
+                 imageStore.getImageList(SGRASS_KEY));
          tryAddEntity(world, entity);
       }
 
