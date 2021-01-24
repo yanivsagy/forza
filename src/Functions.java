@@ -554,7 +554,7 @@ final class Functions
          for (int dx = -FISH_REACH; dx <= FISH_REACH; dx++)
          {
             Point newPt = new Point(pos.x + dx, pos.y + dy);
-            if (withinBounds(world, newPt) &&
+            if (world.withinBounds(newPt) &&
                !isOccupied(world, newPt))
             {
                return Optional.of(newPt);
@@ -874,15 +874,15 @@ final class Functions
       addEntity(world, entity);
    }
 
-   public static boolean withinBounds(WorldModel world, Point pos)
-   {
-      return pos.y >= 0 && pos.y < world.numRows &&
-         pos.x >= 0 && pos.x < world.numCols;
-   }
+//   public static boolean withinBounds(WorldModel world, Point pos)
+//   {
+//      return pos.y >= 0 && pos.y < world.numRows &&
+//         pos.x >= 0 && pos.x < world.numCols;
+//   }
 
    public static boolean isOccupied(WorldModel world, Point pos)
    {
-      return withinBounds(world, pos) &&
+      return world.withinBounds(pos) &&
          getOccupancyCell(world, pos) != null;
    }
 
@@ -942,7 +942,7 @@ final class Functions
    */
    public static void addEntity(WorldModel world, Entity entity)
    {
-      if (withinBounds(world, entity.position))
+      if (world.withinBounds(entity.position))
       {
          setOccupancyCell(world, entity.position, entity);
          world.entities.add(entity);
@@ -952,7 +952,7 @@ final class Functions
    public static void moveEntity(WorldModel world, Entity entity, Point pos)
    {
       Point oldPos = entity.position;
-      if (withinBounds(world, pos) && !pos.equals(oldPos))
+      if (world.withinBounds(pos) && !pos.equals(oldPos))
       {
          setOccupancyCell(world, oldPos, null);
          removeEntityAt(world, pos);
@@ -968,7 +968,7 @@ final class Functions
 
    public static void removeEntityAt(WorldModel world, Point pos)
    {
-      if (withinBounds(world, pos)
+      if (world.withinBounds(pos)
          && getOccupancyCell(world, pos) != null)
       {
          Entity entity = getOccupancyCell(world, pos);
@@ -984,7 +984,7 @@ final class Functions
    public static Optional<PImage> getBackgroundImage(WorldModel world,
       Point pos)
    {
-      if (withinBounds(world, pos))
+      if (world.withinBounds(pos))
       {
          return Optional.of(getCurrentImage(getBackgroundCell(world, pos)));
       }
@@ -997,7 +997,7 @@ final class Functions
    public static void setBackground(WorldModel world, Point pos,
       Background background)
    {
-      if (withinBounds(world, pos))
+      if (world.withinBounds(pos))
       {
          setBackgroundCell(world, pos, background);
       }
