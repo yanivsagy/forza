@@ -42,4 +42,63 @@ final class EventScheduler
    {
       return new Action(ActionKind.ACTIVITY, entity, world, imageStore, 0);
    }
+
+   public void scheduleActions(Entity entity,
+                                      WorldModel world, ImageStore imageStore)
+   {
+      switch (entity.kind)
+      {
+         case OCTO_FULL:
+            scheduleEvent(entity,
+                    createActivityAction(entity, world, imageStore),
+                    entity.actionPeriod);
+            scheduleEvent(entity, createAnimationAction(entity, 0),
+                    entity.getAnimationPeriod());
+            break;
+
+         case OCTO_NOT_FULL:
+            scheduleEvent(entity,
+                    createActivityAction(entity, world, imageStore),
+                    entity.actionPeriod);
+            scheduleEvent(entity,
+                    createAnimationAction(entity, 0), entity.getAnimationPeriod());
+            break;
+
+         case FISH:
+            scheduleEvent(entity,
+                    createActivityAction(entity, world, imageStore),
+                    entity.actionPeriod);
+            break;
+
+         case CRAB:
+            scheduleEvent(entity,
+                    createActivityAction(entity, world, imageStore),
+                    entity.actionPeriod);
+            scheduleEvent(entity,
+                    createAnimationAction(entity, 0), entity.getAnimationPeriod());
+            break;
+
+         case QUAKE:
+            scheduleEvent(entity,
+                    createActivityAction(entity, world, imageStore),
+                    entity.actionPeriod);
+            scheduleEvent(entity,
+                    createAnimationAction(entity, Functions.QUAKE_ANIMATION_REPEAT_COUNT),
+                    entity.getAnimationPeriod());
+            break;
+
+         case SGRASS:
+            scheduleEvent(entity,
+                    createActivityAction(entity, world, imageStore),
+                    entity.actionPeriod);
+            break;
+         case ATLANTIS:
+            scheduleEvent(entity,
+                    createAnimationAction(entity, Functions.ATLANTIS_ANIMATION_REPEAT_COUNT),
+                    entity.getAnimationPeriod());
+            break;
+
+         default:
+      }
+   }
 }

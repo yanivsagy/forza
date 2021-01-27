@@ -210,7 +210,7 @@ final class Functions
          moveToFull(entity, world, fullTarget.get(), scheduler))
       {
          //at atlantis trigger animation
-         scheduleActions(fullTarget.get(), scheduler, world, imageStore);
+         scheduler.scheduleActions(fullTarget.get(), world, imageStore);
 
          //transform to unfull
          transformFull(entity, world, scheduler, imageStore);
@@ -254,7 +254,7 @@ final class Functions
               imageStore.getImageList(CRAB_KEY));
 
       addEntity(world, crab);
-      scheduleActions(crab, scheduler, world, imageStore);
+      scheduler.scheduleActions(crab, world, imageStore);
    }
 
    public static void executeCrabActivity(Entity entity, WorldModel world,
@@ -275,7 +275,7 @@ final class Functions
 
             addEntity(world, quake);
             nextPeriod += entity.actionPeriod;
-            scheduleActions(quake, scheduler, world, imageStore);
+            scheduler.scheduleActions(quake, world, imageStore);
          }
       }
 
@@ -310,7 +310,7 @@ final class Functions
                          Functions.rand.nextInt(FISH_CORRUPT_MAX - FISH_CORRUPT_MIN),
                  imageStore.getImageList(FISH_KEY));
          addEntity(world, fish);
-         scheduleActions(fish, scheduler, world, imageStore);
+         scheduler.scheduleActions(fish, world, imageStore);
       }
 
       scheduler.scheduleEvent(entity,
@@ -318,64 +318,64 @@ final class Functions
          entity.actionPeriod);
    }
 
-   public static void scheduleActions(Entity entity, EventScheduler scheduler,
-      WorldModel world, ImageStore imageStore)
-   {
-      switch (entity.kind)
-      {
-      case OCTO_FULL:
-         scheduler.scheduleEvent(entity,
-            scheduler.createActivityAction(entity, world, imageStore),
-            entity.actionPeriod);
-         scheduler.scheduleEvent(entity, scheduler.createAnimationAction(entity, 0),
-                 entity.getAnimationPeriod());
-         break;
-
-      case OCTO_NOT_FULL:
-         scheduler.scheduleEvent(entity,
-            scheduler.createActivityAction(entity, world, imageStore),
-            entity.actionPeriod);
-         scheduler.scheduleEvent(entity,
-            scheduler.createAnimationAction(entity, 0), entity.getAnimationPeriod());
-         break;
-
-      case FISH:
-         scheduler.scheduleEvent(entity,
-            scheduler.createActivityAction(entity, world, imageStore),
-            entity.actionPeriod);
-         break;
-
-      case CRAB:
-         scheduler.scheduleEvent(entity,
-            scheduler.createActivityAction(entity, world, imageStore),
-            entity.actionPeriod);
-         scheduler.scheduleEvent(entity,
-            scheduler.createAnimationAction(entity, 0), entity.getAnimationPeriod());
-         break;
-
-      case QUAKE:
-         scheduler.scheduleEvent(entity,
-            scheduler.createActivityAction(entity, world, imageStore),
-            entity.actionPeriod);
-         scheduler.scheduleEvent(entity,
-            scheduler.createAnimationAction(entity, QUAKE_ANIMATION_REPEAT_COUNT),
-                 entity.getAnimationPeriod());
-         break;
-
-      case SGRASS:
-         scheduler.scheduleEvent(entity,
-            scheduler.createActivityAction(entity, world, imageStore),
-            entity.actionPeriod);
-         break;
-      case ATLANTIS:
-         scheduler.scheduleEvent(entity,
-                    scheduler.createAnimationAction(entity, ATLANTIS_ANIMATION_REPEAT_COUNT),
-                 entity.getAnimationPeriod());
-            break;
-
-      default:
-      }
-   }
+//   public static void scheduleActions(Entity entity, EventScheduler scheduler,
+//      WorldModel world, ImageStore imageStore)
+//   {
+//      switch (entity.kind)
+//      {
+//      case OCTO_FULL:
+//         scheduler.scheduleEvent(entity,
+//            scheduler.createActivityAction(entity, world, imageStore),
+//            entity.actionPeriod);
+//         scheduler.scheduleEvent(entity, scheduler.createAnimationAction(entity, 0),
+//                 entity.getAnimationPeriod());
+//         break;
+//
+//      case OCTO_NOT_FULL:
+//         scheduler.scheduleEvent(entity,
+//            scheduler.createActivityAction(entity, world, imageStore),
+//            entity.actionPeriod);
+//         scheduler.scheduleEvent(entity,
+//            scheduler.createAnimationAction(entity, 0), entity.getAnimationPeriod());
+//         break;
+//
+//      case FISH:
+//         scheduler.scheduleEvent(entity,
+//            scheduler.createActivityAction(entity, world, imageStore),
+//            entity.actionPeriod);
+//         break;
+//
+//      case CRAB:
+//         scheduler.scheduleEvent(entity,
+//            scheduler.createActivityAction(entity, world, imageStore),
+//            entity.actionPeriod);
+//         scheduler.scheduleEvent(entity,
+//            scheduler.createAnimationAction(entity, 0), entity.getAnimationPeriod());
+//         break;
+//
+//      case QUAKE:
+//         scheduler.scheduleEvent(entity,
+//            scheduler.createActivityAction(entity, world, imageStore),
+//            entity.actionPeriod);
+//         scheduler.scheduleEvent(entity,
+//            scheduler.createAnimationAction(entity, QUAKE_ANIMATION_REPEAT_COUNT),
+//                 entity.getAnimationPeriod());
+//         break;
+//
+//      case SGRASS:
+//         scheduler.scheduleEvent(entity,
+//            scheduler.createActivityAction(entity, world, imageStore),
+//            entity.actionPeriod);
+//         break;
+//      case ATLANTIS:
+//         scheduler.scheduleEvent(entity,
+//                    scheduler.createAnimationAction(entity, ATLANTIS_ANIMATION_REPEAT_COUNT),
+//                 entity.getAnimationPeriod());
+//            break;
+//
+//      default:
+//      }
+//   }
 
    public static boolean transformNotFull(Entity entity, WorldModel world,
       EventScheduler scheduler, ImageStore imageStore)
@@ -390,7 +390,7 @@ final class Functions
          unscheduleAllEvents(scheduler, entity);
 
          addEntity(world, octo);
-         scheduleActions(octo, scheduler, world, imageStore);
+         scheduler.scheduleActions(octo, world, imageStore);
 
          return true;
       }
@@ -409,7 +409,7 @@ final class Functions
       unscheduleAllEvents(scheduler, entity);
 
       addEntity(world, octo);
-      scheduleActions(octo, scheduler, world, imageStore);
+      scheduler.scheduleActions(octo, world, imageStore);
    }
 
    public static boolean moveToNotFull(Entity octo, WorldModel world,
