@@ -54,4 +54,9 @@ final class Entity
    {
       imageIndex = (imageIndex + 1) % images.size();
    }
+
+   public PImage getCurrentImage()
+   {
+      return images.get((this).imageIndex);
+   }
 }
