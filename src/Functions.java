@@ -500,13 +500,13 @@ final class Functions
       Point newPos = new Point(entity.position.x + horiz,
          entity.position.y);
 
-      if (horiz == 0 || isOccupied(world, newPos))
+      if (horiz == 0 || world.isOccupied(newPos))
       {
          int vert = Integer.signum(destPos.y - entity.position.y);
          newPos = new Point(entity.position.x,
             entity.position.y + vert);
 
-         if (vert == 0 || isOccupied(world, newPos))
+         if (vert == 0 || world.isOccupied(newPos))
          {
             newPos = entity.position;
          }
@@ -555,7 +555,7 @@ final class Functions
          {
             Point newPt = new Point(pos.x + dx, pos.y + dy);
             if (world.withinBounds(newPt) &&
-               !isOccupied(world, newPt))
+               !world.isOccupied(newPt))
             {
                return Optional.of(newPt);
             }
@@ -864,7 +864,7 @@ final class Functions
 
    public static void tryAddEntity(WorldModel world, Entity entity)
    {
-      if (isOccupied(world, entity.position))
+      if (world.isOccupied(entity.position))
       {
          // arguably the wrong type of exception, but we are not
          // defining our own exceptions yet
@@ -880,11 +880,11 @@ final class Functions
 //         pos.x >= 0 && pos.x < world.numCols;
 //   }
 
-   public static boolean isOccupied(WorldModel world, Point pos)
-   {
-      return world.withinBounds(pos) &&
-         world.getOccupancyCell(pos) != null;
-   }
+//   public static boolean isOccupied(WorldModel world, Point pos)
+//   {
+//      return world.withinBounds(pos) &&
+//         world.getOccupancyCell(pos) != null;
+//   }
 
    public static Optional<Entity> nearestEntity(List<Entity> entities,
       Point pos)
@@ -1005,7 +1005,7 @@ final class Functions
 
    public static Optional<Entity> getOccupant(WorldModel world, Point pos)
    {
-      if (isOccupied(world, pos))
+      if (world.isOccupied(pos))
       {
          return Optional.of(world.getOccupancyCell(pos));
       }

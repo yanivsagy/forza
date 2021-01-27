@@ -54,4 +54,10 @@ final class WorldModel
    {
       this.background[pos.y][pos.x] = background;
    }
+
+   public boolean isOccupied(Point pos)
+   {
+      return withinBounds(pos) &&
+              getOccupancyCell(pos) != null;
+   }
 }
