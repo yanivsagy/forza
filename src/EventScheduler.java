@@ -31,4 +31,9 @@ final class EventScheduler
       pending.add(event);
       pendingEvents.put(entity, pending);
    }
+
+   public Action createAnimationAction(Entity entity, int repeatCount)
+   {
+      return new Action(ActionKind.ANIMATION, entity, null, null, repeatCount);
+   }
 }

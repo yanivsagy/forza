@@ -147,7 +147,7 @@ final class Functions
       if (action.repeatCount != 1)
       {
          scheduler.scheduleEvent(action.entity,
-            createAnimationAction(action.entity,
+            scheduler.createAnimationAction(action.entity,
                Math.max(action.repeatCount - 1, 0)),
                  action.entity.getAnimationPeriod());
       }
@@ -327,7 +327,7 @@ final class Functions
          scheduler.scheduleEvent(entity,
             createActivityAction(entity, world, imageStore),
             entity.actionPeriod);
-         scheduler.scheduleEvent(entity, createAnimationAction(entity, 0),
+         scheduler.scheduleEvent(entity, scheduler.createAnimationAction(entity, 0),
                  entity.getAnimationPeriod());
          break;
 
@@ -336,7 +336,7 @@ final class Functions
             createActivityAction(entity, world, imageStore),
             entity.actionPeriod);
          scheduler.scheduleEvent(entity,
-            createAnimationAction(entity, 0), entity.getAnimationPeriod());
+            scheduler.createAnimationAction(entity, 0), entity.getAnimationPeriod());
          break;
 
       case FISH:
@@ -350,7 +350,7 @@ final class Functions
             createActivityAction(entity, world, imageStore),
             entity.actionPeriod);
          scheduler.scheduleEvent(entity,
-            createAnimationAction(entity, 0), entity.getAnimationPeriod());
+            scheduler.createAnimationAction(entity, 0), entity.getAnimationPeriod());
          break;
 
       case QUAKE:
@@ -358,7 +358,7 @@ final class Functions
             createActivityAction(entity, world, imageStore),
             entity.actionPeriod);
          scheduler.scheduleEvent(entity,
-            createAnimationAction(entity, QUAKE_ANIMATION_REPEAT_COUNT),
+            scheduler.createAnimationAction(entity, QUAKE_ANIMATION_REPEAT_COUNT),
                  entity.getAnimationPeriod());
          break;
 
@@ -369,7 +369,7 @@ final class Functions
          break;
       case ATLANTIS:
          scheduler.scheduleEvent(entity,
-                    createAnimationAction(entity, ATLANTIS_ANIMATION_REPEAT_COUNT),
+                    scheduler.createAnimationAction(entity, ATLANTIS_ANIMATION_REPEAT_COUNT),
                  entity.getAnimationPeriod());
             break;
 
@@ -1101,10 +1101,10 @@ final class Functions
       drawEntities(view);
    }
 
-   public static Action createAnimationAction(Entity entity, int repeatCount)
-   {
-      return new Action(ActionKind.ANIMATION, entity, null, null, repeatCount);
-   }
+//   public static Action createAnimationAction(Entity entity, int repeatCount)
+//   {
+//      return new Action(ActionKind.ANIMATION, entity, null, null, repeatCount);
+//   }
 
    public static Action createActivityAction(Entity entity, WorldModel world,
       ImageStore imageStore)
