@@ -34,4 +34,24 @@ final class WorldModel
       return pos.y >= 0 && pos.y < numRows &&
               pos.x >= 0 && pos.x < numCols;
    }
+
+   public Entity getOccupancyCell(Point pos)
+   {
+      return occupancy[pos.y][pos.x];
+   }
+
+   public void setOccupancyCell(Point pos, Entity entity)
+   {
+      occupancy[pos.y][pos.x] = entity;
+   }
+
+   public Background getBackgroundCell(Point pos)
+   {
+      return background[pos.y][pos.x];
+   }
+
+   public void setBackgroundCell(Point pos, Background background)
+   {
+      this.background[pos.y][pos.x] = background;
+   }
 }
