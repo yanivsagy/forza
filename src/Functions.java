@@ -595,16 +595,16 @@ final class Functions
 //      }
 //   }
 
-   public static void removePendingEvent(EventScheduler scheduler,
-      Event event)
-   {
-      List<Event> pending = scheduler.pendingEvents.get(event.entity);
-
-      if (pending != null)
-      {
-         pending.remove(event);
-      }
-   }
+//   public static void removePendingEvent(EventScheduler scheduler,
+//      Event event)
+//   {
+//      List<Event> pending = scheduler.pendingEvents.get(event.entity);
+//
+//      if (pending != null)
+//      {
+//         pending.remove(event);
+//      }
+//   }
 
    public static void updateOnTime(EventScheduler scheduler, long time)
    {
@@ -613,7 +613,7 @@ final class Functions
       {
          Event next = scheduler.eventQueue.poll();
          
-         removePendingEvent(scheduler, next);
+         scheduler.removePendingEvent(next);
          
          executeAction(next.action, scheduler);
       }

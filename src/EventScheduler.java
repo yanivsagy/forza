@@ -114,4 +114,14 @@ final class EventScheduler
          }
       }
    }
+
+   public void removePendingEvent(Event event)
+   {
+      List<Event> pending = pendingEvents.get(event.entity);
+
+      if (pending != null)
+      {
+         pending.remove(event);
+      }
+   }
 }
