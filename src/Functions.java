@@ -699,11 +699,11 @@ final class Functions
       img.updatePixels();
    }
 
-   public static void shift(Viewport viewport, int col, int row)
-   {
-      viewport.col = col;
-      viewport.row = row;
-   }
+//   public static void shift(Viewport viewport, int col, int row)
+//   {
+//      viewport.col = col;
+//      viewport.row = row;
+//   }
 
    public static boolean contains(Viewport viewport, Point p)
    {
@@ -1059,7 +1059,7 @@ final class Functions
       int newRow = clamp(view.viewport.row + rowDelta, 0,
          view.world.numRows - view.viewport.numRows);
 
-      shift(view.viewport, newCol, newRow);
+      view.viewport.shift(newCol, newRow);
    }
 
    public static void drawBackground(WorldView view)

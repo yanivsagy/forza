@@ -26,4 +26,10 @@ final class Viewport
    {
       return new Point(col - this.col, row - this.row);
    }
+
+   public void shift(int col, int row)
+   {
+      this.col = col;
+      this.row = row;
+   }
 }
