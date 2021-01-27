@@ -36,4 +36,10 @@ final class EventScheduler
    {
       return new Action(ActionKind.ANIMATION, entity, null, null, repeatCount);
    }
+
+   public Action createActivityAction(Entity entity, WorldModel world,
+                                             ImageStore imageStore)
+   {
+      return new Action(ActionKind.ACTIVITY, entity, world, imageStore, 0);
+   }
 }

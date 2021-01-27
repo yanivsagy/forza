@@ -218,7 +218,7 @@ final class Functions
       else
       {
          scheduler.scheduleEvent(entity,
-            createActivityAction(entity, world, imageStore),
+            scheduler.createActivityAction(entity, world, imageStore),
             entity.actionPeriod);
       }
    }
@@ -234,7 +234,7 @@ final class Functions
          !transformNotFull(entity, world, scheduler, imageStore))
       {
          scheduler.scheduleEvent(entity,
-            createActivityAction(entity, world, imageStore),
+            scheduler.createActivityAction(entity, world, imageStore),
             entity.actionPeriod);
       }
    }
@@ -280,7 +280,7 @@ final class Functions
       }
 
       scheduler.scheduleEvent(entity,
-         createActivityAction(entity, world, imageStore),
+         scheduler.createActivityAction(entity, world, imageStore),
          nextPeriod);
    }
 
@@ -314,7 +314,7 @@ final class Functions
       }
 
       scheduler.scheduleEvent(entity,
-         createActivityAction(entity, world, imageStore),
+         scheduler.createActivityAction(entity, world, imageStore),
          entity.actionPeriod);
    }
 
@@ -325,7 +325,7 @@ final class Functions
       {
       case OCTO_FULL:
          scheduler.scheduleEvent(entity,
-            createActivityAction(entity, world, imageStore),
+            scheduler.createActivityAction(entity, world, imageStore),
             entity.actionPeriod);
          scheduler.scheduleEvent(entity, scheduler.createAnimationAction(entity, 0),
                  entity.getAnimationPeriod());
@@ -333,7 +333,7 @@ final class Functions
 
       case OCTO_NOT_FULL:
          scheduler.scheduleEvent(entity,
-            createActivityAction(entity, world, imageStore),
+            scheduler.createActivityAction(entity, world, imageStore),
             entity.actionPeriod);
          scheduler.scheduleEvent(entity,
             scheduler.createAnimationAction(entity, 0), entity.getAnimationPeriod());
@@ -341,13 +341,13 @@ final class Functions
 
       case FISH:
          scheduler.scheduleEvent(entity,
-            createActivityAction(entity, world, imageStore),
+            scheduler.createActivityAction(entity, world, imageStore),
             entity.actionPeriod);
          break;
 
       case CRAB:
          scheduler.scheduleEvent(entity,
-            createActivityAction(entity, world, imageStore),
+            scheduler.createActivityAction(entity, world, imageStore),
             entity.actionPeriod);
          scheduler.scheduleEvent(entity,
             scheduler.createAnimationAction(entity, 0), entity.getAnimationPeriod());
@@ -355,7 +355,7 @@ final class Functions
 
       case QUAKE:
          scheduler.scheduleEvent(entity,
-            createActivityAction(entity, world, imageStore),
+            scheduler.createActivityAction(entity, world, imageStore),
             entity.actionPeriod);
          scheduler.scheduleEvent(entity,
             scheduler.createAnimationAction(entity, QUAKE_ANIMATION_REPEAT_COUNT),
@@ -364,7 +364,7 @@ final class Functions
 
       case SGRASS:
          scheduler.scheduleEvent(entity,
-            createActivityAction(entity, world, imageStore),
+            scheduler.createActivityAction(entity, world, imageStore),
             entity.actionPeriod);
          break;
       case ATLANTIS:
@@ -1106,11 +1106,11 @@ final class Functions
 //      return new Action(ActionKind.ANIMATION, entity, null, null, repeatCount);
 //   }
 
-   public static Action createActivityAction(Entity entity, WorldModel world,
-      ImageStore imageStore)
-   {
-      return new Action(ActionKind.ACTIVITY, entity, world, imageStore, 0);
-   }
+//   public static Action createActivityAction(Entity entity, WorldModel world,
+//      ImageStore imageStore)
+//   {
+//      return new Action(ActionKind.ACTIVITY, entity, world, imageStore, 0);
+//   }
 
    public static Entity createAtlantis(String id, Point position,
       List<PImage> images)
