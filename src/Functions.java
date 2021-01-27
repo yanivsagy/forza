@@ -146,7 +146,7 @@ final class Functions
 
       if (action.repeatCount != 1)
       {
-         scheduleEvent(scheduler, action.entity,
+         scheduler.scheduleEvent(action.entity,
             createAnimationAction(action.entity,
                Math.max(action.repeatCount - 1, 0)),
                  action.entity.getAnimationPeriod());
@@ -217,7 +217,7 @@ final class Functions
       }
       else
       {
-         scheduleEvent(scheduler, entity,
+         scheduler.scheduleEvent(entity,
             createActivityAction(entity, world, imageStore),
             entity.actionPeriod);
       }
@@ -233,7 +233,7 @@ final class Functions
          !moveToNotFull(entity, world, notFullTarget.get(), scheduler) ||
          !transformNotFull(entity, world, scheduler, imageStore))
       {
-         scheduleEvent(scheduler, entity,
+         scheduler.scheduleEvent(entity,
             createActivityAction(entity, world, imageStore),
             entity.actionPeriod);
       }
@@ -279,7 +279,7 @@ final class Functions
          }
       }
 
-      scheduleEvent(scheduler, entity,
+      scheduler.scheduleEvent(entity,
          createActivityAction(entity, world, imageStore),
          nextPeriod);
    }
@@ -313,7 +313,7 @@ final class Functions
          scheduleActions(fish, scheduler, world, imageStore);
       }
 
-      scheduleEvent(scheduler, entity,
+      scheduler.scheduleEvent(entity,
          createActivityAction(entity, world, imageStore),
          entity.actionPeriod);
    }
@@ -324,51 +324,51 @@ final class Functions
       switch (entity.kind)
       {
       case OCTO_FULL:
-         scheduleEvent(scheduler, entity,
+         scheduler.scheduleEvent(entity,
             createActivityAction(entity, world, imageStore),
             entity.actionPeriod);
-         scheduleEvent(scheduler, entity, createAnimationAction(entity, 0),
+         scheduler.scheduleEvent(entity, createAnimationAction(entity, 0),
                  entity.getAnimationPeriod());
          break;
 
       case OCTO_NOT_FULL:
-         scheduleEvent(scheduler, entity,
+         scheduler.scheduleEvent(entity,
             createActivityAction(entity, world, imageStore),
             entity.actionPeriod);
-         scheduleEvent(scheduler, entity,
+         scheduler.scheduleEvent(entity,
             createAnimationAction(entity, 0), entity.getAnimationPeriod());
          break;
 
       case FISH:
-         scheduleEvent(scheduler, entity,
+         scheduler.scheduleEvent(entity,
             createActivityAction(entity, world, imageStore),
             entity.actionPeriod);
          break;
 
       case CRAB:
-         scheduleEvent(scheduler, entity,
+         scheduler.scheduleEvent(entity,
             createActivityAction(entity, world, imageStore),
             entity.actionPeriod);
-         scheduleEvent(scheduler, entity,
+         scheduler.scheduleEvent(entity,
             createAnimationAction(entity, 0), entity.getAnimationPeriod());
          break;
 
       case QUAKE:
-         scheduleEvent(scheduler, entity,
+         scheduler.scheduleEvent(entity,
             createActivityAction(entity, world, imageStore),
             entity.actionPeriod);
-         scheduleEvent(scheduler, entity,
+         scheduler.scheduleEvent(entity,
             createAnimationAction(entity, QUAKE_ANIMATION_REPEAT_COUNT),
                  entity.getAnimationPeriod());
          break;
 
       case SGRASS:
-         scheduleEvent(scheduler, entity,
+         scheduler.scheduleEvent(entity,
             createActivityAction(entity, world, imageStore),
             entity.actionPeriod);
          break;
       case ATLANTIS:
-         scheduleEvent(scheduler, entity,
+         scheduler.scheduleEvent(entity,
                     createAnimationAction(entity, ATLANTIS_ANIMATION_REPEAT_COUNT),
                  entity.getAnimationPeriod());
             break;
@@ -565,21 +565,21 @@ final class Functions
       return Optional.empty();
    }
 
-   public static void scheduleEvent(EventScheduler scheduler,
-      Entity entity, Action action, long afterPeriod)
-   {
-      long time = System.currentTimeMillis() +
-         (long)(afterPeriod * scheduler.timeScale);
-      Event event = new Event(action, time, entity);
-
-      scheduler.eventQueue.add(event);
-
-      // update list of pending events for the given entity
-      List<Event> pending = scheduler.pendingEvents.getOrDefault(entity,
-         new LinkedList<>());
-      pending.add(event);
-      scheduler.pendingEvents.put(entity, pending);
-   }
+//   public static void scheduleEvent(EventScheduler scheduler,
+//      Entity entity, Action action, long afterPeriod)
+//   {
+//      long time = System.currentTimeMillis() +
+//         (long)(afterPeriod * scheduler.timeScale);
+//      Event event = new Event(action, time, entity);
+//
+//      scheduler.eventQueue.add(event);
+//
+//      // update list of pending events for the given entity
+//      List<Event> pending = scheduler.pendingEvents.getOrDefault(entity,
+//         new LinkedList<>());
+//      pending.add(event);
+//      scheduler.pendingEvents.put(entity, pending);
+//   }
 
    public static void unscheduleAllEvents(EventScheduler scheduler,
       Entity entity)
