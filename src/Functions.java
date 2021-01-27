@@ -253,7 +253,7 @@ final class Functions
                       Functions.rand.nextInt(CRAB_ANIMATION_MAX - CRAB_ANIMATION_MIN),
               imageStore.getImageList(CRAB_KEY));
 
-      addEntity(world, crab);
+      world.addEntity(crab);
       scheduler.scheduleActions(crab, world, imageStore);
    }
 
@@ -273,7 +273,7 @@ final class Functions
             Entity quake = createQuake(tgtPos,
                     imageStore.getImageList(QUAKE_KEY));
 
-            addEntity(world, quake);
+            world.addEntity(quake);
             nextPeriod += entity.actionPeriod;
             scheduler.scheduleActions(quake, world, imageStore);
          }
@@ -309,7 +309,7 @@ final class Functions
                  openPt.get(), FISH_CORRUPT_MIN +
                          Functions.rand.nextInt(FISH_CORRUPT_MAX - FISH_CORRUPT_MIN),
                  imageStore.getImageList(FISH_KEY));
-         addEntity(world, fish);
+         world.addEntity(fish);
          scheduler.scheduleActions(fish, world, imageStore);
       }
 
@@ -389,7 +389,7 @@ final class Functions
          removeEntity(world, entity);
          scheduler.unscheduleAllEvents(entity);
 
-         addEntity(world, octo);
+         world.addEntity(octo);
          scheduler.scheduleActions(octo, world, imageStore);
 
          return true;
@@ -408,7 +408,7 @@ final class Functions
       removeEntity(world, entity);
       scheduler.unscheduleAllEvents(entity);
 
-      addEntity(world, octo);
+      world.addEntity(octo);
       scheduler.scheduleActions(octo, world, imageStore);
    }
 
@@ -871,7 +871,7 @@ final class Functions
          throw new IllegalArgumentException("position occupied");
       }
 
-      addEntity(world, entity);
+      world.addEntity(entity);
    }
 
 //   public static boolean withinBounds(WorldModel world, Point pos)
@@ -940,14 +940,14 @@ final class Functions
       Assumes that there is no entity currently occupying the
       intended destination cell.
    */
-   public static void addEntity(WorldModel world, Entity entity)
-   {
-      if (world.withinBounds(entity.position))
-      {
-         world.setOccupancyCell(entity.position, entity);
-         world.entities.add(entity);
-      }
-   }
+//   public static void addEntity(WorldModel world, Entity entity)
+//   {
+//      if (world.withinBounds(entity.position))
+//      {
+//         world.setOccupancyCell(entity.position, entity);
+//         world.entities.add(entity);
+//      }
+//   }
 
    public static void moveEntity(WorldModel world, Entity entity, Point pos)
    {

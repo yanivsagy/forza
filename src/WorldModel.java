@@ -60,4 +60,13 @@ final class WorldModel
       return withinBounds(pos) &&
               getOccupancyCell(pos) != null;
    }
+
+   public void addEntity(Entity entity)
+   {
+      if (withinBounds(entity.position))
+      {
+         setOccupancyCell(entity.position, entity);
+         entities.add(entity);
+      }
+   }
 }
