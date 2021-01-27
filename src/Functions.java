@@ -245,7 +245,7 @@ final class Functions
       Point pos = entity.position;  // store current position before removing
 
       removeEntity(world, entity);
-      unscheduleAllEvents(scheduler, entity);
+      scheduler.unscheduleAllEvents(entity);
 
       Entity crab = createCrab(entity.id + CRAB_ID_SUFFIX,
               pos, entity.actionPeriod / CRAB_PERIOD_SCALE,
@@ -287,14 +287,14 @@ final class Functions
    public static void executeQuakeActivity(Entity entity, WorldModel world,
       ImageStore imageStore, EventScheduler scheduler)
    {
-      unscheduleAllEvents(scheduler, entity);
+      scheduler.unscheduleAllEvents(entity);
       removeEntity(world, entity);
    }
 
    public static void executeAtlantisActivity(Entity entity, WorldModel world,
                                            ImageStore imageStore, EventScheduler scheduler)
    {
-      unscheduleAllEvents(scheduler, entity);
+      scheduler.unscheduleAllEvents(entity);
       removeEntity(world, entity);
    }
 
@@ -387,7 +387,7 @@ final class Functions
             entity.images);
 
          removeEntity(world, entity);
-         unscheduleAllEvents(scheduler, entity);
+         scheduler.unscheduleAllEvents(entity);
 
          addEntity(world, octo);
          scheduler.scheduleActions(octo, world, imageStore);
@@ -406,7 +406,7 @@ final class Functions
          entity.images);
 
       removeEntity(world, entity);
-      unscheduleAllEvents(scheduler, entity);
+      scheduler.unscheduleAllEvents(entity);
 
       addEntity(world, octo);
       scheduler.scheduleActions(octo, world, imageStore);
@@ -419,7 +419,7 @@ final class Functions
       {
          octo.resourceCount += 1;
          removeEntity(world, target);
-         unscheduleAllEvents(scheduler, target);
+         scheduler.unscheduleAllEvents(target);
 
          return true;
       }
@@ -432,7 +432,7 @@ final class Functions
             Optional<Entity> occupant = getOccupant(world, nextPos);
             if (occupant.isPresent())
             {
-               unscheduleAllEvents(scheduler, occupant.get());
+               scheduler.unscheduleAllEvents(occupant.get());
             }
 
             moveEntity(world, octo, nextPos);
@@ -457,7 +457,7 @@ final class Functions
             Optional<Entity> occupant = getOccupant(world, nextPos);
             if (occupant.isPresent())
             {
-               unscheduleAllEvents(scheduler, occupant.get());
+               scheduler.unscheduleAllEvents(occupant.get());
             }
 
             moveEntity(world, octo, nextPos);
@@ -472,7 +472,7 @@ final class Functions
       if (crab.position.adjacent(target.position))
       {
          removeEntity(world, target);
-         unscheduleAllEvents(scheduler, target);
+         scheduler.unscheduleAllEvents(target);
          return true;
       }
       else
@@ -484,7 +484,7 @@ final class Functions
             Optional<Entity> occupant = getOccupant(world, nextPos);
             if (occupant.isPresent())
             {
-               unscheduleAllEvents(scheduler, occupant.get());
+               scheduler.unscheduleAllEvents(occupant.get());
             }
 
             moveEntity(world, crab, nextPos);
@@ -581,19 +581,19 @@ final class Functions
 //      scheduler.pendingEvents.put(entity, pending);
 //   }
 
-   public static void unscheduleAllEvents(EventScheduler scheduler,
-      Entity entity)
-   {
-      List<Event> pending = scheduler.pendingEvents.remove(entity);
-
-      if (pending != null)
-      {
-         for (Event event : pending)
-         {
-            scheduler.eventQueue.remove(event);
-         }
-      }
-   }
+//   public static void unscheduleAllEvents(EventScheduler scheduler,
+//      Entity entity)
+//   {
+//      List<Event> pending = scheduler.pendingEvents.remove(entity);
+//
+//      if (pending != null)
+//      {
+//         for (Event event : pending)
+//         {
+//            scheduler.eventQueue.remove(event);
+//         }
+//      }
+//   }
 
    public static void removePendingEvent(EventScheduler scheduler,
       Event event)

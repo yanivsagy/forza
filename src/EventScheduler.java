@@ -101,4 +101,17 @@ final class EventScheduler
          default:
       }
    }
+
+   public void unscheduleAllEvents(Entity entity)
+   {
+      List<Event> pending = pendingEvents.remove(entity);
+
+      if (pending != null)
+      {
+         for (Event event : pending)
+         {
+            eventQueue.remove(event);
+         }
+      }
+   }
 }
