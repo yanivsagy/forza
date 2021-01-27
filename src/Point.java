@@ -34,4 +34,12 @@ final class Point
       return (this.x == other.x && Math.abs(this.y - other.y) == 1) ||
               (this.y == other.y && Math.abs(this.x - other.x) == 1);
    }
+
+   public int distanceSquared(Point p2)
+   {
+      int deltaX = x - p2.x;
+      int deltaY = y - p2.y;
+
+      return deltaX * deltaX + deltaY * deltaY;
+   }
 }
