@@ -429,7 +429,7 @@ final class Functions
 
          if (!octo.position.equals(nextPos))
          {
-            Optional<Entity> occupant = getOccupant(world, nextPos);
+            Optional<Entity> occupant = world.getOccupant(nextPos);
             if (occupant.isPresent())
             {
                scheduler.unscheduleAllEvents(occupant.get());
@@ -454,7 +454,7 @@ final class Functions
 
          if (!octo.position.equals(nextPos))
          {
-            Optional<Entity> occupant = getOccupant(world, nextPos);
+            Optional<Entity> occupant = world.getOccupant(nextPos);
             if (occupant.isPresent())
             {
                scheduler.unscheduleAllEvents(occupant.get());
@@ -481,7 +481,7 @@ final class Functions
 
          if (!crab.position.equals(nextPos))
          {
-            Optional<Entity> occupant = getOccupant(world, nextPos);
+            Optional<Entity> occupant = world.getOccupant(nextPos);
             if (occupant.isPresent())
             {
                scheduler.unscheduleAllEvents(occupant.get());
@@ -522,14 +522,14 @@ final class Functions
       Point newPos = new Point(entity.position.x + horiz,
          entity.position.y);
 
-      Optional<Entity> occupant = getOccupant(world, newPos);
+      Optional<Entity> occupant = world.getOccupant(newPos);
 
       if (horiz == 0 ||
          (occupant.isPresent() && !(occupant.get().kind == EntityKind.FISH)))
       {
          int vert = Integer.signum(destPos.y - entity.position.y);
          newPos = new Point(entity.position.x, entity.position.y + vert);
-         occupant = getOccupant(world, newPos);
+         occupant = world.getOccupant(newPos);
 
          if (vert == 0 ||
             (occupant.isPresent() && !(occupant.get().kind == EntityKind.FISH)))
@@ -772,7 +772,7 @@ final class Functions
          Point pt = new Point(Integer.parseInt(properties[BGND_COL]),
             Integer.parseInt(properties[BGND_ROW]));
          String id = properties[BGND_ID];
-         setBackground(world, pt,
+         world.setBackground(pt,
             new Background(id, imageStore.getImageList(id)));
       }
 
@@ -994,26 +994,26 @@ final class Functions
       }
    }
 
-   public static void setBackground(WorldModel world, Point pos,
-      Background background)
-   {
-      if (world.withinBounds(pos))
-      {
-         world.setBackgroundCell(pos, background);
-      }
-   }
-
-   public static Optional<Entity> getOccupant(WorldModel world, Point pos)
-   {
-      if (world.isOccupied(pos))
-      {
-         return Optional.of(world.getOccupancyCell(pos));
-      }
-      else
-      {
-         return Optional.empty();
-      }
-   }
+//   public static void setBackground(WorldModel world, Point pos,
+//      Background background)
+//   {
+//      if (world.withinBounds(pos))
+//      {
+//         world.setBackgroundCell(pos, background);
+//      }
+//   }
+//
+//   public static Optional<Entity> getOccupant(WorldModel world, Point pos)
+//   {
+//      if (world.isOccupied(pos))
+//      {
+//         return Optional.of(world.getOccupancyCell(pos));
+//      }
+//      else
+//      {
+//         return Optional.empty();
+//      }
+//   }
 
 //   public static Entity getOccupancyCell(WorldModel world, Point pos)
 //   {

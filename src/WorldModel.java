@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /*
@@ -53,6 +54,26 @@ final class WorldModel
    public void setBackgroundCell(Point pos, Background background)
    {
       this.background[pos.y][pos.x] = background;
+   }
+
+   public void setBackground(Point pos, Background background)
+   {
+      if (withinBounds(pos))
+      {
+         setBackgroundCell(pos, background);
+      }
+   }
+
+   public Optional<Entity> getOccupant(Point pos)
+   {
+      if (isOccupied(pos))
+      {
+         return Optional.of(getOccupancyCell(pos));
+      }
+      else
+      {
+         return Optional.empty();
+      }
    }
 
    public boolean isOccupied(Point pos)
