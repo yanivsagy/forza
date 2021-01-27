@@ -792,7 +792,7 @@ final class Functions
             Integer.parseInt(properties[OCTO_ACTION_PERIOD]),
             Integer.parseInt(properties[OCTO_ANIMATION_PERIOD]),
                  imageStore.getImageList(OCTO_KEY));
-         tryAddEntity(world, entity);
+         world.tryAddEntity(entity);
       }
 
       return properties.length == OCTO_NUM_PROPERTIES;
@@ -808,7 +808,7 @@ final class Functions
             Integer.parseInt(properties[OBSTACLE_ROW]));
          Entity entity = createObstacle(properties[OBSTACLE_ID],
             pt, imageStore.getImageList(OBSTACLE_KEY));
-         tryAddEntity(world, entity);
+         world.tryAddEntity(entity);
       }
 
       return properties.length == OBSTACLE_NUM_PROPERTIES;
@@ -824,7 +824,7 @@ final class Functions
          Entity entity = createFish(properties[FISH_ID],
             pt, Integer.parseInt(properties[FISH_ACTION_PERIOD]),
                  imageStore.getImageList(FISH_KEY));
-         tryAddEntity(world, entity);
+         world.tryAddEntity(entity);
       }
 
       return properties.length == FISH_NUM_PROPERTIES;
@@ -839,7 +839,7 @@ final class Functions
             Integer.parseInt(properties[ATLANTIS_ROW]));
          Entity entity = createAtlantis(properties[ATLANTIS_ID],
             pt, imageStore.getImageList(ATLANTIS_KEY));
-         tryAddEntity(world, entity);
+         world.tryAddEntity(entity);
       }
 
       return properties.length == ATLANTIS_NUM_PROPERTIES;
@@ -856,23 +856,23 @@ final class Functions
             pt,
             Integer.parseInt(properties[SGRASS_ACTION_PERIOD]),
                  imageStore.getImageList(SGRASS_KEY));
-         tryAddEntity(world, entity);
+         world.tryAddEntity(entity);
       }
 
       return properties.length == SGRASS_NUM_PROPERTIES;
    }
 
-   public static void tryAddEntity(WorldModel world, Entity entity)
-   {
-      if (world.isOccupied(entity.position))
-      {
-         // arguably the wrong type of exception, but we are not
-         // defining our own exceptions yet
-         throw new IllegalArgumentException("position occupied");
-      }
-
-      world.addEntity(entity);
-   }
+//   public static void tryAddEntity(WorldModel world, Entity entity)
+//   {
+//      if (world.isOccupied(entity.position))
+//      {
+//         // arguably the wrong type of exception, but we are not
+//         // defining our own exceptions yet
+//         throw new IllegalArgumentException("position occupied");
+//      }
+//
+//      world.addEntity(entity);
+//   }
 
 //   public static boolean withinBounds(WorldModel world, Point pos)
 //   {

@@ -69,4 +69,16 @@ final class WorldModel
          entities.add(entity);
       }
    }
+
+   public void tryAddEntity(Entity entity)
+   {
+      if (isOccupied(entity.position))
+      {
+         // arguably the wrong type of exception, but we are not
+         // defining our own exceptions yet
+         throw new IllegalArgumentException("position occupied");
+      }
+
+      addEntity(entity);
+   }
 }
