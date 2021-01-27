@@ -109,7 +109,7 @@ public final class VirtualWorld
                dx = 1;
                break;
          }
-         Functions.shiftView(view, dx, dy);
+         view.shiftView(dx, dy);
       }
    }
 
