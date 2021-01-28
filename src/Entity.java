@@ -172,4 +172,57 @@ final class Entity
 
       return newPos;
    }
+
+   public boolean moveToCrab(WorldModel world,
+                                    Entity target, EventScheduler scheduler)
+   {
+      if (position.adjacent(target.position))
+      {
+         world.removeEntity(target);
+         scheduler.unscheduleAllEvents(target);
+         return true;
+      }
+      else
+      {
+         Point nextPos = nextPositionCrab(world, target.position);
+
+         if (!position.equals(nextPos))
+         {
+            Optional<Entity> occupant = world.getOccupant(nextPos);
+            if (occupant.isPresent())
+            {
+               scheduler.unscheduleAllEvents(occupant.get());
+            }
+
+            world.moveEntity(this, nextPos);
+         }
+         return false;
+      }
+   }
+
+   public Point nextPositionCrab(WorldModel world,
+                                        Point destPos)
+   {
+      int horiz = Integer.signum(destPos.x - position.x);
+      Point newPos = new Point(position.x + horiz,
+              position.y);
+
+      Optional<Entity> occupant = world.getOccupant(newPos);
+
+      if (horiz == 0 ||
+              (occupant.isPresent() && !(occupant.get().kind == EntityKind.FISH)))
+      {
+         int vert = Integer.signum(destPos.y - position.y);
+         newPos = new Point(position.x, position.y + vert);
+         occupant = world.getOccupant(newPos);
+
+         if (vert == 0 ||
+                 (occupant.isPresent() && !(occupant.get().kind == EntityKind.FISH)))
+         {
+            newPos = position;
+         }
+      }
+
+      return newPos;
+   }
 }
