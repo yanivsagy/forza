@@ -137,7 +137,7 @@ public final class VirtualWorld
       try
       {
          Scanner in = new Scanner(new File(filename));
-         Functions.loadImages(in, imageStore, screen);
+         imageStore.loadImages(in, screen);
       }
       catch (FileNotFoundException e)
       {
