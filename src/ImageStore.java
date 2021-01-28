@@ -15,12 +15,12 @@ final class ImageStore
    private static final int KEYED_GREEN_IDX = 3;
    private static final int KEYED_BLUE_IDX = 4;
 
-   public Map<String, List<PImage>> images;
-   public List<PImage> defaultImages;
+   private final Map<String, List<PImage>> images;
+   private final List<PImage> defaultImages;
 
    public ImageStore(PImage defaultImage)
    {
-      this.images = new HashMap<>();
+      images = new HashMap<>();
       defaultImages = new LinkedList<>();
       defaultImages.add(defaultImage);
    }
@@ -48,7 +48,7 @@ final class ImageStore
       }
    }
 
-   public void processImageLine(Map<String, List<PImage>> images,
+   private void processImageLine(Map<String, List<PImage>> images,
                                        String line, PApplet screen)
    {
       String[] attrs = line.split("\\s");
@@ -72,7 +72,7 @@ final class ImageStore
       }
    }
 
-   public void setAlpha(PImage img, int maskColor, int alpha)
+   private void setAlpha(PImage img, int maskColor, int alpha)
    {
       int alphaValue = alpha << 24;
       int nonAlpha = maskColor & COLOR_MASK;
@@ -88,7 +88,7 @@ final class ImageStore
       img.updatePixels();
    }
 
-   public List<PImage> getImages(Map<String, List<PImage>> images,
+   private List<PImage> getImages(Map<String, List<PImage>> images,
                                         String key)
    {
       List<PImage> imgs = images.get(key);
