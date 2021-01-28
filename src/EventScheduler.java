@@ -58,7 +58,7 @@ final class EventScheduler
 
    public void removePendingEvent(Event event)
    {
-      List<Event> pending = pendingEvents.get(event.entity);
+      List<Event> pending = pendingEvents.get(event.getEntity());
 
       if (pending != null)
       {

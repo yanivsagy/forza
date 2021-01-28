@@ -96,13 +96,13 @@ final class Action
    public static void updateOnTime(EventScheduler scheduler, long time)
    {
       while (!scheduler.eventQueue.isEmpty() &&
-              scheduler.eventQueue.peek().time < time)
+              scheduler.eventQueue.peek().getTime() < time)
       {
          Event next = scheduler.eventQueue.poll();
 
          scheduler.removePendingEvent(next);
 
-         next.action.executeAction(scheduler);
+         next.getAction().executeAction(scheduler);
       }
    }
 }
