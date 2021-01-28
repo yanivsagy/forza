@@ -43,7 +43,7 @@ final class Functions
 //   public static final int ATLANTIS_COL = 2;
 //   public static final int ATLANTIS_ROW = 3;
    public static final int ATLANTIS_ANIMATION_PERIOD = 70;
-   public static final int ATLANTIS_ANIMATION_REPEAT_COUNT = 7;
+//   public static final int ATLANTIS_ANIMATION_REPEAT_COUNT = 7;
 
    public static final String SGRASS_KEY = "seaGrass";
 //   public static final int SGRASS_NUM_PROPERTIES = 5;
@@ -62,7 +62,7 @@ final class Functions
    public static final String QUAKE_ID = "quake";
    public static final int QUAKE_ACTION_PERIOD = 1100;
    public static final int QUAKE_ANIMATION_PERIOD = 100;
-   public static final int QUAKE_ANIMATION_REPEAT_COUNT = 10;
+//   public static final int QUAKE_ANIMATION_REPEAT_COUNT = 10;
 
    
 //   public static final String FISH_ID_PREFIX = "fish -- ";

@@ -19,6 +19,8 @@ final class Entity
    public static final String FISH_ID_PREFIX = "fish -- ";
    public static final int FISH_CORRUPT_MIN = 20000;
    public static final int FISH_CORRUPT_MAX = 30000;
+   public static final int QUAKE_ANIMATION_REPEAT_COUNT = 10;
+   public static final int ATLANTIS_ANIMATION_REPEAT_COUNT = 7;
 
    public EntityKind kind;
    public String id;
@@ -85,7 +87,7 @@ final class Entity
          scheduler.unscheduleAllEvents(this);
 
          world.addEntity(octo);
-         scheduler.scheduleActions(octo, world, imageStore);
+         octo.scheduleActions(scheduler, world, imageStore);
 
          return true;
       }
@@ -104,7 +106,7 @@ final class Entity
       scheduler.unscheduleAllEvents(this);
 
       world.addEntity(octo);
-      scheduler.scheduleActions(octo, world, imageStore);
+      octo.scheduleActions(scheduler, world, imageStore);
    }
 
    public boolean moveToNotFull(WorldModel world,
@@ -246,7 +248,7 @@ final class Entity
               moveToFull(world, fullTarget.get(), scheduler))
       {
          //at atlantis trigger animation
-         scheduler.scheduleActions(fullTarget.get(), world, imageStore);
+         fullTarget.get().scheduleActions(scheduler, world, imageStore);
 
          //transform to unfull
          transformFull(world, scheduler, imageStore);
@@ -290,7 +292,7 @@ final class Entity
               imageStore.getImageList(CRAB_KEY));
 
       world.addEntity(crab);
-      scheduler.scheduleActions(crab, world, imageStore);
+      crab.scheduleActions(scheduler, world, imageStore);
    }
 
    public void executeCrabActivity(WorldModel world,
@@ -311,7 +313,7 @@ final class Entity
 
             world.addEntity(quake);
             nextPeriod += actionPeriod;
-            scheduler.scheduleActions(quake, world, imageStore);
+            quake.scheduleActions(scheduler, world, imageStore);
          }
       }
 
@@ -346,11 +348,70 @@ final class Entity
                          Functions.rand.nextInt(FISH_CORRUPT_MAX - FISH_CORRUPT_MIN),
                  imageStore.getImageList(Functions.FISH_KEY));
          world.addEntity(fish);
-         scheduler.scheduleActions(fish, world, imageStore);
+         fish.scheduleActions(scheduler, world, imageStore);
       }
 
       scheduler.scheduleEvent(this,
               scheduler.createActivityAction(this, world, imageStore),
               actionPeriod);
+   }
+
+   public void scheduleActions(EventScheduler scheduler,
+      WorldModel world, ImageStore imageStore)
+   {
+      switch (kind)
+      {
+      case OCTO_FULL:
+         scheduler.scheduleEvent(this,
+            scheduler.createActivityAction(this, world, imageStore),
+            actionPeriod);
+         scheduler.scheduleEvent(this, scheduler.createAnimationAction(this, 0),
+                 getAnimationPeriod());
+         break;
+
+      case OCTO_NOT_FULL:
+         scheduler.scheduleEvent(this,
+            scheduler.createActivityAction(this, world, imageStore),
+            actionPeriod);
+         scheduler.scheduleEvent(this,
+            scheduler.createAnimationAction(this, 0), getAnimationPeriod());
+         break;
+
+      case FISH:
+         scheduler.scheduleEvent(this,
+            scheduler.createActivityAction(this, world, imageStore),
+            actionPeriod);
+         break;
+
+      case CRAB:
+         scheduler.scheduleEvent(this,
+            scheduler.createActivityAction(this, world, imageStore),
+            actionPeriod);
+         scheduler.scheduleEvent(this,
+            scheduler.createAnimationAction(this, 0), getAnimationPeriod());
+         break;
+
+      case QUAKE:
+         scheduler.scheduleEvent(this,
+            scheduler.createActivityAction(this, world, imageStore),
+            actionPeriod);
+         scheduler.scheduleEvent(this,
+            scheduler.createAnimationAction(this, QUAKE_ANIMATION_REPEAT_COUNT),
+                 getAnimationPeriod());
+         break;
+
+      case SGRASS:
+         scheduler.scheduleEvent(this,
+            scheduler.createActivityAction(this, world, imageStore),
+            actionPeriod);
+         break;
+      case ATLANTIS:
+         scheduler.scheduleEvent(this,
+                    scheduler.createAnimationAction(this, ATLANTIS_ANIMATION_REPEAT_COUNT),
+                 this.getAnimationPeriod());
+            break;
+
+      default:
+      }
    }
 }
