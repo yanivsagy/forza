@@ -90,7 +90,7 @@ final class Entity
       return images.get((this).imageIndex);
    }
 
-   public boolean transformNotFull(WorldModel world,
+   private boolean transformNotFull(WorldModel world,
                                           EventScheduler scheduler, ImageStore imageStore)
    {
       if (resourceCount >= resourceLimit)
@@ -111,7 +111,7 @@ final class Entity
       return false;
    }
 
-   public void transformFull(WorldModel world,
+   private void transformFull(WorldModel world,
                                     EventScheduler scheduler, ImageStore imageStore)
    {
       Entity octo = world.createOctoNotFull(id, resourceLimit,
@@ -125,7 +125,7 @@ final class Entity
       octo.scheduleActions(scheduler, world, imageStore);
    }
 
-   public boolean moveToNotFull(WorldModel world,
+   private boolean moveToNotFull(WorldModel world,
                                        Entity target, EventScheduler scheduler)
    {
       if (position.adjacent(target.position))
@@ -154,7 +154,7 @@ final class Entity
       }
    }
 
-   public boolean moveToFull(WorldModel world,
+   private boolean moveToFull(WorldModel world,
                                     Entity target, EventScheduler scheduler)
    {
       if (position.adjacent(target.position))
@@ -179,7 +179,7 @@ final class Entity
       }
    }
 
-   public Point nextPositionOcto(WorldModel world,
+   private Point nextPositionOcto(WorldModel world,
                                         Point destPos)
    {
       int horiz = Integer.signum(destPos.x - position.x);
@@ -201,7 +201,7 @@ final class Entity
       return newPos;
    }
 
-   public boolean moveToCrab(WorldModel world,
+   private boolean moveToCrab(WorldModel world,
                                     Entity target, EventScheduler scheduler)
    {
       if (position.adjacent(target.position))
@@ -228,7 +228,7 @@ final class Entity
       }
    }
 
-   public Point nextPositionCrab(WorldModel world,
+   private Point nextPositionCrab(WorldModel world,
                                         Point destPos)
    {
       int horiz = Integer.signum(destPos.x - position.x);
