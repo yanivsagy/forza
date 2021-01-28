@@ -32,10 +32,4 @@ final class Functions
    public static final String BGND_KEY = "background";
 
    public static final int PROPERTY_KEY = 0;
-
-   public static void drawViewport(WorldView view)
-   {
-      view.drawBackground();
-      view.drawEntities();
-   }
 }

@@ -84,7 +84,7 @@ public final class VirtualWorld
          next_time = time + TIMER_ACTION_PERIOD;
       }
 
-      Functions.drawViewport(view);
+      view.drawViewport();
    }
 
    public void keyPressed()

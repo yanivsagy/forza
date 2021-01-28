@@ -72,4 +72,10 @@ final class WorldView
          }
       }
    }
+
+   public void drawViewport()
+   {
+      drawBackground();
+      drawEntities();
+   }
 }
