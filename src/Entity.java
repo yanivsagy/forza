@@ -10,6 +10,16 @@ Entity ideally would includes functions for how all the entities in our virtual 
 
 final class Entity
 {
+   public static final String CRAB_KEY = "crab";
+   public static final String CRAB_ID_SUFFIX = " -- crab";
+   public static final int CRAB_PERIOD_SCALE = 4;
+   public static final int CRAB_ANIMATION_MIN = 50;
+   public static final int CRAB_ANIMATION_MAX = 150;
+   public static final String QUAKE_KEY = "quake";
+   public static final String FISH_ID_PREFIX = "fish -- ";
+   public static final int FISH_CORRUPT_MIN = 20000;
+   public static final int FISH_CORRUPT_MAX = 30000;
+
    public EntityKind kind;
    public String id;
    public Point position;
@@ -224,5 +234,123 @@ final class Entity
       }
 
       return newPos;
+   }
+
+   public void executeOctoFullActivity(WorldModel world,
+                                              ImageStore imageStore, EventScheduler scheduler)
+   {
+      Optional<Entity> fullTarget = world.findNearest(position,
+              EntityKind.ATLANTIS);
+
+      if (fullTarget.isPresent() &&
+              moveToFull(world, fullTarget.get(), scheduler))
+      {
+         //at atlantis trigger animation
+         scheduler.scheduleActions(fullTarget.get(), world, imageStore);
+
+         //transform to unfull
+         transformFull(world, scheduler, imageStore);
+      }
+      else
+      {
+         scheduler.scheduleEvent(this,
+                 scheduler.createActivityAction(this, world, imageStore),
+                 actionPeriod);
+      }
+   }
+
+   public void executeOctoNotFullActivity(WorldModel world, ImageStore imageStore,
+                                          EventScheduler scheduler)
+   {
+      Optional<Entity> notFullTarget = world.findNearest(position,
+              EntityKind.FISH);
+
+      if (!notFullTarget.isPresent() ||
+              !moveToNotFull(world, notFullTarget.get(), scheduler) ||
+              !transformNotFull(world, scheduler, imageStore))
+      {
+         scheduler.scheduleEvent(this,
+                 scheduler.createActivityAction(this, world, imageStore),
+                 actionPeriod);
+      }
+   }
+
+   public void executeFishActivity(WorldModel world,
+                                          ImageStore imageStore, EventScheduler scheduler)
+   {
+      Point pos = position;  // store current position before removing
+
+      world.removeEntity(this);
+      scheduler.unscheduleAllEvents(this);
+
+      Entity crab = world.createCrab(id + CRAB_ID_SUFFIX,
+              pos, actionPeriod / CRAB_PERIOD_SCALE,
+              CRAB_ANIMATION_MIN +
+                      Functions.rand.nextInt(CRAB_ANIMATION_MAX - CRAB_ANIMATION_MIN),
+              imageStore.getImageList(CRAB_KEY));
+
+      world.addEntity(crab);
+      scheduler.scheduleActions(crab, world, imageStore);
+   }
+
+   public void executeCrabActivity(WorldModel world,
+                                          ImageStore imageStore, EventScheduler scheduler)
+   {
+      Optional<Entity> crabTarget = world.findNearest(
+              position, EntityKind.SGRASS);
+      long nextPeriod = actionPeriod;
+
+      if (crabTarget.isPresent())
+      {
+         Point tgtPos = crabTarget.get().position;
+
+         if (moveToCrab(world, crabTarget.get(), scheduler))
+         {
+            Entity quake = world.createQuake(tgtPos,
+                    imageStore.getImageList(QUAKE_KEY));
+
+            world.addEntity(quake);
+            nextPeriod += actionPeriod;
+            scheduler.scheduleActions(quake, world, imageStore);
+         }
+      }
+
+      scheduler.scheduleEvent(this,
+              scheduler.createActivityAction(this, world, imageStore),
+              nextPeriod);
+   }
+
+   public void executeQuakeActivity(WorldModel world,
+                                           ImageStore imageStore, EventScheduler scheduler)
+   {
+      scheduler.unscheduleAllEvents(this);
+      world.removeEntity(this);
+   }
+
+   public void executeAtlantisActivity(WorldModel world,
+                                              ImageStore imageStore, EventScheduler scheduler)
+   {
+      scheduler.unscheduleAllEvents(this);
+      world.removeEntity(this);
+   }
+
+   public void executeSgrassActivity(WorldModel world,
+                                            ImageStore imageStore, EventScheduler scheduler)
+   {
+      Optional<Point> openPt = world.findOpenAround(position);
+
+      if (openPt.isPresent())
+      {
+         Entity fish = world.createFish(FISH_ID_PREFIX + id,
+                 openPt.get(), FISH_CORRUPT_MIN +
+                         Functions.rand.nextInt(FISH_CORRUPT_MAX - FISH_CORRUPT_MIN),
+                 imageStore.getImageList(Functions.FISH_KEY));
+         world.addEntity(fish);
+         scheduler.scheduleActions(fish, world, imageStore);
+      }
+
+      scheduler.scheduleEvent(this,
+              scheduler.createActivityAction(this, world, imageStore),
+              actionPeriod);
    }
 }

@@ -38,6 +38,7 @@ final class WorldModel
    public static final int BGND_ID = 1;
    public static final int BGND_COL = 2;
    public static final int BGND_ROW = 3;
+   public static final int FISH_REACH = 1;
 
    public int numRows;
    public int numCols;
@@ -423,5 +424,23 @@ final class WorldModel
       }
 
       return nearestEntity(ofType, pos);
+   }
+
+   public Optional<Point> findOpenAround(Point pos)
+   {
+      for (int dy = -FISH_REACH; dy <= FISH_REACH; dy++)
+      {
+         for (int dx = -FISH_REACH; dx <= FISH_REACH; dx++)
+         {
+            Point newPt = new Point(pos.x + dx, pos.y + dy);
+            if (withinBounds(newPt) &&
+                    !isOccupied(newPt))
+            {
+               return Optional.of(newPt);
+            }
+         }
+      }
+
+      return Optional.empty();
    }
 }

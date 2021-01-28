@@ -80,7 +80,7 @@ public final class VirtualWorld
       long time = System.currentTimeMillis();
       if (time >= next_time)
       {
-         Functions.updateOnTime(this.scheduler, time);
+         Action.updateOnTime(this.scheduler, time);
          next_time = time + TIMER_ACTION_PERIOD;
       }
 

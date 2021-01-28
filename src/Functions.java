@@ -52,23 +52,23 @@ final class Functions
 //   public static final int SGRASS_ROW = 3;
 //   public static final int SGRASS_ACTION_PERIOD = 4;
 
-   public static final String CRAB_KEY = "crab";
-   public static final String CRAB_ID_SUFFIX = " -- crab";
-   public static final int CRAB_PERIOD_SCALE = 4;
-   public static final int CRAB_ANIMATION_MIN = 50;
-   public static final int CRAB_ANIMATION_MAX = 150;
+//   public static final String CRAB_KEY = "crab";
+//   public static final String CRAB_ID_SUFFIX = " -- crab";
+//   public static final int CRAB_PERIOD_SCALE = 4;
+//   public static final int CRAB_ANIMATION_MIN = 50;
+//   public static final int CRAB_ANIMATION_MAX = 150;
 
-   public static final String QUAKE_KEY = "quake";
+//   public static final String QUAKE_KEY = "quake";
    public static final String QUAKE_ID = "quake";
    public static final int QUAKE_ACTION_PERIOD = 1100;
    public static final int QUAKE_ANIMATION_PERIOD = 100;
    public static final int QUAKE_ANIMATION_REPEAT_COUNT = 10;
 
    
-   public static final String FISH_ID_PREFIX = "fish -- ";
-   public static final int FISH_CORRUPT_MIN = 20000;
-   public static final int FISH_CORRUPT_MAX = 30000;
-   public static final int FISH_REACH = 1;
+//   public static final String FISH_ID_PREFIX = "fish -- ";
+//   public static final int FISH_CORRUPT_MIN = 20000;
+//   public static final int FISH_CORRUPT_MAX = 30000;
+//   public static final int FISH_REACH = 1;
 
    public static final String BGND_KEY = "background";
 //   public static final int BGND_NUM_PROPERTIES = 4;
@@ -125,198 +125,198 @@ final class Functions
 //      entity.imageIndex = (entity.imageIndex + 1) % entity.images.size();
 //   }
 
-   public static void executeAction(Action action, EventScheduler scheduler)
-   {
-      switch (action.kind)
-      {
-      case ACTIVITY:
-         executeActivityAction(action, scheduler);
-         break;
+//   public static void executeAction(Action action, EventScheduler scheduler)
+//   {
+//      switch (action.kind)
+//      {
+//      case ACTIVITY:
+//         executeActivityAction(action, scheduler);
+//         break;
+//
+//      case ANIMATION:
+//         executeAnimationAction(action, scheduler);
+//         break;
+//      }
+//   }
+//
+//   public static void executeAnimationAction(Action action,
+//      EventScheduler scheduler)
+//   {
+//      action.entity.nextImage();
+//
+//      if (action.repeatCount != 1)
+//      {
+//         scheduler.scheduleEvent(action.entity,
+//            scheduler.createAnimationAction(action.entity,
+//               Math.max(action.repeatCount - 1, 0)),
+//                 action.entity.getAnimationPeriod());
+//      }
+//   }
 
-      case ANIMATION:
-         executeAnimationAction(action, scheduler);
-         break;
-      }
-   }
+//   public static void executeActivityAction(Action action,
+//      EventScheduler scheduler)
+//   {
+//      switch (action.entity.kind)
+//      {
+//      case OCTO_FULL:
+//         executeOctoFullActivity(action.entity, action.world,
+//            action.imageStore, scheduler);
+//         break;
+//
+//      case OCTO_NOT_FULL:
+//         executeOctoNotFullActivity(action.entity, action.world,
+//            action.imageStore, scheduler);
+//         break;
+//
+//      case FISH:
+//         executeFishActivity(action.entity, action.world, action.imageStore,
+//            scheduler);
+//         break;
+//
+//      case CRAB:
+//         executeCrabActivity(action.entity, action.world,
+//            action.imageStore, scheduler);
+//         break;
+//
+//      case QUAKE:
+//         executeQuakeActivity(action.entity, action.world, action.imageStore,
+//            scheduler);
+//         break;
+//
+//      case SGRASS:
+//         executeSgrassActivity(action.entity, action.world, action.imageStore,
+//            scheduler);
+//         break;
+//
+//      case ATLANTIS:
+//         executeAtlantisActivity(action.entity, action.world, action.imageStore,
+//            scheduler);
+//         break;
+//
+//      default:
+//         throw new UnsupportedOperationException(
+//            String.format("executeActivityAction not supported for %s",
+//            action.entity.kind));
+//      }
+//   }
 
-   public static void executeAnimationAction(Action action,
-      EventScheduler scheduler)
-   {
-      action.entity.nextImage();
-
-      if (action.repeatCount != 1)
-      {
-         scheduler.scheduleEvent(action.entity,
-            scheduler.createAnimationAction(action.entity,
-               Math.max(action.repeatCount - 1, 0)),
-                 action.entity.getAnimationPeriod());
-      }
-   }
-
-   public static void executeActivityAction(Action action,
-      EventScheduler scheduler)
-   {
-      switch (action.entity.kind)
-      {
-      case OCTO_FULL:
-         executeOctoFullActivity(action.entity, action.world,
-            action.imageStore, scheduler);
-         break;
-
-      case OCTO_NOT_FULL:
-         executeOctoNotFullActivity(action.entity, action.world,
-            action.imageStore, scheduler);
-         break;
-
-      case FISH:
-         executeFishActivity(action.entity, action.world, action.imageStore,
-            scheduler);
-         break;
-
-      case CRAB:
-         executeCrabActivity(action.entity, action.world,
-            action.imageStore, scheduler);
-         break;
-
-      case QUAKE:
-         executeQuakeActivity(action.entity, action.world, action.imageStore,
-            scheduler);
-         break;
-
-      case SGRASS:
-         executeSgrassActivity(action.entity, action.world, action.imageStore,
-            scheduler);
-         break;
-
-      case ATLANTIS:
-         executeAtlantisActivity(action.entity, action.world, action.imageStore,
-            scheduler);
-         break;
-
-      default:
-         throw new UnsupportedOperationException(
-            String.format("executeActivityAction not supported for %s",
-            action.entity.kind));
-      }
-   }
-
-   public static void executeOctoFullActivity(Entity entity, WorldModel world,
-      ImageStore imageStore, EventScheduler scheduler)
-   {
-      Optional<Entity> fullTarget = world.findNearest(entity.position,
-         EntityKind.ATLANTIS);
-
-      if (fullTarget.isPresent() &&
-         entity.moveToFull(world, fullTarget.get(), scheduler))
-      {
-         //at atlantis trigger animation
-         scheduler.scheduleActions(fullTarget.get(), world, imageStore);
-
-         //transform to unfull
-         entity.transformFull(world, scheduler, imageStore);
-      }
-      else
-      {
-         scheduler.scheduleEvent(entity,
-            scheduler.createActivityAction(entity, world, imageStore),
-            entity.actionPeriod);
-      }
-   }
-
-   public static void executeOctoNotFullActivity(Entity entity,
-      WorldModel world, ImageStore imageStore, EventScheduler scheduler)
-   {
-      Optional<Entity> notFullTarget = world.findNearest(entity.position,
-         EntityKind.FISH);
-
-      if (!notFullTarget.isPresent() ||
-         !entity.moveToNotFull(world, notFullTarget.get(), scheduler) ||
-         !entity.transformNotFull(world, scheduler, imageStore))
-      {
-         scheduler.scheduleEvent(entity,
-            scheduler.createActivityAction(entity, world, imageStore),
-            entity.actionPeriod);
-      }
-   }
-
-   public static void executeFishActivity(Entity entity, WorldModel world,
-      ImageStore imageStore, EventScheduler scheduler)
-   {
-      Point pos = entity.position;  // store current position before removing
-
-      world.removeEntity(entity);
-      scheduler.unscheduleAllEvents(entity);
-
-      Entity crab = world.createCrab(entity.id + CRAB_ID_SUFFIX,
-              pos, entity.actionPeriod / CRAB_PERIOD_SCALE,
-              CRAB_ANIMATION_MIN +
-                      Functions.rand.nextInt(CRAB_ANIMATION_MAX - CRAB_ANIMATION_MIN),
-              imageStore.getImageList(CRAB_KEY));
-
-      world.addEntity(crab);
-      scheduler.scheduleActions(crab, world, imageStore);
-   }
-
-   public static void executeCrabActivity(Entity entity, WorldModel world,
-      ImageStore imageStore, EventScheduler scheduler)
-   {
-      Optional<Entity> crabTarget = world.findNearest(
-         entity.position, EntityKind.SGRASS);
-      long nextPeriod = entity.actionPeriod;
-
-      if (crabTarget.isPresent())
-      {
-         Point tgtPos = crabTarget.get().position;
-
-         if (entity.moveToCrab(world, crabTarget.get(), scheduler))
-         {
-            Entity quake = world.createQuake(tgtPos,
-                    imageStore.getImageList(QUAKE_KEY));
-
-            world.addEntity(quake);
-            nextPeriod += entity.actionPeriod;
-            scheduler.scheduleActions(quake, world, imageStore);
-         }
-      }
-
-      scheduler.scheduleEvent(entity,
-         scheduler.createActivityAction(entity, world, imageStore),
-         nextPeriod);
-   }
-
-   public static void executeQuakeActivity(Entity entity, WorldModel world,
-      ImageStore imageStore, EventScheduler scheduler)
-   {
-      scheduler.unscheduleAllEvents(entity);
-      world.removeEntity(entity);
-   }
-
-   public static void executeAtlantisActivity(Entity entity, WorldModel world,
-                                           ImageStore imageStore, EventScheduler scheduler)
-   {
-      scheduler.unscheduleAllEvents(entity);
-      world.removeEntity(entity);
-   }
-
-   public static void executeSgrassActivity(Entity entity, WorldModel world,
-      ImageStore imageStore, EventScheduler scheduler)
-   {
-      Optional<Point> openPt = findOpenAround(world, entity.position);
-
-      if (openPt.isPresent())
-      {
-         Entity fish = world.createFish(FISH_ID_PREFIX + entity.id,
-                 openPt.get(), FISH_CORRUPT_MIN +
-                         Functions.rand.nextInt(FISH_CORRUPT_MAX - FISH_CORRUPT_MIN),
-                 imageStore.getImageList(FISH_KEY));
-         world.addEntity(fish);
-         scheduler.scheduleActions(fish, world, imageStore);
-      }
-
-      scheduler.scheduleEvent(entity,
-         scheduler.createActivityAction(entity, world, imageStore),
-         entity.actionPeriod);
-   }
+//   public static void executeOctoFullActivity(Entity entity, WorldModel world,
+//      ImageStore imageStore, EventScheduler scheduler)
+//   {
+//      Optional<Entity> fullTarget = world.findNearest(entity.position,
+//         EntityKind.ATLANTIS);
+//
+//      if (fullTarget.isPresent() &&
+//         entity.moveToFull(world, fullTarget.get(), scheduler))
+//      {
+//         //at atlantis trigger animation
+//         scheduler.scheduleActions(fullTarget.get(), world, imageStore);
+//
+//         //transform to unfull
+//         entity.transformFull(world, scheduler, imageStore);
+//      }
+//      else
+//      {
+//         scheduler.scheduleEvent(entity,
+//            scheduler.createActivityAction(entity, world, imageStore),
+//            entity.actionPeriod);
+//      }
+//   }
+//
+//   public static void executeOctoNotFullActivity(Entity entity,
+//      WorldModel world, ImageStore imageStore, EventScheduler scheduler)
+//   {
+//      Optional<Entity> notFullTarget = world.findNearest(entity.position,
+//         EntityKind.FISH);
+//
+//      if (!notFullTarget.isPresent() ||
+//         !entity.moveToNotFull(world, notFullTarget.get(), scheduler) ||
+//         !entity.transformNotFull(world, scheduler, imageStore))
+//      {
+//         scheduler.scheduleEvent(entity,
+//            scheduler.createActivityAction(entity, world, imageStore),
+//            entity.actionPeriod);
+//      }
+//   }
+//
+//   public static void executeFishActivity(Entity entity, WorldModel world,
+//      ImageStore imageStore, EventScheduler scheduler)
+//   {
+//      Point pos = entity.position;  // store current position before removing
+//
+//      world.removeEntity(entity);
+//      scheduler.unscheduleAllEvents(entity);
+//
+//      Entity crab = world.createCrab(entity.id + CRAB_ID_SUFFIX,
+//              pos, entity.actionPeriod / CRAB_PERIOD_SCALE,
+//              CRAB_ANIMATION_MIN +
+//                      Functions.rand.nextInt(CRAB_ANIMATION_MAX - CRAB_ANIMATION_MIN),
+//              imageStore.getImageList(CRAB_KEY));
+//
+//      world.addEntity(crab);
+//      scheduler.scheduleActions(crab, world, imageStore);
+//   }
+//
+//   public static void executeCrabActivity(Entity entity, WorldModel world,
+//      ImageStore imageStore, EventScheduler scheduler)
+//   {
+//      Optional<Entity> crabTarget = world.findNearest(
+//         entity.position, EntityKind.SGRASS);
+//      long nextPeriod = entity.actionPeriod;
+//
+//      if (crabTarget.isPresent())
+//      {
+//         Point tgtPos = crabTarget.get().position;
+//
+//         if (entity.moveToCrab(world, crabTarget.get(), scheduler))
+//         {
+//            Entity quake = world.createQuake(tgtPos,
+//                    imageStore.getImageList(QUAKE_KEY));
+//
+//            world.addEntity(quake);
+//            nextPeriod += entity.actionPeriod;
+//            scheduler.scheduleActions(quake, world, imageStore);
+//         }
+//      }
+//
+//      scheduler.scheduleEvent(entity,
+//         scheduler.createActivityAction(entity, world, imageStore),
+//         nextPeriod);
+//   }
+//
+//   public static void executeQuakeActivity(Entity entity, WorldModel world,
+//      ImageStore imageStore, EventScheduler scheduler)
+//   {
+//      scheduler.unscheduleAllEvents(entity);
+//      world.removeEntity(entity);
+//   }
+//
+//   public static void executeAtlantisActivity(Entity entity, WorldModel world,
+//                                           ImageStore imageStore, EventScheduler scheduler)
+//   {
+//      scheduler.unscheduleAllEvents(entity);
+//      world.removeEntity(entity);
+//   }
+//
+//   public static void executeSgrassActivity(Entity entity, WorldModel world,
+//      ImageStore imageStore, EventScheduler scheduler)
+//   {
+//      Optional<Point> openPt = findOpenAround(world, entity.position);
+//
+//      if (openPt.isPresent())
+//      {
+//         Entity fish = world.createFish(FISH_ID_PREFIX + entity.id,
+//                 openPt.get(), FISH_CORRUPT_MIN +
+//                         Functions.rand.nextInt(FISH_CORRUPT_MAX - FISH_CORRUPT_MIN),
+//                 imageStore.getImageList(FISH_KEY));
+//         world.addEntity(fish);
+//         scheduler.scheduleActions(fish, world, imageStore);
+//      }
+//
+//      scheduler.scheduleEvent(entity,
+//         scheduler.createActivityAction(entity, world, imageStore),
+//         entity.actionPeriod);
+//   }
 
 //   public static void scheduleActions(Entity entity, EventScheduler scheduler,
 //      WorldModel world, ImageStore imageStore)
@@ -547,23 +547,23 @@ final class Functions
 //         (p1.y == p2.y && Math.abs(p1.x - p2.x) == 1);
 //   }
 
-   public static Optional<Point> findOpenAround(WorldModel world, Point pos)
-   {
-      for (int dy = -FISH_REACH; dy <= FISH_REACH; dy++)
-      {
-         for (int dx = -FISH_REACH; dx <= FISH_REACH; dx++)
-         {
-            Point newPt = new Point(pos.x + dx, pos.y + dy);
-            if (world.withinBounds(newPt) &&
-               !world.isOccupied(newPt))
-            {
-               return Optional.of(newPt);
-            }
-         }
-      }
-
-      return Optional.empty();
-   }
+//   public static Optional<Point> findOpenAround(WorldModel world, Point pos)
+//   {
+//      for (int dy = -FISH_REACH; dy <= FISH_REACH; dy++)
+//      {
+//         for (int dx = -FISH_REACH; dx <= FISH_REACH; dx++)
+//         {
+//            Point newPt = new Point(pos.x + dx, pos.y + dy);
+//            if (world.withinBounds(newPt) &&
+//               !world.isOccupied(newPt))
+//            {
+//               return Optional.of(newPt);
+//            }
+//         }
+//      }
+//
+//      return Optional.empty();
+//   }
 
 //   public static void scheduleEvent(EventScheduler scheduler,
 //      Entity entity, Action action, long afterPeriod)
@@ -606,18 +606,18 @@ final class Functions
 //      }
 //   }
 
-   public static void updateOnTime(EventScheduler scheduler, long time)
-   {
-      while (!scheduler.eventQueue.isEmpty() &&
-         scheduler.eventQueue.peek().time < time)
-      {
-         Event next = scheduler.eventQueue.poll();
-
-         scheduler.removePendingEvent(next);
-
-         executeAction(next.action, scheduler);
-      }
-   }
+//   public static void updateOnTime(EventScheduler scheduler, long time)
+//   {
+//      while (!scheduler.eventQueue.isEmpty() &&
+//         scheduler.eventQueue.peek().time < time)
+//      {
+//         Event next = scheduler.eventQueue.poll();
+//
+//         scheduler.removePendingEvent(next);
+//
+//         executeAction(next.action, scheduler);
+//      }
+//   }
 
 //   public static List<PImage> getImageList(ImageStore imageStore, String key)
 //   {
