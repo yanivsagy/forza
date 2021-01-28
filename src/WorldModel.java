@@ -371,4 +371,16 @@ final class WorldModel
          setOccupancyCell(pos, null);
       }
    }
+
+   public Optional<PImage> getBackgroundImage(Point pos)
+   {
+      if (withinBounds(pos))
+      {
+         return Optional.of(getBackgroundCell(pos).getCurrentImage());
+      }
+      else
+      {
+         return Optional.empty();
+      }
+   }
 }

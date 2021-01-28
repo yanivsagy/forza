@@ -981,18 +981,18 @@ final class Functions
 //      }
 //   }
 
-   public static Optional<PImage> getBackgroundImage(WorldModel world,
-      Point pos)
-   {
-      if (world.withinBounds(pos))
-      {
-         return Optional.of(world.getBackgroundCell(pos).getCurrentImage());
-      }
-      else
-      {
-         return Optional.empty();
-      }
-   }
+//   public static Optional<PImage> getBackgroundImage(WorldModel world,
+//      Point pos)
+//   {
+//      if (world.withinBounds(pos))
+//      {
+//         return Optional.of(world.getBackgroundCell(pos).getCurrentImage());
+//      }
+//      else
+//      {
+//         return Optional.empty();
+//      }
+//   }
 
 //   public static void setBackground(WorldModel world, Point pos,
 //      Background background)
@@ -1069,8 +1069,7 @@ final class Functions
          for (int col = 0; col < view.viewport.numCols; col++)
          {
             Point worldPoint = view.viewport.viewportToWorld(col, row);
-            Optional<PImage> image = getBackgroundImage(view.world,
-               worldPoint);
+            Optional<PImage> image = view.world.getBackgroundImage(worldPoint);
             if (image.isPresent())
             {
                view.screen.image(image.get(), col * view.tileWidth,
