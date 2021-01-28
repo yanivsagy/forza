@@ -22,15 +22,15 @@ final class Entity
    public static final int QUAKE_ANIMATION_REPEAT_COUNT = 10;
    public static final int ATLANTIS_ANIMATION_REPEAT_COUNT = 7;
 
-   public EntityKind kind;
-   public String id;
-   public Point position;
-   public List<PImage> images;
-   public int imageIndex;
-   public int resourceLimit;
-   public int resourceCount;
-   public int actionPeriod;
-   public int animationPeriod;
+   private final EntityKind kind;
+   private final String id;
+   private Point position;
+   private final List<PImage> images;
+   private int imageIndex;
+   private final int resourceLimit;
+   private int resourceCount;
+   private final int actionPeriod;
+   private final int animationPeriod;
 
    public Entity(EntityKind kind, String id, Point position,
       List<PImage> images, int resourceLimit, int resourceCount,
@@ -45,6 +45,22 @@ final class Entity
       this.resourceCount = resourceCount;
       this.actionPeriod = actionPeriod;
       this.animationPeriod = animationPeriod;
+   }
+
+   public EntityKind getKind() {
+      return kind;
+   }
+
+   public int getActionPeriod() {
+      return actionPeriod;
+   }
+
+   public Point getPosition() {
+      return position;
+   }
+
+   public void setPosition(Point p) {
+      position = p;
    }
 
    public int getAnimationPeriod()

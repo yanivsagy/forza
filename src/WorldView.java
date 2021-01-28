@@ -62,7 +62,7 @@ final class WorldView
    {
       for (Entity entity : world.entities)
       {
-         Point pos = entity.position;
+         Point pos = entity.getPosition();
 
          if (viewport.contains(pos))
          {

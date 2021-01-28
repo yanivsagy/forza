@@ -22,7 +22,7 @@ final class Action
 
    public void executeActivityAction(EventScheduler scheduler)
    {
-      switch (entity.kind)
+      switch (entity.getKind())
       {
          case OCTO_FULL:
             entity.executeOctoFullActivity(world,
@@ -62,7 +62,7 @@ final class Action
          default:
             throw new UnsupportedOperationException(
                     String.format("executeActivityAction not supported for %s",
-                            entity.kind));
+                            entity.getKind()));
       }
    }
 

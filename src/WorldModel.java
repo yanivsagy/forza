@@ -114,16 +114,16 @@ final class WorldModel
 
    public void addEntity(Entity entity)
    {
-      if (withinBounds(entity.position))
+      if (withinBounds(entity.getPosition()))
       {
-         setOccupancyCell(entity.position, entity);
+         setOccupancyCell(entity.getPosition(), entity);
          entities.add(entity);
       }
    }
 
    public void tryAddEntity(Entity entity)
    {
-      if (isOccupied(entity.position))
+      if (isOccupied(entity.getPosition()))
       {
          // arguably the wrong type of exception, but we are not
          // defining our own exceptions yet
@@ -343,19 +343,19 @@ final class WorldModel
 
    public void moveEntity(Entity entity, Point pos)
    {
-      Point oldPos = entity.position;
+      Point oldPos = entity.getPosition();
       if (withinBounds(pos) && !pos.equals(oldPos))
       {
          setOccupancyCell(oldPos, null);
          removeEntityAt(pos);
          setOccupancyCell(pos, entity);
-         entity.position = pos;
+         entity.setPosition(pos);
       }
    }
 
    public void removeEntity(Entity entity)
    {
-      removeEntityAt(entity.position);
+      removeEntityAt(entity.getPosition());
    }
 
    public void removeEntityAt(Point pos)
@@ -367,7 +367,7 @@ final class WorldModel
 
          /* this moves the entity just outside of the grid for
             debugging purposes */
-         entity.position = new Point(-1, -1);
+         entity.setPosition(new Point(-1, -1));
          entities.remove(entity);
          setOccupancyCell(pos, null);
       }
@@ -395,11 +395,11 @@ final class WorldModel
       else
       {
          Entity nearest = entities.get(0);
-         int nearestDistance = nearest.position.distanceSquared(pos);
+         int nearestDistance = nearest.getPosition().distanceSquared(pos);
 
          for (Entity other : entities)
          {
-            int otherDistance = other.position.distanceSquared(pos);
+            int otherDistance = other.getPosition().distanceSquared(pos);
 
             if (otherDistance < nearestDistance)
             {
@@ -417,7 +417,7 @@ final class WorldModel
       List<Entity> ofType = new LinkedList<>();
       for (Entity entity : entities)
       {
-         if (entity.kind == kind)
+         if (entity.getKind() == kind)
          {
             ofType.add(entity);
          }
