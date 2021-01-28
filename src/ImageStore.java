@@ -20,9 +20,9 @@ final class ImageStore
 
    public ImageStore(PImage defaultImage)
    {
-      images = new HashMap<>();
-      defaultImages = new LinkedList<>();
-      defaultImages.add(defaultImage);
+      this.images = new HashMap<>();
+      this.defaultImages = new LinkedList<>();
+      this.defaultImages.add(defaultImage);
    }
 
    public List<PImage> getImageList(String key)

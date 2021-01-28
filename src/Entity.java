@@ -87,7 +87,7 @@ final class Entity
 
    public PImage getCurrentImage()
    {
-      return images.get((this).imageIndex);
+      return images.get(this.imageIndex);
    }
 
    private boolean transformNotFull(WorldModel world,
