@@ -1062,42 +1062,42 @@ final class Functions
 //      view.viewport.shift(newCol, newRow);
 //   }
 
-   public static void drawBackground(WorldView view)
-   {
-      for (int row = 0; row < view.viewport.numRows; row++)
-      {
-         for (int col = 0; col < view.viewport.numCols; col++)
-         {
-            Point worldPoint = view.viewport.viewportToWorld(col, row);
-            Optional<PImage> image = view.world.getBackgroundImage(worldPoint);
-            if (image.isPresent())
-            {
-               view.screen.image(image.get(), col * view.tileWidth,
-                  row * view.tileHeight);
-            }
-         }
-      }
-   }
-
-   public static void drawEntities(WorldView view)
-   {
-      for (Entity entity : view.world.entities)
-      {
-         Point pos = entity.position;
-
-         if (view.viewport.contains(pos))
-         {
-            Point viewPoint = view.viewport.worldToViewport(pos.x, pos.y);
-            view.screen.image(entity.getCurrentImage(),
-               viewPoint.x * view.tileWidth, viewPoint.y * view.tileHeight);
-         }
-      }
-   }
-
+//   public static void drawBackground(WorldView view)
+//   {
+//      for (int row = 0; row < view.viewport.numRows; row++)
+//      {
+//         for (int col = 0; col < view.viewport.numCols; col++)
+//         {
+//            Point worldPoint = view.viewport.viewportToWorld(col, row);
+//            Optional<PImage> image = view.world.getBackgroundImage(worldPoint);
+//            if (image.isPresent())
+//            {
+//               view.screen.image(image.get(), col * view.tileWidth,
+//                  row * view.tileHeight);
+//            }
+//         }
+//      }
+//   }
+//
+//   public static void drawEntities(WorldView view)
+//   {
+//      for (Entity entity : view.world.entities)
+//      {
+//         Point pos = entity.position;
+//
+//         if (view.viewport.contains(pos))
+//         {
+//            Point viewPoint = view.viewport.worldToViewport(pos.x, pos.y);
+//            view.screen.image(entity.getCurrentImage(),
+//               viewPoint.x * view.tileWidth, viewPoint.y * view.tileHeight);
+//         }
+//      }
+//   }
+//
    public static void drawViewport(WorldView view)
    {
-      drawBackground(view);
-      drawEntities(view);
+      view.drawBackground();
+      view.drawEntities();
    }
 
 //   public static Action createAnimationAction(Entity entity, int repeatCount)

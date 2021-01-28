@@ -1,4 +1,7 @@
 import processing.core.PApplet;
+import processing.core.PImage;
+
+import java.util.Optional;
 
 /*
 WorldView ideally mostly controls drawing the current part of the whole world
@@ -36,5 +39,37 @@ final class WorldView
               world.numRows - viewport.numRows);
 
       viewport.shift(newCol, newRow);
+   }
+
+   public void drawBackground()
+   {
+      for (int row = 0; row < viewport.numRows; row++)
+      {
+         for (int col = 0; col < viewport.numCols; col++)
+         {
+            Point worldPoint = viewport.viewportToWorld(col, row);
+            Optional<PImage> image = world.getBackgroundImage(worldPoint);
+            if (image.isPresent())
+            {
+               screen.image(image.get(), col * tileWidth,
+                       row * tileHeight);
+            }
+         }
+      }
+   }
+
+   public void drawEntities()
+   {
+      for (Entity entity : world.entities)
+      {
+         Point pos = entity.position;
+
+         if (viewport.contains(pos))
+         {
+            Point viewPoint = viewport.worldToViewport(pos.x, pos.y);
+            screen.image(entity.getCurrentImage(),
+                    viewPoint.x * tileWidth, viewPoint.y * tileHeight);
+         }
+      }
    }
 }
