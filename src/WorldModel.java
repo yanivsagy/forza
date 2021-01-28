@@ -383,4 +383,45 @@ final class WorldModel
          return Optional.empty();
       }
    }
+
+   public Optional<Entity> nearestEntity(List<Entity> entities,
+                                                Point pos)
+   {
+      if (entities.isEmpty())
+      {
+         return Optional.empty();
+      }
+      else
+      {
+         Entity nearest = entities.get(0);
+         int nearestDistance = nearest.position.distanceSquared(pos);
+
+         for (Entity other : entities)
+         {
+            int otherDistance = other.position.distanceSquared(pos);
+
+            if (otherDistance < nearestDistance)
+            {
+               nearest = other;
+               nearestDistance = otherDistance;
+            }
+         }
+
+         return Optional.of(nearest);
+      }
+   }
+
+   public Optional<Entity> findNearest(Point pos, EntityKind kind)
+   {
+      List<Entity> ofType = new LinkedList<>();
+      for (Entity entity : entities)
+      {
+         if (entity.kind == kind)
+         {
+            ofType.add(entity);
+         }
+      }
+
+      return nearestEntity(ofType, pos);
+   }
 }

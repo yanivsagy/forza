@@ -203,7 +203,7 @@ final class Functions
    public static void executeOctoFullActivity(Entity entity, WorldModel world,
       ImageStore imageStore, EventScheduler scheduler)
    {
-      Optional<Entity> fullTarget = findNearest(world, entity.position,
+      Optional<Entity> fullTarget = world.findNearest(entity.position,
          EntityKind.ATLANTIS);
 
       if (fullTarget.isPresent() &&
@@ -226,7 +226,7 @@ final class Functions
    public static void executeOctoNotFullActivity(Entity entity,
       WorldModel world, ImageStore imageStore, EventScheduler scheduler)
    {
-      Optional<Entity> notFullTarget = findNearest(world, entity.position,
+      Optional<Entity> notFullTarget = world.findNearest(entity.position,
          EntityKind.FISH);
 
       if (!notFullTarget.isPresent() ||
@@ -260,7 +260,7 @@ final class Functions
    public static void executeCrabActivity(Entity entity, WorldModel world,
       ImageStore imageStore, EventScheduler scheduler)
    {
-      Optional<Entity> crabTarget = findNearest(world,
+      Optional<Entity> crabTarget = world.findNearest(
          entity.position, EntityKind.SGRASS);
       long nextPeriod = entity.actionPeriod;
 
@@ -886,32 +886,32 @@ final class Functions
 //         world.getOccupancyCell(pos) != null;
 //   }
 
-   public static Optional<Entity> nearestEntity(List<Entity> entities,
-      Point pos)
-   {
-      if (entities.isEmpty())
-      {
-         return Optional.empty();
-      }
-      else
-      {
-         Entity nearest = entities.get(0);
-         int nearestDistance = nearest.position.distanceSquared(pos);
-
-         for (Entity other : entities)
-         {
-            int otherDistance = other.position.distanceSquared(pos);
-
-            if (otherDistance < nearestDistance)
-            {
-               nearest = other;
-               nearestDistance = otherDistance;
-            }
-         }
-
-         return Optional.of(nearest);
-      }
-   }
+//   public static Optional<Entity> nearestEntity(List<Entity> entities,
+//      Point pos)
+//   {
+//      if (entities.isEmpty())
+//      {
+//         return Optional.empty();
+//      }
+//      else
+//      {
+//         Entity nearest = entities.get(0);
+//         int nearestDistance = nearest.position.distanceSquared(pos);
+//
+//         for (Entity other : entities)
+//         {
+//            int otherDistance = other.position.distanceSquared(pos);
+//
+//            if (otherDistance < nearestDistance)
+//            {
+//               nearest = other;
+//               nearestDistance = otherDistance;
+//            }
+//         }
+//
+//         return Optional.of(nearest);
+//      }
+//   }
 
 //   public static int distanceSquared(Point p1, Point p2)
 //   {
@@ -921,20 +921,20 @@ final class Functions
 //      return deltaX * deltaX + deltaY * deltaY;
 //   }
 
-   public static Optional<Entity> findNearest(WorldModel world, Point pos,
-      EntityKind kind)
-   {
-      List<Entity> ofType = new LinkedList<>();
-      for (Entity entity : world.entities)
-      {
-         if (entity.kind == kind)
-         {
-            ofType.add(entity);
-         }
-      }
-
-      return nearestEntity(ofType, pos);
-   }
+//   public static Optional<Entity> findNearest(WorldModel world, Point pos,
+//      EntityKind kind)
+//   {
+//      List<Entity> ofType = new LinkedList<>();
+//      for (Entity entity : world.entities)
+//      {
+//         if (entity.kind == kind)
+//         {
+//            ofType.add(entity);
+//         }
+//      }
+//
+//      return nearestEntity(ofType, pos);
+//   }
 
    /*
       Assumes that there is no entity currently occupying the
