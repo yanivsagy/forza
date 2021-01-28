@@ -20,7 +20,7 @@ final class Action
       this.repeatCount = repeatCount;
    }
 
-   public void executeActivityAction(EventScheduler scheduler)
+   private void executeActivityAction(EventScheduler scheduler)
    {
       switch (entity.getKind())
       {
@@ -66,7 +66,7 @@ final class Action
       }
    }
 
-   public void executeAction(EventScheduler scheduler)
+   private void executeAction(EventScheduler scheduler)
    {
       switch (kind)
       {
@@ -80,7 +80,7 @@ final class Action
       }
    }
 
-   public void executeAnimationAction(EventScheduler scheduler)
+   private void executeAnimationAction(EventScheduler scheduler)
    {
       entity.nextImage();
 
