@@ -207,13 +207,13 @@ final class Functions
          EntityKind.ATLANTIS);
 
       if (fullTarget.isPresent() &&
-         moveToFull(entity, world, fullTarget.get(), scheduler))
+         entity.moveToFull(world, fullTarget.get(), scheduler))
       {
          //at atlantis trigger animation
          scheduler.scheduleActions(fullTarget.get(), world, imageStore);
 
          //transform to unfull
-         transformFull(entity, world, scheduler, imageStore);
+         entity.transformFull(world, scheduler, imageStore);
       }
       else
       {
@@ -230,8 +230,8 @@ final class Functions
          EntityKind.FISH);
 
       if (!notFullTarget.isPresent() ||
-         !moveToNotFull(entity, world, notFullTarget.get(), scheduler) ||
-         !transformNotFull(entity, world, scheduler, imageStore))
+         !entity.moveToNotFull(world, notFullTarget.get(), scheduler) ||
+         !entity.transformNotFull(world, scheduler, imageStore))
       {
          scheduler.scheduleEvent(entity,
             scheduler.createActivityAction(entity, world, imageStore),
@@ -377,94 +377,94 @@ final class Functions
 //      }
 //   }
 
-   public static boolean transformNotFull(Entity entity, WorldModel world,
-      EventScheduler scheduler, ImageStore imageStore)
-   {
-      if (entity.resourceCount >= entity.resourceLimit)
-      {
-         Entity octo = world.createOctoFull(entity.id, entity.resourceLimit,
-            entity.position, entity.actionPeriod, entity.animationPeriod,
-            entity.images);
-
-         world.removeEntity(entity);
-         scheduler.unscheduleAllEvents(entity);
-
-         world.addEntity(octo);
-         scheduler.scheduleActions(octo, world, imageStore);
-
-         return true;
-      }
-
-      return false;
-   }
-
-   public static void transformFull(Entity entity, WorldModel world,
-      EventScheduler scheduler, ImageStore imageStore)
-   {
-      Entity octo = world.createOctoNotFull(entity.id, entity.resourceLimit,
-         entity.position, entity.actionPeriod, entity.animationPeriod,
-         entity.images);
-
-      world.removeEntity(entity);
-      scheduler.unscheduleAllEvents(entity);
-
-      world.addEntity(octo);
-      scheduler.scheduleActions(octo, world, imageStore);
-   }
-
-   public static boolean moveToNotFull(Entity octo, WorldModel world,
-      Entity target, EventScheduler scheduler)
-   {
-      if (octo.position.adjacent(target.position))
-      {
-         octo.resourceCount += 1;
-         world.removeEntity(target);
-         scheduler.unscheduleAllEvents(target);
-
-         return true;
-      }
-      else
-      {
-         Point nextPos = nextPositionOcto(octo, world, target.position);
-
-         if (!octo.position.equals(nextPos))
-         {
-            Optional<Entity> occupant = world.getOccupant(nextPos);
-            if (occupant.isPresent())
-            {
-               scheduler.unscheduleAllEvents(occupant.get());
-            }
-
-            world.moveEntity(octo, nextPos);
-         }
-         return false;
-      }
-   }
-
-   public static boolean moveToFull(Entity octo, WorldModel world,
-      Entity target, EventScheduler scheduler)
-   {
-      if (octo.position.adjacent(target.position))
-      {
-         return true;
-      }
-      else
-      {
-         Point nextPos = nextPositionOcto(octo, world, target.position);
-
-         if (!octo.position.equals(nextPos))
-         {
-            Optional<Entity> occupant = world.getOccupant(nextPos);
-            if (occupant.isPresent())
-            {
-               scheduler.unscheduleAllEvents(occupant.get());
-            }
-
-            world.moveEntity(octo, nextPos);
-         }
-         return false;
-      }
-   }
+//   public static boolean transformNotFull(Entity entity, WorldModel world,
+//      EventScheduler scheduler, ImageStore imageStore)
+//   {
+//      if (entity.resourceCount >= entity.resourceLimit)
+//      {
+//         Entity octo = world.createOctoFull(entity.id, entity.resourceLimit,
+//            entity.position, entity.actionPeriod, entity.animationPeriod,
+//            entity.images);
+//
+//         world.removeEntity(entity);
+//         scheduler.unscheduleAllEvents(entity);
+//
+//         world.addEntity(octo);
+//         scheduler.scheduleActions(octo, world, imageStore);
+//
+//         return true;
+//      }
+//
+//      return false;
+//   }
+//
+//   public static void transformFull(Entity entity, WorldModel world,
+//      EventScheduler scheduler, ImageStore imageStore)
+//   {
+//      Entity octo = world.createOctoNotFull(entity.id, entity.resourceLimit,
+//         entity.position, entity.actionPeriod, entity.animationPeriod,
+//         entity.images);
+//
+//      world.removeEntity(entity);
+//      scheduler.unscheduleAllEvents(entity);
+//
+//      world.addEntity(octo);
+//      scheduler.scheduleActions(octo, world, imageStore);
+//   }
+//
+//   public static boolean moveToNotFull(Entity octo, WorldModel world,
+//      Entity target, EventScheduler scheduler)
+//   {
+//      if (octo.position.adjacent(target.position))
+//      {
+//         octo.resourceCount += 1;
+//         world.removeEntity(target);
+//         scheduler.unscheduleAllEvents(target);
+//
+//         return true;
+//      }
+//      else
+//      {
+//         Point nextPos = nextPositionOcto(octo, world, target.position);
+//
+//         if (!octo.position.equals(nextPos))
+//         {
+//            Optional<Entity> occupant = world.getOccupant(nextPos);
+//            if (occupant.isPresent())
+//            {
+//               scheduler.unscheduleAllEvents(occupant.get());
+//            }
+//
+//            world.moveEntity(octo, nextPos);
+//         }
+//         return false;
+//      }
+//   }
+//
+//   public static boolean moveToFull(Entity octo, WorldModel world,
+//      Entity target, EventScheduler scheduler)
+//   {
+//      if (octo.position.adjacent(target.position))
+//      {
+//         return true;
+//      }
+//      else
+//      {
+//         Point nextPos = nextPositionOcto(octo, world, target.position);
+//
+//         if (!octo.position.equals(nextPos))
+//         {
+//            Optional<Entity> occupant = world.getOccupant(nextPos);
+//            if (occupant.isPresent())
+//            {
+//               scheduler.unscheduleAllEvents(occupant.get());
+//            }
+//
+//            world.moveEntity(octo, nextPos);
+//         }
+//         return false;
+//      }
+//   }
 
    public static boolean moveToCrab(Entity crab, WorldModel world,
       Entity target, EventScheduler scheduler)
@@ -493,27 +493,27 @@ final class Functions
       }
    }
 
-   public static Point nextPositionOcto(Entity entity, WorldModel world,
-      Point destPos)
-   {
-      int horiz = Integer.signum(destPos.x - entity.position.x);
-      Point newPos = new Point(entity.position.x + horiz,
-         entity.position.y);
-
-      if (horiz == 0 || world.isOccupied(newPos))
-      {
-         int vert = Integer.signum(destPos.y - entity.position.y);
-         newPos = new Point(entity.position.x,
-            entity.position.y + vert);
-
-         if (vert == 0 || world.isOccupied(newPos))
-         {
-            newPos = entity.position;
-         }
-      }
-
-      return newPos;
-   }
+//   public static Point nextPositionOcto(Entity entity, WorldModel world,
+//      Point destPos)
+//   {
+//      int horiz = Integer.signum(destPos.x - entity.position.x);
+//      Point newPos = new Point(entity.position.x + horiz,
+//         entity.position.y);
+//
+//      if (horiz == 0 || world.isOccupied(newPos))
+//      {
+//         int vert = Integer.signum(destPos.y - entity.position.y);
+//         newPos = new Point(entity.position.x,
+//            entity.position.y + vert);
+//
+//         if (vert == 0 || world.isOccupied(newPos))
+//         {
+//            newPos = entity.position;
+//         }
+//      }
+//
+//      return newPos;
+//   }
 
    public static Point nextPositionCrab(Entity entity, WorldModel world,
       Point destPos)
@@ -612,9 +612,9 @@ final class Functions
          scheduler.eventQueue.peek().time < time)
       {
          Event next = scheduler.eventQueue.poll();
-         
+
          scheduler.removePendingEvent(next);
-         
+
          executeAction(next.action, scheduler);
       }
    }
