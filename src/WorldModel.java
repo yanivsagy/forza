@@ -40,11 +40,11 @@ final class WorldModel
    public static final int BGND_ROW = 3;
    public static final int FISH_REACH = 1;
 
-   public int numRows;
-   public int numCols;
-   public Background background[][];
-   public Entity occupancy[][];
-   public Set<Entity> entities;
+   private final int numRows;
+   private final int numCols;
+   private final Background[][] background;
+   private final Entity[][] occupancy;
+   private final Set<Entity> entities;
 
    public WorldModel(int numRows, int numCols, Background defaultBackground)
    {
@@ -60,33 +60,45 @@ final class WorldModel
       }
    }
 
-   public boolean withinBounds(Point pos)
+   public int getNumRows() {
+      return numRows;
+   }
+
+   public int getNumCols() {
+      return numCols;
+   }
+
+   public Set<Entity> getEntities() {
+      return entities;
+   }
+
+   private boolean withinBounds(Point pos)
    {
       return pos.y >= 0 && pos.y < numRows &&
               pos.x >= 0 && pos.x < numCols;
    }
 
-   public Entity getOccupancyCell(Point pos)
+   private Entity getOccupancyCell(Point pos)
    {
       return occupancy[pos.y][pos.x];
    }
 
-   public void setOccupancyCell(Point pos, Entity entity)
+   private void setOccupancyCell(Point pos, Entity entity)
    {
       occupancy[pos.y][pos.x] = entity;
    }
 
-   public Background getBackgroundCell(Point pos)
+   private Background getBackgroundCell(Point pos)
    {
       return background[pos.y][pos.x];
    }
 
-   public void setBackgroundCell(Point pos, Background background)
+   private void setBackgroundCell(Point pos, Background background)
    {
       this.background[pos.y][pos.x] = background;
    }
 
-   public void setBackground(Point pos, Background background)
+   private void setBackground(Point pos, Background background)
    {
       if (withinBounds(pos))
       {
@@ -121,7 +133,7 @@ final class WorldModel
       }
    }
 
-   public void tryAddEntity(Entity entity)
+   private void tryAddEntity(Entity entity)
    {
       if (isOccupied(entity.getPosition()))
       {
@@ -133,7 +145,7 @@ final class WorldModel
       addEntity(entity);
    }
 
-   public Entity createAtlantis(String id, Point position,
+   private Entity createAtlantis(String id, Point position,
                                        List<PImage> images)
    {
       return new Entity(EntityKind.ATLANTIS, id, position, images,
@@ -156,7 +168,7 @@ final class WorldModel
               resourceLimit, 0, actionPeriod, animationPeriod);
    }
 
-   public Entity createObstacle(String id, Point position,
+   private Entity createObstacle(String id, Point position,
                                        List<PImage> images)
    {
       return new Entity(EntityKind.OBSTACLE, id, position, images,
@@ -183,14 +195,14 @@ final class WorldModel
               0, 0, Functions.QUAKE_ACTION_PERIOD, Functions.QUAKE_ANIMATION_PERIOD);
    }
 
-   public Entity createSgrass(String id, Point position, int actionPeriod,
+   private Entity createSgrass(String id, Point position, int actionPeriod,
                                      List<PImage> images)
    {
       return new Entity(EntityKind.SGRASS, id, position, images, 0, 0,
               actionPeriod, 0);
    }
 
-   public boolean parseBackground(String [] properties,
+   private boolean parseBackground(String [] properties,
                                   WorldModel world, ImageStore imageStore)
    {
       if (properties.length == BGND_NUM_PROPERTIES)
@@ -205,7 +217,7 @@ final class WorldModel
       return properties.length == BGND_NUM_PROPERTIES;
    }
 
-   public boolean parseOcto(String [] properties, WorldModel world,
+   private boolean parseOcto(String [] properties, WorldModel world,
                             ImageStore imageStore)
    {
       if (properties.length == OCTO_NUM_PROPERTIES)
@@ -224,7 +236,7 @@ final class WorldModel
       return properties.length == OCTO_NUM_PROPERTIES;
    }
 
-   public boolean parseObstacle(String [] properties, WorldModel world,
+   private boolean parseObstacle(String [] properties, WorldModel world,
                                 ImageStore imageStore)
    {
       if (properties.length == OBSTACLE_NUM_PROPERTIES)
@@ -240,7 +252,7 @@ final class WorldModel
       return properties.length == OBSTACLE_NUM_PROPERTIES;
    }
 
-   public boolean parseFish(String [] properties, WorldModel world,
+   private boolean parseFish(String [] properties, WorldModel world,
                             ImageStore imageStore)
    {
       if (properties.length == FISH_NUM_PROPERTIES)
@@ -256,7 +268,7 @@ final class WorldModel
       return properties.length == FISH_NUM_PROPERTIES;
    }
 
-   public boolean parseAtlantis(String [] properties, WorldModel world,
+   private boolean parseAtlantis(String [] properties, WorldModel world,
                                 ImageStore imageStore)
    {
       if (properties.length == ATLANTIS_NUM_PROPERTIES)
@@ -271,7 +283,7 @@ final class WorldModel
       return properties.length == ATLANTIS_NUM_PROPERTIES;
    }
 
-   public boolean parseSgrass(String [] properties, WorldModel world,
+   private boolean parseSgrass(String [] properties, WorldModel world,
                               ImageStore imageStore)
    {
       if (properties.length == SGRASS_NUM_PROPERTIES)
@@ -288,7 +300,7 @@ final class WorldModel
       return properties.length == SGRASS_NUM_PROPERTIES;
    }
 
-   public boolean processLine(String line, WorldModel world,
+   private boolean processLine(String line, WorldModel world,
                                      ImageStore imageStore)
    {
       String[] properties = line.split("\\s");
@@ -358,7 +370,7 @@ final class WorldModel
       removeEntityAt(entity.getPosition());
    }
 
-   public void removeEntityAt(Point pos)
+   private void removeEntityAt(Point pos)
    {
       if (withinBounds(pos)
               && getOccupancyCell(pos) != null)
@@ -385,7 +397,7 @@ final class WorldModel
       }
    }
 
-   public Optional<Entity> nearestEntity(List<Entity> entities,
+   private Optional<Entity> nearestEntity(List<Entity> entities,
                                                 Point pos)
    {
       if (entities.isEmpty())
