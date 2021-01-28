@@ -10,11 +10,11 @@ that we can see based on the viewport
 
 final class WorldView
 {
-   public PApplet screen;
-   public WorldModel world;
-   public int tileWidth;
-   public int tileHeight;
-   public Viewport viewport;
+   private final PApplet screen;
+   private final WorldModel world;
+   private final int tileWidth;
+   private final int tileHeight;
+   private final Viewport viewport;
 
    public WorldView(int numRows, int numCols, PApplet screen, WorldModel world,
       int tileWidth, int tileHeight)
@@ -26,7 +26,7 @@ final class WorldView
       this.viewport = new Viewport(numRows, numCols);
    }
 
-   public int clamp(int value, int low, int high)
+   private int clamp(int value, int low, int high)
    {
       return Math.min(high, Math.max(value, low));
    }
