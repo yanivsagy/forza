@@ -16,41 +16,41 @@ final class Functions
    public static final Random rand = new Random();
 
    public static final String OCTO_KEY = "octo";
-   public static final int OCTO_NUM_PROPERTIES = 7;
-   public static final int OCTO_ID = 1;
-   public static final int OCTO_COL = 2;
-   public static final int OCTO_ROW = 3;
-   public static final int OCTO_LIMIT = 4;
-   public static final int OCTO_ACTION_PERIOD = 5;
-   public static final int OCTO_ANIMATION_PERIOD = 6;
+//   public static final int OCTO_NUM_PROPERTIES = 7;
+//   public static final int OCTO_ID = 1;
+//   public static final int OCTO_COL = 2;
+//   public static final int OCTO_ROW = 3;
+//   public static final int OCTO_LIMIT = 4;
+//   public static final int OCTO_ACTION_PERIOD = 5;
+//   public static final int OCTO_ANIMATION_PERIOD = 6;
 
    public static final String OBSTACLE_KEY = "obstacle";
-   public static final int OBSTACLE_NUM_PROPERTIES = 4;
-   public static final int OBSTACLE_ID = 1;
-   public static final int OBSTACLE_COL = 2;
-   public static final int OBSTACLE_ROW = 3;
+//   public static final int OBSTACLE_NUM_PROPERTIES = 4;
+//   public static final int OBSTACLE_ID = 1;
+//   public static final int OBSTACLE_COL = 2;
+//   public static final int OBSTACLE_ROW = 3;
 
    public static final String FISH_KEY = "fish";
-   public static final int FISH_NUM_PROPERTIES = 5;
-   public static final int FISH_ID = 1;
-   public static final int FISH_COL = 2;
-   public static final int FISH_ROW = 3;
-   public static final int FISH_ACTION_PERIOD = 4;
+//   public static final int FISH_NUM_PROPERTIES = 5;
+//   public static final int FISH_ID = 1;
+//   public static final int FISH_COL = 2;
+//   public static final int FISH_ROW = 3;
+//   public static final int FISH_ACTION_PERIOD = 4;
 
    public static final String ATLANTIS_KEY = "atlantis";
-   public static final int ATLANTIS_NUM_PROPERTIES = 4;
-   public static final int ATLANTIS_ID = 1;
-   public static final int ATLANTIS_COL = 2;
-   public static final int ATLANTIS_ROW = 3;
+//   public static final int ATLANTIS_NUM_PROPERTIES = 4;
+//   public static final int ATLANTIS_ID = 1;
+//   public static final int ATLANTIS_COL = 2;
+//   public static final int ATLANTIS_ROW = 3;
    public static final int ATLANTIS_ANIMATION_PERIOD = 70;
    public static final int ATLANTIS_ANIMATION_REPEAT_COUNT = 7;
 
    public static final String SGRASS_KEY = "seaGrass";
-   public static final int SGRASS_NUM_PROPERTIES = 5;
-   public static final int SGRASS_ID = 1;
-   public static final int SGRASS_COL = 2;
-   public static final int SGRASS_ROW = 3;
-   public static final int SGRASS_ACTION_PERIOD = 4;
+//   public static final int SGRASS_NUM_PROPERTIES = 5;
+//   public static final int SGRASS_ID = 1;
+//   public static final int SGRASS_COL = 2;
+//   public static final int SGRASS_ROW = 3;
+//   public static final int SGRASS_ACTION_PERIOD = 4;
 
    public static final String CRAB_KEY = "crab";
    public static final String CRAB_ID_SUFFIX = " -- crab";
@@ -71,10 +71,10 @@ final class Functions
    public static final int FISH_REACH = 1;
 
    public static final String BGND_KEY = "background";
-   public static final int BGND_NUM_PROPERTIES = 4;
-   public static final int BGND_ID = 1;
-   public static final int BGND_COL = 2;
-   public static final int BGND_ROW = 3;
+//   public static final int BGND_NUM_PROPERTIES = 4;
+//   public static final int BGND_ID = 1;
+//   public static final int BGND_COL = 2;
+//   public static final int BGND_ROW = 3;
 
    public static final int COLOR_MASK = 0xffffff;
    public static final int KEYED_IMAGE_MIN = 5;
@@ -247,7 +247,7 @@ final class Functions
       removeEntity(world, entity);
       scheduler.unscheduleAllEvents(entity);
 
-      Entity crab = createCrab(entity.id + CRAB_ID_SUFFIX,
+      Entity crab = world.createCrab(entity.id + CRAB_ID_SUFFIX,
               pos, entity.actionPeriod / CRAB_PERIOD_SCALE,
               CRAB_ANIMATION_MIN +
                       Functions.rand.nextInt(CRAB_ANIMATION_MAX - CRAB_ANIMATION_MIN),
@@ -270,7 +270,7 @@ final class Functions
 
          if (moveToCrab(entity, world, crabTarget.get(), scheduler))
          {
-            Entity quake = createQuake(tgtPos,
+            Entity quake = world.createQuake(tgtPos,
                     imageStore.getImageList(QUAKE_KEY));
 
             world.addEntity(quake);
@@ -305,7 +305,7 @@ final class Functions
 
       if (openPt.isPresent())
       {
-         Entity fish = createFish(FISH_ID_PREFIX + entity.id,
+         Entity fish = world.createFish(FISH_ID_PREFIX + entity.id,
                  openPt.get(), FISH_CORRUPT_MIN +
                          Functions.rand.nextInt(FISH_CORRUPT_MAX - FISH_CORRUPT_MIN),
                  imageStore.getImageList(FISH_KEY));
@@ -382,7 +382,7 @@ final class Functions
    {
       if (entity.resourceCount >= entity.resourceLimit)
       {
-         Entity octo = createOctoFull(entity.id, entity.resourceLimit,
+         Entity octo = world.createOctoFull(entity.id, entity.resourceLimit,
             entity.position, entity.actionPeriod, entity.animationPeriod,
             entity.images);
 
@@ -401,7 +401,7 @@ final class Functions
    public static void transformFull(Entity entity, WorldModel world,
       EventScheduler scheduler, ImageStore imageStore)
    {
-      Entity octo = createOctoNotFull(entity.id, entity.resourceLimit,
+      Entity octo = world.createOctoNotFull(entity.id, entity.resourceLimit,
          entity.position, entity.actionPeriod, entity.animationPeriod,
          entity.images);
 
@@ -711,156 +711,156 @@ final class Functions
 //         p.x >= viewport.col && p.x < viewport.col + viewport.numCols;
 //   }
 
-   public static void load(Scanner in, WorldModel world, ImageStore imageStore)
-   {
-      int lineNumber = 0;
-      while (in.hasNextLine())
-      {
-         try
-         {
-            if (!processLine(in.nextLine(), world, imageStore))
-            {
-               System.err.println(String.format("invalid entry on line %d",
-                  lineNumber));
-            }
-         }
-         catch (NumberFormatException e)
-         {
-            System.err.println(String.format("invalid entry on line %d",
-               lineNumber));
-         }
-         catch (IllegalArgumentException e)
-         {
-            System.err.println(String.format("issue on line %d: %s",
-               lineNumber, e.getMessage()));
-         }
-         lineNumber++;
-      }
-   }
+//   public static void load(Scanner in, WorldModel world, ImageStore imageStore)
+//   {
+//      int lineNumber = 0;
+//      while (in.hasNextLine())
+//      {
+//         try
+//         {
+//            if (!Entity.processLine(in.nextLine(), world, imageStore))
+//            {
+//               System.err.println(String.format("invalid entry on line %d",
+//                  lineNumber));
+//            }
+//         }
+//         catch (NumberFormatException e)
+//         {
+//            System.err.println(String.format("invalid entry on line %d",
+//               lineNumber));
+//         }
+//         catch (IllegalArgumentException e)
+//         {
+//            System.err.println(String.format("issue on line %d: %s",
+//               lineNumber, e.getMessage()));
+//         }
+//         lineNumber++;
+//      }
+//   }
 
-   public static boolean processLine(String line, WorldModel world,
-      ImageStore imageStore)
-   {
-      String[] properties = line.split("\\s");
-      if (properties.length > 0)
-      {
-         switch (properties[PROPERTY_KEY])
-         {
-         case BGND_KEY:
-            return parseBackground(properties, world, imageStore);
-         case OCTO_KEY:
-            return parseOcto(properties, world, imageStore);
-         case OBSTACLE_KEY:
-            return parseObstacle(properties, world, imageStore);
-         case FISH_KEY:
-            return parseFish(properties, world, imageStore);
-         case ATLANTIS_KEY:
-            return parseAtlantis(properties, world, imageStore);
-         case SGRASS_KEY:
-            return parseSgrass(properties, world, imageStore);
-         }
-      }
+//   public static boolean processLine(String line, WorldModel world,
+//      ImageStore imageStore)
+//   {
+//      String[] properties = line.split("\\s");
+//      if (properties.length > 0)
+//      {
+//         switch (properties[PROPERTY_KEY])
+//         {
+//         case BGND_KEY:
+//            return parseBackground(properties, world, imageStore);
+//         case OCTO_KEY:
+//            return parseOcto(properties, world, imageStore);
+//         case OBSTACLE_KEY:
+//            return parseObstacle(properties, world, imageStore);
+//         case FISH_KEY:
+//            return parseFish(properties, world, imageStore);
+//         case ATLANTIS_KEY:
+//            return parseAtlantis(properties, world, imageStore);
+//         case SGRASS_KEY:
+//            return parseSgrass(properties, world, imageStore);
+//         }
+//      }
+//
+//      return false;
+//   }
 
-      return false;
-   }
-
-   public static boolean parseBackground(String [] properties,
-      WorldModel world, ImageStore imageStore)
-   {
-      if (properties.length == BGND_NUM_PROPERTIES)
-      {
-         Point pt = new Point(Integer.parseInt(properties[BGND_COL]),
-            Integer.parseInt(properties[BGND_ROW]));
-         String id = properties[BGND_ID];
-         world.setBackground(pt,
-            new Background(id, imageStore.getImageList(id)));
-      }
-
-      return properties.length == BGND_NUM_PROPERTIES;
-   }
-
-   public static boolean parseOcto(String [] properties, WorldModel world,
-      ImageStore imageStore)
-   {
-      if (properties.length == OCTO_NUM_PROPERTIES)
-      {
-         Point pt = new Point(Integer.parseInt(properties[OCTO_COL]),
-            Integer.parseInt(properties[OCTO_ROW]));
-         Entity entity = createOctoNotFull(properties[OCTO_ID],
-            Integer.parseInt(properties[OCTO_LIMIT]),
-            pt,
-            Integer.parseInt(properties[OCTO_ACTION_PERIOD]),
-            Integer.parseInt(properties[OCTO_ANIMATION_PERIOD]),
-                 imageStore.getImageList(OCTO_KEY));
-         world.tryAddEntity(entity);
-      }
-
-      return properties.length == OCTO_NUM_PROPERTIES;
-   }
-
-   public static boolean parseObstacle(String [] properties, WorldModel world,
-      ImageStore imageStore)
-   {
-      if (properties.length == OBSTACLE_NUM_PROPERTIES)
-      {
-         Point pt = new Point(
-            Integer.parseInt(properties[OBSTACLE_COL]),
-            Integer.parseInt(properties[OBSTACLE_ROW]));
-         Entity entity = createObstacle(properties[OBSTACLE_ID],
-            pt, imageStore.getImageList(OBSTACLE_KEY));
-         world.tryAddEntity(entity);
-      }
-
-      return properties.length == OBSTACLE_NUM_PROPERTIES;
-   }
-
-   public static boolean parseFish(String [] properties, WorldModel world,
-      ImageStore imageStore)
-   {
-      if (properties.length == FISH_NUM_PROPERTIES)
-      {
-         Point pt = new Point(Integer.parseInt(properties[FISH_COL]),
-            Integer.parseInt(properties[FISH_ROW]));
-         Entity entity = createFish(properties[FISH_ID],
-            pt, Integer.parseInt(properties[FISH_ACTION_PERIOD]),
-                 imageStore.getImageList(FISH_KEY));
-         world.tryAddEntity(entity);
-      }
-
-      return properties.length == FISH_NUM_PROPERTIES;
-   }
-
-   public static boolean parseAtlantis(String [] properties, WorldModel world,
-      ImageStore imageStore)
-   {
-      if (properties.length == ATLANTIS_NUM_PROPERTIES)
-      {
-         Point pt = new Point(Integer.parseInt(properties[ATLANTIS_COL]),
-            Integer.parseInt(properties[ATLANTIS_ROW]));
-         Entity entity = createAtlantis(properties[ATLANTIS_ID],
-            pt, imageStore.getImageList(ATLANTIS_KEY));
-         world.tryAddEntity(entity);
-      }
-
-      return properties.length == ATLANTIS_NUM_PROPERTIES;
-   }
-
-   public static boolean parseSgrass(String [] properties, WorldModel world,
-      ImageStore imageStore)
-   {
-      if (properties.length == SGRASS_NUM_PROPERTIES)
-      {
-         Point pt = new Point(Integer.parseInt(properties[SGRASS_COL]),
-            Integer.parseInt(properties[SGRASS_ROW]));
-         Entity entity = createSgrass(properties[SGRASS_ID],
-            pt,
-            Integer.parseInt(properties[SGRASS_ACTION_PERIOD]),
-                 imageStore.getImageList(SGRASS_KEY));
-         world.tryAddEntity(entity);
-      }
-
-      return properties.length == SGRASS_NUM_PROPERTIES;
-   }
+//   public static boolean parseBackground(String [] properties,
+//      WorldModel world, ImageStore imageStore)
+//   {
+//      if (properties.length == BGND_NUM_PROPERTIES)
+//      {
+//         Point pt = new Point(Integer.parseInt(properties[BGND_COL]),
+//            Integer.parseInt(properties[BGND_ROW]));
+//         String id = properties[BGND_ID];
+//         world.setBackground(pt,
+//            new Background(id, imageStore.getImageList(id)));
+//      }
+//
+//      return properties.length == BGND_NUM_PROPERTIES;
+//   }
+//
+//   public static boolean parseOcto(String [] properties, WorldModel world,
+//      ImageStore imageStore)
+//   {
+//      if (properties.length == OCTO_NUM_PROPERTIES)
+//      {
+//         Point pt = new Point(Integer.parseInt(properties[OCTO_COL]),
+//            Integer.parseInt(properties[OCTO_ROW]));
+//         Entity entity = Entity.createOctoNotFull(properties[OCTO_ID],
+//            Integer.parseInt(properties[OCTO_LIMIT]),
+//            pt,
+//            Integer.parseInt(properties[OCTO_ACTION_PERIOD]),
+//            Integer.parseInt(properties[OCTO_ANIMATION_PERIOD]),
+//                 imageStore.getImageList(OCTO_KEY));
+//         world.tryAddEntity(entity);
+//      }
+//
+//      return properties.length == OCTO_NUM_PROPERTIES;
+//   }
+//
+//   public static boolean parseObstacle(String [] properties, WorldModel world,
+//      ImageStore imageStore)
+//   {
+//      if (properties.length == OBSTACLE_NUM_PROPERTIES)
+//      {
+//         Point pt = new Point(
+//            Integer.parseInt(properties[OBSTACLE_COL]),
+//            Integer.parseInt(properties[OBSTACLE_ROW]));
+//         Entity entity = Entity.createObstacle(properties[OBSTACLE_ID],
+//            pt, imageStore.getImageList(OBSTACLE_KEY));
+//         world.tryAddEntity(entity);
+//      }
+//
+//      return properties.length == OBSTACLE_NUM_PROPERTIES;
+//   }
+//
+//   public static boolean parseFish(String [] properties, WorldModel world,
+//      ImageStore imageStore)
+//   {
+//      if (properties.length == FISH_NUM_PROPERTIES)
+//      {
+//         Point pt = new Point(Integer.parseInt(properties[FISH_COL]),
+//            Integer.parseInt(properties[FISH_ROW]));
+//         Entity entity = Entity.createFish(properties[FISH_ID],
+//            pt, Integer.parseInt(properties[FISH_ACTION_PERIOD]),
+//                 imageStore.getImageList(FISH_KEY));
+//         world.tryAddEntity(entity);
+//      }
+//
+//      return properties.length == FISH_NUM_PROPERTIES;
+//   }
+//
+//   public static boolean parseAtlantis(String [] properties, WorldModel world,
+//      ImageStore imageStore)
+//   {
+//      if (properties.length == ATLANTIS_NUM_PROPERTIES)
+//      {
+//         Point pt = new Point(Integer.parseInt(properties[ATLANTIS_COL]),
+//            Integer.parseInt(properties[ATLANTIS_ROW]));
+//         Entity entity = Entity.createAtlantis(properties[ATLANTIS_ID],
+//            pt, imageStore.getImageList(ATLANTIS_KEY));
+//         world.tryAddEntity(entity);
+//      }
+//
+//      return properties.length == ATLANTIS_NUM_PROPERTIES;
+//   }
+//
+//   public static boolean parseSgrass(String [] properties, WorldModel world,
+//      ImageStore imageStore)
+//   {
+//      if (properties.length == SGRASS_NUM_PROPERTIES)
+//      {
+//         Point pt = new Point(Integer.parseInt(properties[SGRASS_COL]),
+//            Integer.parseInt(properties[SGRASS_ROW]));
+//         Entity entity = Entity.createSgrass(properties[SGRASS_ID],
+//            pt,
+//            Integer.parseInt(properties[SGRASS_ACTION_PERIOD]),
+//                 imageStore.getImageList(SGRASS_KEY));
+//         world.tryAddEntity(entity);
+//      }
+//
+//      return properties.length == SGRASS_NUM_PROPERTIES;
+//   }
 
 //   public static void tryAddEntity(WorldModel world, Entity entity)
 //   {
@@ -1112,60 +1112,60 @@ final class Functions
 //      return new Action(ActionKind.ACTIVITY, entity, world, imageStore, 0);
 //   }
 
-   public static Entity createAtlantis(String id, Point position,
-      List<PImage> images)
-   {
-      return new Entity(EntityKind.ATLANTIS, id, position, images,
-         0, 0, 0, 0);
-   }
-
-   public static Entity createOctoFull(String id, int resourceLimit,
-      Point position, int actionPeriod, int animationPeriod,
-      List<PImage> images)
-   {
-      return new Entity(EntityKind.OCTO_FULL, id, position, images,
-         resourceLimit, resourceLimit, actionPeriod, animationPeriod);
-   }
-
-   public static Entity createOctoNotFull(String id, int resourceLimit,
-      Point position, int actionPeriod, int animationPeriod,
-      List<PImage> images)
-   {
-      return new Entity(EntityKind.OCTO_NOT_FULL, id, position, images,
-         resourceLimit, 0, actionPeriod, animationPeriod);
-   }
-
-   public static Entity createObstacle(String id, Point position,
-      List<PImage> images)
-   {
-      return new Entity(EntityKind.OBSTACLE, id, position, images,
-         0, 0, 0, 0);
-   }
-
-   public static Entity createFish(String id, Point position, int actionPeriod,
-      List<PImage> images)
-   {
-      return new Entity(EntityKind.FISH, id, position, images, 0, 0,
-         actionPeriod, 0);
-   }
-
-   public static Entity createCrab(String id, Point position,
-      int actionPeriod, int animationPeriod, List<PImage> images)
-   {
-      return new Entity(EntityKind.CRAB, id, position, images,
-            0, 0, actionPeriod, animationPeriod);
-   }
-
-   public static Entity createQuake(Point position, List<PImage> images)
-   {
-      return new Entity(EntityKind.QUAKE, QUAKE_ID, position, images,
-         0, 0, QUAKE_ACTION_PERIOD, QUAKE_ANIMATION_PERIOD);
-   }
-
-   public static Entity createSgrass(String id, Point position, int actionPeriod,
-      List<PImage> images)
-   {
-      return new Entity(EntityKind.SGRASS, id, position, images, 0, 0,
-         actionPeriod, 0);
-   }
+//   public static Entity createAtlantis(String id, Point position,
+//      List<PImage> images)
+//   {
+//      return new Entity(EntityKind.ATLANTIS, id, position, images,
+//         0, 0, 0, 0);
+//   }
+//
+//   public static Entity createOctoFull(String id, int resourceLimit,
+//      Point position, int actionPeriod, int animationPeriod,
+//      List<PImage> images)
+//   {
+//      return new Entity(EntityKind.OCTO_FULL, id, position, images,
+//         resourceLimit, resourceLimit, actionPeriod, animationPeriod);
+//   }
+//
+//   public static Entity createOctoNotFull(String id, int resourceLimit,
+//      Point position, int actionPeriod, int animationPeriod,
+//      List<PImage> images)
+//   {
+//      return new Entity(EntityKind.OCTO_NOT_FULL, id, position, images,
+//         resourceLimit, 0, actionPeriod, animationPeriod);
+//   }
+//
+//   public static Entity createObstacle(String id, Point position,
+//      List<PImage> images)
+//   {
+//      return new Entity(EntityKind.OBSTACLE, id, position, images,
+//         0, 0, 0, 0);
+//   }
+//
+//   public static Entity createFish(String id, Point position, int actionPeriod,
+//      List<PImage> images)
+//   {
+//      return new Entity(EntityKind.FISH, id, position, images, 0, 0,
+//         actionPeriod, 0);
+//   }
+//
+//   public static Entity createCrab(String id, Point position,
+//      int actionPeriod, int animationPeriod, List<PImage> images)
+//   {
+//      return new Entity(EntityKind.CRAB, id, position, images,
+//            0, 0, actionPeriod, animationPeriod);
+//   }
+//
+//   public static Entity createQuake(Point position, List<PImage> images)
+//   {
+//      return new Entity(EntityKind.QUAKE, QUAKE_ID, position, images,
+//         0, 0, QUAKE_ACTION_PERIOD, QUAKE_ANIMATION_PERIOD);
+//   }
+//
+//   public static Entity createSgrass(String id, Point position, int actionPeriod,
+//      List<PImage> images)
+//   {
+//      return new Entity(EntityKind.SGRASS, id, position, images, 0, 0,
+//         actionPeriod, 0);
+//   }
 }
