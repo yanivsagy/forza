@@ -339,4 +339,36 @@ final class WorldModel
          lineNumber++;
       }
    }
+
+   public void moveEntity(Entity entity, Point pos)
+   {
+      Point oldPos = entity.position;
+      if (withinBounds(pos) && !pos.equals(oldPos))
+      {
+         setOccupancyCell(oldPos, null);
+         removeEntityAt(pos);
+         setOccupancyCell(pos, entity);
+         entity.position = pos;
+      }
+   }
+
+   public void removeEntity(Entity entity)
+   {
+      removeEntityAt(entity.position);
+   }
+
+   public void removeEntityAt(Point pos)
+   {
+      if (withinBounds(pos)
+              && getOccupancyCell(pos) != null)
+      {
+         Entity entity = getOccupancyCell(pos);
+
+         /* this moves the entity just outside of the grid for
+            debugging purposes */
+         entity.position = new Point(-1, -1);
+         entities.remove(entity);
+         setOccupancyCell(pos, null);
+      }
+   }
 }

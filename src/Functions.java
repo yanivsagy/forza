@@ -244,7 +244,7 @@ final class Functions
    {
       Point pos = entity.position;  // store current position before removing
 
-      removeEntity(world, entity);
+      world.removeEntity(entity);
       scheduler.unscheduleAllEvents(entity);
 
       Entity crab = world.createCrab(entity.id + CRAB_ID_SUFFIX,
@@ -288,14 +288,14 @@ final class Functions
       ImageStore imageStore, EventScheduler scheduler)
    {
       scheduler.unscheduleAllEvents(entity);
-      removeEntity(world, entity);
+      world.removeEntity(entity);
    }
 
    public static void executeAtlantisActivity(Entity entity, WorldModel world,
                                            ImageStore imageStore, EventScheduler scheduler)
    {
       scheduler.unscheduleAllEvents(entity);
-      removeEntity(world, entity);
+      world.removeEntity(entity);
    }
 
    public static void executeSgrassActivity(Entity entity, WorldModel world,
@@ -386,7 +386,7 @@ final class Functions
             entity.position, entity.actionPeriod, entity.animationPeriod,
             entity.images);
 
-         removeEntity(world, entity);
+         world.removeEntity(entity);
          scheduler.unscheduleAllEvents(entity);
 
          world.addEntity(octo);
@@ -405,7 +405,7 @@ final class Functions
          entity.position, entity.actionPeriod, entity.animationPeriod,
          entity.images);
 
-      removeEntity(world, entity);
+      world.removeEntity(entity);
       scheduler.unscheduleAllEvents(entity);
 
       world.addEntity(octo);
@@ -418,7 +418,7 @@ final class Functions
       if (octo.position.adjacent(target.position))
       {
          octo.resourceCount += 1;
-         removeEntity(world, target);
+         world.removeEntity(target);
          scheduler.unscheduleAllEvents(target);
 
          return true;
@@ -435,7 +435,7 @@ final class Functions
                scheduler.unscheduleAllEvents(occupant.get());
             }
 
-            moveEntity(world, octo, nextPos);
+            world.moveEntity(octo, nextPos);
          }
          return false;
       }
@@ -460,7 +460,7 @@ final class Functions
                scheduler.unscheduleAllEvents(occupant.get());
             }
 
-            moveEntity(world, octo, nextPos);
+            world.moveEntity(octo, nextPos);
          }
          return false;
       }
@@ -471,7 +471,7 @@ final class Functions
    {
       if (crab.position.adjacent(target.position))
       {
-         removeEntity(world, target);
+         world.removeEntity(target);
          scheduler.unscheduleAllEvents(target);
          return true;
       }
@@ -487,7 +487,7 @@ final class Functions
                scheduler.unscheduleAllEvents(occupant.get());
             }
 
-            moveEntity(world, crab, nextPos);
+            world.moveEntity(crab, nextPos);
          }
          return false;
       }
@@ -949,37 +949,37 @@ final class Functions
 //      }
 //   }
 
-   public static void moveEntity(WorldModel world, Entity entity, Point pos)
-   {
-      Point oldPos = entity.position;
-      if (world.withinBounds(pos) && !pos.equals(oldPos))
-      {
-         world.setOccupancyCell(oldPos, null);
-         removeEntityAt(world, pos);
-         world.setOccupancyCell(pos, entity);
-         entity.position = pos;
-      }
-   }
-
-   public static void removeEntity(WorldModel world, Entity entity)
-   {
-      removeEntityAt(world, entity.position);
-   }
-
-   public static void removeEntityAt(WorldModel world, Point pos)
-   {
-      if (world.withinBounds(pos)
-         && world.getOccupancyCell(pos) != null)
-      {
-         Entity entity = world.getOccupancyCell(pos);
-
-         /* this moves the entity just outside of the grid for
-            debugging purposes */
-         entity.position = new Point(-1, -1);
-         world.entities.remove(entity);
-         world.setOccupancyCell(pos, null);
-      }
-   }
+//   public static void moveEntity(WorldModel world, Entity entity, Point pos)
+//   {
+//      Point oldPos = entity.position;
+//      if (world.withinBounds(pos) && !pos.equals(oldPos))
+//      {
+//         world.setOccupancyCell(oldPos, null);
+//         removeEntityAt(world, pos);
+//         world.setOccupancyCell(pos, entity);
+//         entity.position = pos;
+//      }
+//   }
+//
+//   public static void removeEntity(WorldModel world, Entity entity)
+//   {
+//      removeEntityAt(world, entity.position);
+//   }
+//
+//   public static void removeEntityAt(WorldModel world, Point pos)
+//   {
+//      if (world.withinBounds(pos)
+//         && world.getOccupancyCell(pos) != null)
+//      {
+//         Entity entity = world.getOccupancyCell(pos);
+//
+//         /* this moves the entity just outside of the grid for
+//            debugging purposes */
+//         entity.position = new Point(-1, -1);
+//         world.entities.remove(entity);
+//         world.setOccupancyCell(pos, null);
+//      }
+//   }
 
    public static Optional<PImage> getBackgroundImage(WorldModel world,
       Point pos)
