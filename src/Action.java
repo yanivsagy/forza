@@ -2,7 +2,7 @@
 Action: ideally what our various entities might do in our virutal world
  */
 
-final class Action
+abstract class Action
 {
    private final ActionKind kind;
    private final Entity entity;
@@ -20,51 +20,51 @@ final class Action
       this.repeatCount = repeatCount;
    }
 
-   private void executeActivityAction(EventScheduler scheduler)
-   {
-      switch (entity.getKind())
-      {
-         case OCTO_FULL:
-            entity.executeOctoFullActivity(world,
-                    imageStore, scheduler);
-            break;
-
-         case OCTO_NOT_FULL:
-            entity.executeOctoNotFullActivity(world,
-                    imageStore, scheduler);
-            break;
-
-         case FISH:
-            entity.executeFishActivity(world, imageStore,
-                    scheduler);
-            break;
-
-         case CRAB:
-            entity.executeCrabActivity(world,
-                    imageStore, scheduler);
-            break;
-
-         case QUAKE:
-            entity.executeQuakeActivity(world, imageStore,
-                    scheduler);
-            break;
-
-         case SGRASS:
-            entity.executeSgrassActivity(world, imageStore,
-                    scheduler);
-            break;
-
-         case ATLANTIS:
-            entity.executeAtlantisActivity(world, imageStore,
-                    scheduler);
-            break;
-
-         default:
-            throw new UnsupportedOperationException(
-                    String.format("executeActivityAction not supported for %s",
-                            entity.getKind()));
-      }
-   }
+//   private void executeActivityAction(EventScheduler scheduler)
+//   {
+//      switch (entity.getKind())
+//      {
+//         case OCTO_FULL:
+//            entity.executeOctoFullActivity(world,
+//                    imageStore, scheduler);
+//            break;
+//
+//         case OCTO_NOT_FULL:
+//            entity.executeOctoNotFullActivity(world,
+//                    imageStore, scheduler);
+//            break;
+//
+//         case FISH:
+//            entity.executeFishActivity(world, imageStore,
+//                    scheduler);
+//            break;
+//
+//         case CRAB:
+//            entity.executeCrabActivity(world,
+//                    imageStore, scheduler);
+//            break;
+//
+//         case QUAKE:
+//            entity.executeQuakeActivity(world, imageStore,
+//                    scheduler);
+//            break;
+//
+//         case SGRASS:
+//            entity.executeSgrassActivity(world, imageStore,
+//                    scheduler);
+//            break;
+//
+//         case ATLANTIS:
+//            entity.executeAtlantisActivity(world, imageStore,
+//                    scheduler);
+//            break;
+//
+//         default:
+//            throw new UnsupportedOperationException(
+//                    String.format("executeActivityAction not supported for %s",
+//                            entity.getKind()));
+//      }
+//   }
 
    private void executeAction(EventScheduler scheduler)
    {

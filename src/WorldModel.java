@@ -145,62 +145,62 @@ final class WorldModel
       addEntity(entity);
    }
 
-   private Entity createAtlantis(String id, Point position,
-                                       List<PImage> images)
-   {
-      return new Entity(EntityKind.ATLANTIS, id, position, images,
-              0, 0, 0, 0);
-   }
+//   private Entity createAtlantis(String id, Point position,
+//                                       List<PImage> images)
+//   {
+//      return new Entity(EntityKind.ATLANTIS, id, position, images,
+//              0, 0, 0, 0);
+//   }
 
-   public Entity createOctoFull(String id, int resourceLimit,
-                                       Point position, int actionPeriod, int animationPeriod,
-                                       List<PImage> images)
-   {
-      return new Entity(EntityKind.OCTO_FULL, id, position, images,
-              resourceLimit, resourceLimit, actionPeriod, animationPeriod);
-   }
+//   public Entity createOctoFull(String id, int resourceLimit,
+//                                       Point position, int actionPeriod, int animationPeriod,
+//                                       List<PImage> images)
+//   {
+//      return new Entity(EntityKind.OCTO_FULL, id, position, images,
+//              resourceLimit, resourceLimit, actionPeriod, animationPeriod);
+//   }
+//
+//   public Entity createOctoNotFull(String id, int resourceLimit,
+//                                          Point position, int actionPeriod, int animationPeriod,
+//                                          List<PImage> images)
+//   {
+//      return new Entity(EntityKind.OCTO_NOT_FULL, id, position, images,
+//              resourceLimit, 0, actionPeriod, animationPeriod);
+//   }
 
-   public Entity createOctoNotFull(String id, int resourceLimit,
-                                          Point position, int actionPeriod, int animationPeriod,
-                                          List<PImage> images)
-   {
-      return new Entity(EntityKind.OCTO_NOT_FULL, id, position, images,
-              resourceLimit, 0, actionPeriod, animationPeriod);
-   }
+//   private Entity createObstacle(String id, Point position,
+//                                       List<PImage> images)
+//   {
+//      return new Entity(EntityKind.OBSTACLE, id, position, images,
+//              0, 0, 0, 0);
+//   }
 
-   private Entity createObstacle(String id, Point position,
-                                       List<PImage> images)
-   {
-      return new Entity(EntityKind.OBSTACLE, id, position, images,
-              0, 0, 0, 0);
-   }
+//   public Entity createFish(String id, Point position, int actionPeriod,
+//                                   List<PImage> images)
+//   {
+//      return new Entity(EntityKind.FISH, id, position, images, 0, 0,
+//              actionPeriod, 0);
+//   }
 
-   public Entity createFish(String id, Point position, int actionPeriod,
-                                   List<PImage> images)
-   {
-      return new Entity(EntityKind.FISH, id, position, images, 0, 0,
-              actionPeriod, 0);
-   }
+//   public Entity createCrab(String id, Point position,
+//                                   int actionPeriod, int animationPeriod, List<PImage> images)
+//   {
+//      return new Entity(EntityKind.CRAB, id, position, images,
+//              0, 0, actionPeriod, animationPeriod);
+//   }
 
-   public Entity createCrab(String id, Point position,
-                                   int actionPeriod, int animationPeriod, List<PImage> images)
-   {
-      return new Entity(EntityKind.CRAB, id, position, images,
-              0, 0, actionPeriod, animationPeriod);
-   }
+//   public Entity createQuake(Point position, List<PImage> images)
+//   {
+//      return new Entity(EntityKind.QUAKE, Functions.QUAKE_ID, position, images,
+//              0, 0, Functions.QUAKE_ACTION_PERIOD, Functions.QUAKE_ANIMATION_PERIOD);
+//   }
 
-   public Entity createQuake(Point position, List<PImage> images)
-   {
-      return new Entity(EntityKind.QUAKE, Functions.QUAKE_ID, position, images,
-              0, 0, Functions.QUAKE_ACTION_PERIOD, Functions.QUAKE_ANIMATION_PERIOD);
-   }
-
-   private Entity createSgrass(String id, Point position, int actionPeriod,
-                                     List<PImage> images)
-   {
-      return new Entity(EntityKind.SGRASS, id, position, images, 0, 0,
-              actionPeriod, 0);
-   }
+//   private Entity createSgrass(String id, Point position, int actionPeriod,
+//                                     List<PImage> images)
+//   {
+//      return new Entity(EntityKind.SGRASS, id, position, images, 0, 0,
+//              actionPeriod, 0);
+//   }
 
    private boolean parseBackground(String [] properties,
                                   WorldModel world, ImageStore imageStore)
@@ -224,13 +224,13 @@ final class WorldModel
       {
          Point pt = new Point(Integer.parseInt(properties[OCTO_COL]),
                  Integer.parseInt(properties[OCTO_ROW]));
-         Entity entity = createOctoNotFull(properties[OCTO_ID],
+         OctoNotFull octo = new OctoNotFull(properties[OCTO_ID],
                  Integer.parseInt(properties[OCTO_LIMIT]),
                  pt,
                  Integer.parseInt(properties[OCTO_ACTION_PERIOD]),
                  Integer.parseInt(properties[OCTO_ANIMATION_PERIOD]),
                  imageStore.getImageList(Functions.OCTO_KEY));
-         world.tryAddEntity(entity);
+         world.tryAddEntity(octo);
       }
 
       return properties.length == OCTO_NUM_PROPERTIES;
@@ -244,9 +244,9 @@ final class WorldModel
          Point pt = new Point(
                  Integer.parseInt(properties[OBSTACLE_COL]),
                  Integer.parseInt(properties[OBSTACLE_ROW]));
-         Entity entity = createObstacle(properties[OBSTACLE_ID],
+         Obstacle obstacle = new Obstacle(properties[OBSTACLE_ID],
                  pt, imageStore.getImageList(Functions.OBSTACLE_KEY));
-         world.tryAddEntity(entity);
+         world.tryAddEntity(obstacle);
       }
 
       return properties.length == OBSTACLE_NUM_PROPERTIES;
@@ -259,10 +259,10 @@ final class WorldModel
       {
          Point pt = new Point(Integer.parseInt(properties[FISH_COL]),
                  Integer.parseInt(properties[FISH_ROW]));
-         Entity entity = createFish(properties[FISH_ID],
+         Fish fish = new Fish(properties[FISH_ID],
                  pt, Integer.parseInt(properties[FISH_ACTION_PERIOD]),
                  imageStore.getImageList(Functions.FISH_KEY));
-         world.tryAddEntity(entity);
+         world.tryAddEntity(fish);
       }
 
       return properties.length == FISH_NUM_PROPERTIES;
@@ -275,9 +275,9 @@ final class WorldModel
       {
          Point pt = new Point(Integer.parseInt(properties[ATLANTIS_COL]),
                  Integer.parseInt(properties[ATLANTIS_ROW]));
-         Entity entity = createAtlantis(properties[ATLANTIS_ID],
+         Atlantis atlantis = new Atlantis(properties[ATLANTIS_ID],
                  pt, imageStore.getImageList(Functions.ATLANTIS_KEY));
-         world.tryAddEntity(entity);
+         world.tryAddEntity(atlantis);
       }
 
       return properties.length == ATLANTIS_NUM_PROPERTIES;
@@ -290,11 +290,11 @@ final class WorldModel
       {
          Point pt = new Point(Integer.parseInt(properties[SGRASS_COL]),
                  Integer.parseInt(properties[SGRASS_ROW]));
-         Entity entity = createSgrass(properties[SGRASS_ID],
+         Sgrass Sgrass = new Sgrass(properties[SGRASS_ID],
                  pt,
                  Integer.parseInt(properties[SGRASS_ACTION_PERIOD]),
                  imageStore.getImageList(Functions.SGRASS_KEY));
-         world.tryAddEntity(entity);
+         world.tryAddEntity(Sgrass);
       }
 
       return properties.length == SGRASS_NUM_PROPERTIES;
@@ -424,12 +424,12 @@ final class WorldModel
       }
    }
 
-   public Optional<Entity> findNearest(Point pos, EntityKind kind)
+   public Optional<Entity> findNearest(Point pos, Class kind)
    {
       List<Entity> ofType = new LinkedList<>();
       for (Entity entity : entities)
       {
-         if (entity.getKind() == kind)
+         if (kind.isInstance(entity))
          {
             ofType.add(entity);
          }
