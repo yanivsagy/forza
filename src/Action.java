@@ -4,12 +4,12 @@ Action: ideally what our various entities might do in our virutal world
 
 abstract class Action
 {
-   private final Entity entity;
+   private final ActionEntity entity;
    private final WorldModel world;
    private final ImageStore imageStore;
    private final int repeatCount;
 
-   public Action(Entity entity, WorldModel world,
+   public Action(ActionEntity entity, WorldModel world,
       ImageStore imageStore, int repeatCount)
    {
       this.entity = entity;
@@ -18,19 +18,19 @@ abstract class Action
       this.repeatCount = repeatCount;
    }
 
-   public Entity getEntity() {
+   protected ActionEntity getEntity() {
       return entity;
    }
 
-   public int getRepeatCount() {
+   protected int getRepeatCount() {
       return repeatCount;
    }
 
-   public WorldModel getWorld() {
+   protected WorldModel getWorld() {
       return world;
    }
 
-   public ImageStore getImageStore() {
+   protected ImageStore getImageStore() {
       return imageStore;
    }
 

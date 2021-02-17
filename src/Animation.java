@@ -1,6 +1,6 @@
 public class Animation extends Action {
 
-    public Animation(Entity entity, int repeatCount) {
+    public Animation(ActionEntity entity, int repeatCount) {
         super(entity, null, null, repeatCount);
     }
 
@@ -13,7 +13,7 @@ public class Animation extends Action {
             scheduler.scheduleEvent(getEntity(),
                     new Animation(getEntity(),
                             Math.max(getRepeatCount() - 1, 0)),
-                    ((AnimatedEntity) getEntity()).getAnimationPeriod());
+                    ((AnimatedEntity)getEntity()).getAnimationPeriod());
         }
     }
 }
