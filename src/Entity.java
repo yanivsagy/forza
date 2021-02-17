@@ -25,10 +25,6 @@ abstract class Entity
       this.imageIndex = 0;
    }
 
-//   public EntityKind getKind() {
-//      return kind;
-//   }
-
    protected String getID() {
       return id;
    }

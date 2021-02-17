@@ -28,8 +28,6 @@ public abstract class Octo extends MovingEntity {
         resourceCount = c;
     }
 
-    protected abstract void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler);
-
     protected void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
         scheduler.scheduleEvent(this,
                 new Activity(this, world, imageStore), getActionPeriod());

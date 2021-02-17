@@ -10,7 +10,7 @@ public class OctoFull extends Octo {
         super(id, position, images, actionPeriod, animationPeriod, resourceLimit, resourceLimit);
     }
 
-    public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
+    protected void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
         Optional<Entity> fullTarget = world.findNearest(getPosition(),
                 Atlantis.class);
 
