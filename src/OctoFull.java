@@ -15,10 +15,10 @@ public class OctoFull extends Octo {
                 Atlantis.class);
 
         if (fullTarget.isPresent() &&
-                moveToFull(world, fullTarget.get(), scheduler))
+                moveTo(world, fullTarget.get(), scheduler))
         {
             //at atlantis trigger animation
-            fullTarget.get().scheduleActions(scheduler, world, imageStore);
+            ((AnimatedEntity)fullTarget.get()).scheduleActions(scheduler, world, imageStore);
 
             //transform to unfull
             transformFull(world, scheduler, imageStore);
@@ -26,8 +26,33 @@ public class OctoFull extends Octo {
         else
         {
             scheduler.scheduleEvent(this,
-                    scheduler.createActivityAction(this, world, imageStore),
+                    new Activity(this, world, imageStore),
                     getActionPeriod());
+        }
+    }
+
+    protected boolean moveTo(WorldModel world,
+                                 Entity target, EventScheduler scheduler)
+    {
+        if (getPosition().adjacent(target.getPosition()))
+        {
+            return true;
+        }
+        else
+        {
+            Point nextPos = nextPositionOcto(world, target.getPosition());
+
+            if (!getPosition().equals(nextPos))
+            {
+                Optional<Entity> occupant = world.getOccupant(nextPos);
+                if (occupant.isPresent())
+                {
+                    scheduler.unscheduleAllEvents(occupant.get());
+                }
+
+                world.moveEntity(this, nextPos);
+            }
+            return false;
         }
     }
 

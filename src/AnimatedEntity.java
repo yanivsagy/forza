@@ -2,7 +2,7 @@ import processing.core.PImage;
 
 import java.util.List;
 
-public abstract class AnimatedEntity extends Entity {
+public abstract class AnimatedEntity extends ActionEntity {
 
     private final int animationPeriod;
 
@@ -14,19 +14,6 @@ public abstract class AnimatedEntity extends Entity {
     protected abstract void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler);
 
     protected abstract void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore);
-
-    private void executeAnimationAction(EventScheduler scheduler)
-    {
-        entity.nextImage();
-
-        if (repeatCount != 1)
-        {
-            scheduler.scheduleEvent(entity,
-                    scheduler.createAnimationAction(entity,
-                            Math.max(repeatCount - 1, 0)),
-                    entity.getAnimationPeriod());
-        }
-    }
 
     protected int getAnimationPeriod() {
         return animationPeriod;

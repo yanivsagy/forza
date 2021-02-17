@@ -15,74 +15,30 @@ public abstract class Octo extends AnimatedEntity {
         this.resourceCount = resourceCount;
     }
 
-    public int getResourceLimit() {
+    protected int getResourceLimit() {
         return resourceLimit;
+    }
+
+    protected int getResourceCount() {
+        return resourceCount;
+    }
+
+    protected void setResourceCount(int c) {
+        resourceCount = c;
     }
 
     protected abstract void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler);
 
     protected void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
         scheduler.scheduleEvent(this,
-                scheduler.createActivityAction(this, world, imageStore), getActionPeriod());
-        scheduler.scheduleEvent(this, scheduler.createAnimationAction(this, 0),
+                new Activity(this, world, imageStore), getActionPeriod());
+        scheduler.scheduleEvent(this, new Animation(this, 0),
                 getAnimationPeriod());
     }
 
-    protected boolean moveToNotFull(WorldModel world,
-                                  Entity target, EventScheduler scheduler)
-    {
-        if (getPosition().adjacent(target.getPosition()))
-        {
-            resourceCount += 1;
-            world.removeEntity(target);
-            scheduler.unscheduleAllEvents(target);
+    protected abstract boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler);
 
-            return true;
-        }
-        else
-        {
-            Point nextPos = nextPositionOcto(world, target.getPosition());
-
-            if (!getPosition().equals(nextPos))
-            {
-                Optional<Entity> occupant = world.getOccupant(nextPos);
-                if (occupant.isPresent())
-                {
-                    scheduler.unscheduleAllEvents(occupant.get());
-                }
-
-                world.moveEntity(this, nextPos);
-            }
-            return false;
-        }
-    }
-
-    protected boolean moveToFull(WorldModel world,
-                       Entity target, EventScheduler scheduler)
-    {
-        if (getPosition().adjacent(target.getPosition()))
-        {
-            return true;
-        }
-        else
-        {
-            Point nextPos = nextPositionOcto(world, target.getPosition());
-
-            if (!getPosition().equals(nextPos))
-            {
-                Optional<Entity> occupant = world.getOccupant(nextPos);
-                if (occupant.isPresent())
-                {
-                    scheduler.unscheduleAllEvents(occupant.get());
-                }
-
-                world.moveEntity(this, nextPos);
-            }
-            return false;
-        }
-    }
-
-    private Point nextPositionOcto(WorldModel world,
+    protected Point nextPositionOcto(WorldModel world,
                                    Point destPos)
     {
         int horiz = Integer.signum(destPos.x - getPosition().x);

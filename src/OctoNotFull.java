@@ -17,13 +17,42 @@ public class OctoNotFull extends Octo {
                     Fish.class);
 
             if (!notFullTarget.isPresent() ||
-                    !moveToNotFull(world, notFullTarget.get(), scheduler) ||
+                    !moveTo(world, notFullTarget.get(), scheduler) ||
                     !transformNotFull(world, scheduler, imageStore))
             {
                 scheduler.scheduleEvent(this,
-                        scheduler.createActivityAction(this, world, imageStore),
+                        new Activity(this, world, imageStore),
                         getActionPeriod());
             }
+        }
+    }
+
+    protected boolean moveTo(WorldModel world,
+                                    Entity target, EventScheduler scheduler)
+    {
+        if (getPosition().adjacent(target.getPosition()))
+        {
+            setResourceCount(getResourceCount() + 1);
+            world.removeEntity(target);
+            scheduler.unscheduleAllEvents(target);
+
+            return true;
+        }
+        else
+        {
+            Point nextPos = nextPositionOcto(world, target.getPosition());
+
+            if (!getPosition().equals(nextPos))
+            {
+                Optional<Entity> occupant = world.getOccupant(nextPos);
+                if (occupant.isPresent())
+                {
+                    scheduler.unscheduleAllEvents(occupant.get());
+                }
+
+                world.moveEntity(this, nextPos);
+            }
+            return false;
         }
     }
 

@@ -36,16 +36,16 @@ final class EventScheduler
       pendingEvents.put(entity, pending);
    }
 
-   public Action createAnimationAction(Entity entity, int repeatCount)
-   {
-      return new Action(ActionKind.ANIMATION, entity, null, null, repeatCount);
-   }
+//   public Action createAnimationAction(Entity entity, int repeatCount)
+//   {
+//      return new Action(ActionKind.ANIMATION, entity, null, null, repeatCount);
+//   }
 
-   public Action createActivityAction(Entity entity, WorldModel world,
-                                             ImageStore imageStore)
-   {
-      return new Action(ActionKind.ACTIVITY, entity, world, imageStore, 0);
-   }
+//   public Action createActivityAction(Entity entity, WorldModel world,
+//                                             ImageStore imageStore)
+//   {
+//      return new Action(ActionKind.ACTIVITY, entity, world, imageStore, 0);
+//   }
 
    public void unscheduleAllEvents(Entity entity)
    {

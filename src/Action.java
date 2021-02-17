@@ -4,23 +4,37 @@ Action: ideally what our various entities might do in our virutal world
 
 abstract class Action
 {
-   private final ActionKind kind;
    private final Entity entity;
    private final WorldModel world;
    private final ImageStore imageStore;
    private final int repeatCount;
 
-   public Action(ActionKind kind, Entity entity, WorldModel world,
+   public Action(Entity entity, WorldModel world,
       ImageStore imageStore, int repeatCount)
    {
-      this.kind = kind;
       this.entity = entity;
       this.world = world;
       this.imageStore = imageStore;
       this.repeatCount = repeatCount;
    }
 
-//   private void executeActivityAction(EventScheduler scheduler)
+   public Entity getEntity() {
+      return entity;
+   }
+
+   public int getRepeatCount() {
+      return repeatCount;
+   }
+
+   public WorldModel getWorld() {
+      return world;
+   }
+
+   public ImageStore getImageStore() {
+      return imageStore;
+   }
+
+   //   private void executeActivityAction(EventScheduler scheduler)
 //   {
 //      switch (entity.getKind())
 //      {
@@ -66,32 +80,32 @@ abstract class Action
 //      }
 //   }
 
-   private void executeAction(EventScheduler scheduler)
-   {
-      switch (kind)
-      {
-         case ACTIVITY:
-            executeActivityAction(scheduler);
-            break;
+   protected abstract void executeAction(EventScheduler scheduler);
+//   {
+//      switch (kind)
+//      {
+//         case ACTIVITY:
+//            executeActivityAction(scheduler);
+//            break;
+//
+//         case ANIMATION:
+//            executeAnimationAction(scheduler);
+//            break;
+//      }
+//   }
 
-         case ANIMATION:
-            executeAnimationAction(scheduler);
-            break;
-      }
-   }
-
-   private void executeAnimationAction(EventScheduler scheduler)
-   {
-      entity.nextImage();
-
-      if (repeatCount != 1)
-      {
-         scheduler.scheduleEvent(entity,
-                 scheduler.createAnimationAction(entity,
-                         Math.max(repeatCount - 1, 0)),
-                 entity.getAnimationPeriod());
-      }
-   }
+//   private void executeAnimationAction(EventScheduler scheduler)
+//   {
+//      entity.nextImage();
+//
+//      if (repeatCount != 1)
+//      {
+//         scheduler.scheduleEvent(entity,
+//                 new Animation(entity,
+//                         Math.max(repeatCount - 1, 0)),
+//                 entity.getAnimationPeriod());
+//      }
+//   }
 
    public static void updateOnTime(EventScheduler scheduler, long time)
    {

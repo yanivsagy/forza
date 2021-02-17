@@ -15,7 +15,7 @@ public class Atlantis extends AnimatedEntity {
 
     protected void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
         scheduler.scheduleEvent(this,
-                scheduler.createAnimationAction(this, ATLANTIS_ANIMATION_REPEAT_COUNT),
+                new Animation(this, ATLANTIS_ANIMATION_REPEAT_COUNT),
                 this.getAnimationPeriod());
     }
 }

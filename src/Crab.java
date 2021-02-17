@@ -11,9 +11,9 @@ public class Crab extends AnimatedEntity {
 
     protected void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
         scheduler.scheduleEvent(this,
-                scheduler.createActivityAction(this, world, imageStore), getActionPeriod());
+                new Activity(this, world, imageStore), getActionPeriod());
         scheduler.scheduleEvent(this,
-                scheduler.createAnimationAction(this, 0), getAnimationPeriod());
+                new Animation(this, 0), getAnimationPeriod());
     }
 
     protected void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
@@ -37,7 +37,7 @@ public class Crab extends AnimatedEntity {
         }
 
         scheduler.scheduleEvent(this,
-                scheduler.createActivityAction(this, world, imageStore),
+                new Activity(this, world, imageStore),
                 nextPeriod);
     }
 

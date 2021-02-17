@@ -26,16 +26,15 @@ abstract class Entity
    private Point position;
    private final List<PImage> images;
    private int imageIndex;
-   private final int actionPeriod;
+
 
    public Entity(String id, Point position,
-      List<PImage> images, int actionPeriod)
+      List<PImage> images)
    {
       this.id = id;
       this.position = position;
       this.images = images;
       this.imageIndex = 0;
-      this.actionPeriod = actionPeriod;
    }
 
 //   public EntityKind getKind() {
@@ -44,10 +43,6 @@ abstract class Entity
 
    public String getID() {
       return id;
-   }
-
-   public int getActionPeriod() {
-      return actionPeriod;
    }
 
    public List<PImage> getImages() {
@@ -253,7 +248,7 @@ abstract class Entity
 //      return newPos;
 //   }
 
-   protected abstract void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler);
+//   protected abstract void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler);
 
 //   public void executeOctoFullActivity(WorldModel world,
 //                                              ImageStore imageStore, EventScheduler scheduler)
@@ -373,8 +368,8 @@ abstract class Entity
 //              actionPeriod);
 //   }
 
-   protected abstract void scheduleActions(EventScheduler scheduler,
-      WorldModel world, ImageStore imageStore);
+//   protected abstract void scheduleActions(EventScheduler scheduler,
+//      WorldModel world, ImageStore imageStore);
 //   {
 //      switch (kind)
 //      {

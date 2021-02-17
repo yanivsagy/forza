@@ -2,10 +2,10 @@ import processing.core.PImage;
 
 import java.util.List;
 
-public class Fish extends Entity {
+public class Fish extends ActionEntity {
 
     public Fish(String id, Point position, int actionPeriod, List<PImage> images) {
-        super(id, position, images, 0, 0, actionPeriod);
+        super(id, position, images, actionPeriod);
     }
 
     protected void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
@@ -27,6 +27,6 @@ public class Fish extends Entity {
 
     protected void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
         scheduler.scheduleEvent(this,
-                scheduler.createActivityAction(this, world, imageStore), getActionPeriod());
+                new Activity(this, world, imageStore), getActionPeriod());
     }
 }
