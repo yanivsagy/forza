@@ -40,7 +40,7 @@ public class OctoFull extends Octo {
         }
         else
         {
-            Point nextPos = nextPositionOcto(world, target.getPosition());
+            Point nextPos = nextPosition(world, target.getPosition());
 
             if (!getPosition().equals(nextPos))
             {

@@ -3,7 +3,7 @@ import processing.core.PImage;
 import java.util.List;
 import java.util.Optional;
 
-public class Crab extends AnimatedEntity {
+public class Crab extends MovingEntity {
 
     public Crab(String id, Point position, int actionPeriod, int animationPeriod, List<PImage> images) {
         super(id, position, images, actionPeriod, animationPeriod);
@@ -25,7 +25,7 @@ public class Crab extends AnimatedEntity {
         {
             Point tgtPos = crabTarget.get().getPosition();
 
-            if (moveToCrab(world, crabTarget.get(), scheduler))
+            if (moveTo(world, crabTarget.get(), scheduler))
             {
                 Quake quake = new Quake(tgtPos,
                         imageStore.getImageList(QUAKE_KEY));
@@ -41,7 +41,7 @@ public class Crab extends AnimatedEntity {
                 nextPeriod);
     }
 
-    private boolean moveToCrab(WorldModel world,
+    protected boolean moveTo(WorldModel world,
                                Entity target, EventScheduler scheduler)
     {
         if (getPosition().adjacent(target.getPosition()))
@@ -52,7 +52,7 @@ public class Crab extends AnimatedEntity {
         }
         else
         {
-            Point nextPos = nextPositionCrab(world, target.getPosition());
+            Point nextPos = nextPosition(world, target.getPosition());
 
             if (!getPosition().equals(nextPos))
             {
@@ -68,7 +68,7 @@ public class Crab extends AnimatedEntity {
         }
     }
 
-    private Point nextPositionCrab(WorldModel world,
+    protected Point nextPosition(WorldModel world,
                                    Point destPos)
     {
         int horiz = Integer.signum(destPos.x - getPosition().x);

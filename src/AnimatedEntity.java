@@ -11,10 +11,6 @@ public abstract class AnimatedEntity extends ActionEntity {
         this.animationPeriod = animationPeriod;
     }
 
-    protected abstract void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler);
-
-    protected abstract void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore);
-
     protected int getAnimationPeriod() {
         return animationPeriod;
     }

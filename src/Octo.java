@@ -3,7 +3,7 @@ import processing.core.PImage;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class Octo extends AnimatedEntity {
+public abstract class Octo extends MovingEntity {
 
     private final int resourceLimit;
     private int resourceCount;
@@ -36,9 +36,7 @@ public abstract class Octo extends AnimatedEntity {
                 getAnimationPeriod());
     }
 
-    protected abstract boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler);
-
-    protected Point nextPositionOcto(WorldModel world,
+    protected Point nextPosition(WorldModel world,
                                    Point destPos)
     {
         int horiz = Integer.signum(destPos.x - getPosition().x);
