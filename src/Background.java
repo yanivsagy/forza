@@ -3,6 +3,7 @@ import processing.core.PImage;
 
 final class Background
 {
+   public static final String BGND_KEY = "background";
    private String id;
    private List<PImage> images;
    private int imageIndex;

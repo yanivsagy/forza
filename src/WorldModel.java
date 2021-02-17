@@ -9,6 +9,8 @@ in terms of entities and background elements
 
 final class WorldModel
 {
+   public static final Random rand = new Random();
+   public static final int PROPERTY_KEY = 0;
    public static final int OCTO_NUM_PROPERTIES = 7;
    public static final int OCTO_ID = 1;
    public static final int OCTO_COL = 2;
@@ -172,7 +174,7 @@ final class WorldModel
                  pt,
                  Integer.parseInt(properties[OCTO_ACTION_PERIOD]),
                  Integer.parseInt(properties[OCTO_ANIMATION_PERIOD]),
-                 imageStore.getImageList(Functions.OCTO_KEY));
+                 imageStore.getImageList(Octo.OCTO_KEY));
          world.tryAddEntity(octo);
       }
 
@@ -188,7 +190,7 @@ final class WorldModel
                  Integer.parseInt(properties[OBSTACLE_COL]),
                  Integer.parseInt(properties[OBSTACLE_ROW]));
          Obstacle obstacle = new Obstacle(properties[OBSTACLE_ID],
-                 pt, imageStore.getImageList(Functions.OBSTACLE_KEY));
+                 pt, imageStore.getImageList(Obstacle.OBSTACLE_KEY));
          world.tryAddEntity(obstacle);
       }
 
@@ -204,7 +206,7 @@ final class WorldModel
                  Integer.parseInt(properties[FISH_ROW]));
          Fish fish = new Fish(properties[FISH_ID],
                  pt, Integer.parseInt(properties[FISH_ACTION_PERIOD]),
-                 imageStore.getImageList(Functions.FISH_KEY));
+                 imageStore.getImageList(Fish.FISH_KEY));
          world.tryAddEntity(fish);
       }
 
@@ -219,7 +221,7 @@ final class WorldModel
          Point pt = new Point(Integer.parseInt(properties[ATLANTIS_COL]),
                  Integer.parseInt(properties[ATLANTIS_ROW]));
          Atlantis atlantis = new Atlantis(properties[ATLANTIS_ID],
-                 pt, imageStore.getImageList(Functions.ATLANTIS_KEY));
+                 pt, imageStore.getImageList(Atlantis.ATLANTIS_KEY));
          world.tryAddEntity(atlantis);
       }
 
@@ -233,11 +235,11 @@ final class WorldModel
       {
          Point pt = new Point(Integer.parseInt(properties[SGRASS_COL]),
                  Integer.parseInt(properties[SGRASS_ROW]));
-         Sgrass Sgrass = new Sgrass(properties[SGRASS_ID],
+         Sgrass sgrass = new Sgrass(properties[SGRASS_ID],
                  pt,
                  Integer.parseInt(properties[SGRASS_ACTION_PERIOD]),
-                 imageStore.getImageList(Functions.SGRASS_KEY));
-         world.tryAddEntity(Sgrass);
+                 imageStore.getImageList(Sgrass.SGRASS_KEY));
+         world.tryAddEntity(sgrass);
       }
 
       return properties.length == SGRASS_NUM_PROPERTIES;
@@ -249,19 +251,19 @@ final class WorldModel
       String[] properties = line.split("\\s");
       if (properties.length > 0)
       {
-         switch (properties[Functions.PROPERTY_KEY])
+         switch (properties[WorldModel.PROPERTY_KEY])
          {
-            case Functions.BGND_KEY:
+            case Background.BGND_KEY:
                return parseBackground(properties, world, imageStore);
-            case Functions.OCTO_KEY:
+            case Octo.OCTO_KEY:
                return parseOcto(properties, world, imageStore);
-            case Functions.OBSTACLE_KEY:
+            case Obstacle.OBSTACLE_KEY:
                return parseObstacle(properties, world, imageStore);
-            case Functions.FISH_KEY:
+            case Fish.FISH_KEY:
                return parseFish(properties, world, imageStore);
-            case Functions.ATLANTIS_KEY:
+            case Atlantis.ATLANTIS_KEY:
                return parseAtlantis(properties, world, imageStore);
-            case Functions.SGRASS_KEY:
+            case Sgrass.SGRASS_KEY:
                return parseSgrass(properties, world, imageStore);
          }
       }

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 public abstract class Octo extends MovingEntity {
 
+    public static final String OCTO_KEY = "octo";
     private final int resourceLimit;
     private int resourceCount;
 

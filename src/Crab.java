@@ -5,6 +5,12 @@ import java.util.Optional;
 
 public class Crab extends MovingEntity {
 
+    public static final String CRAB_KEY = "crab";
+    public static final String CRAB_ID_SUFFIX = " -- crab";
+    public static final int CRAB_PERIOD_SCALE = 4;
+    public static final int CRAB_ANIMATION_MIN = 50;
+    public static final int CRAB_ANIMATION_MAX = 150;
+
     public Crab(String id, Point position, int actionPeriod, int animationPeriod, List<PImage> images) {
         super(id, position, images, actionPeriod, animationPeriod);
     }
@@ -28,7 +34,7 @@ public class Crab extends MovingEntity {
             if (moveTo(world, crabTarget.get(), scheduler))
             {
                 Quake quake = new Quake(tgtPos,
-                        imageStore.getImageList(QUAKE_KEY));
+                        imageStore.getImageList(Quake.QUAKE_KEY));
 
                 world.addEntity(quake);
                 nextPeriod += getActionPeriod();

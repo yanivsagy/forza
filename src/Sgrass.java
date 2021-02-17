@@ -5,6 +5,8 @@ import java.util.Optional;
 
 public class Sgrass extends ActionEntity {
 
+    public static final String SGRASS_KEY = "seaGrass";
+
     public Sgrass(String id, Point position, int actionPeriod, List<PImage> images) {
         super(id, position, images, actionPeriod);
     }
@@ -14,10 +16,10 @@ public class Sgrass extends ActionEntity {
 
         if (openPt.isPresent())
         {
-            Fish fish = new Fish(FISH_ID_PREFIX + getID(),
-                    openPt.get(), FISH_CORRUPT_MIN +
-                    Functions.rand.nextInt(FISH_CORRUPT_MAX - FISH_CORRUPT_MIN),
-                    imageStore.getImageList(Functions.FISH_KEY));
+            Fish fish = new Fish(Fish.FISH_ID_PREFIX + getID(),
+                    openPt.get(), Fish.FISH_CORRUPT_MIN +
+                    WorldModel.rand.nextInt(Fish.FISH_CORRUPT_MAX - Fish.FISH_CORRUPT_MIN),
+                    imageStore.getImageList(Fish.FISH_KEY));
             world.addEntity(fish);
             fish.scheduleActions(scheduler, world, imageStore);
         }

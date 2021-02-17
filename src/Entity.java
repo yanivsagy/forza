@@ -10,18 +10,6 @@ Entity ideally would includes functions for how all the entities in our virtual 
 
 abstract class Entity
 {
-   public static final String CRAB_KEY = "crab";
-   public static final String CRAB_ID_SUFFIX = " -- crab";
-   public static final int CRAB_PERIOD_SCALE = 4;
-   public static final int CRAB_ANIMATION_MIN = 50;
-   public static final int CRAB_ANIMATION_MAX = 150;
-   public static final String QUAKE_KEY = "quake";
-   public static final String FISH_ID_PREFIX = "fish -- ";
-   public static final int FISH_CORRUPT_MIN = 20000;
-   public static final int FISH_CORRUPT_MAX = 30000;
-   public static final int QUAKE_ANIMATION_REPEAT_COUNT = 10;
-   public static final int ATLANTIS_ANIMATION_REPEAT_COUNT = 7;
-
    private final String id;
    private Point position;
    private final List<PImage> images;

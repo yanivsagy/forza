@@ -4,9 +4,15 @@ import java.util.List;
 
 public class Quake extends AnimatedEntity {
 
+    public static final String QUAKE_ID = "quake";
+    public static final int QUAKE_ACTION_PERIOD = 1100;
+    public static final int QUAKE_ANIMATION_PERIOD = 100;
+    public static final String QUAKE_KEY = "quake";
+    public static final int QUAKE_ANIMATION_REPEAT_COUNT = 10;
+
     public Quake(Point position, List<PImage> images) {
-        super(Functions.QUAKE_ID, position, images,
-                Functions.QUAKE_ACTION_PERIOD, Functions.QUAKE_ANIMATION_PERIOD);
+        super(Quake.QUAKE_ID, position, images,
+                Quake.QUAKE_ACTION_PERIOD, Quake.QUAKE_ANIMATION_PERIOD);
     }
 
     protected void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
