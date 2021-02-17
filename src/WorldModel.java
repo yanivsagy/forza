@@ -145,63 +145,6 @@ final class WorldModel
       addEntity(entity);
    }
 
-//   private Entity createAtlantis(String id, Point position,
-//                                       List<PImage> images)
-//   {
-//      return new Entity(EntityKind.ATLANTIS, id, position, images,
-//              0, 0, 0, 0);
-//   }
-
-//   public Entity createOctoFull(String id, int resourceLimit,
-//                                       Point position, int actionPeriod, int animationPeriod,
-//                                       List<PImage> images)
-//   {
-//      return new Entity(EntityKind.OCTO_FULL, id, position, images,
-//              resourceLimit, resourceLimit, actionPeriod, animationPeriod);
-//   }
-//
-//   public Entity createOctoNotFull(String id, int resourceLimit,
-//                                          Point position, int actionPeriod, int animationPeriod,
-//                                          List<PImage> images)
-//   {
-//      return new Entity(EntityKind.OCTO_NOT_FULL, id, position, images,
-//              resourceLimit, 0, actionPeriod, animationPeriod);
-//   }
-
-//   private Entity createObstacle(String id, Point position,
-//                                       List<PImage> images)
-//   {
-//      return new Entity(EntityKind.OBSTACLE, id, position, images,
-//              0, 0, 0, 0);
-//   }
-
-//   public Entity createFish(String id, Point position, int actionPeriod,
-//                                   List<PImage> images)
-//   {
-//      return new Entity(EntityKind.FISH, id, position, images, 0, 0,
-//              actionPeriod, 0);
-//   }
-
-//   public Entity createCrab(String id, Point position,
-//                                   int actionPeriod, int animationPeriod, List<PImage> images)
-//   {
-//      return new Entity(EntityKind.CRAB, id, position, images,
-//              0, 0, actionPeriod, animationPeriod);
-//   }
-
-//   public Entity createQuake(Point position, List<PImage> images)
-//   {
-//      return new Entity(EntityKind.QUAKE, Functions.QUAKE_ID, position, images,
-//              0, 0, Functions.QUAKE_ACTION_PERIOD, Functions.QUAKE_ANIMATION_PERIOD);
-//   }
-
-//   private Entity createSgrass(String id, Point position, int actionPeriod,
-//                                     List<PImage> images)
-//   {
-//      return new Entity(EntityKind.SGRASS, id, position, images, 0, 0,
-//              actionPeriod, 0);
-//   }
-
    private boolean parseBackground(String [] properties,
                                   WorldModel world, ImageStore imageStore)
    {

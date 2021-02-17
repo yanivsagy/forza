@@ -76,11 +76,4 @@ public class OctoNotFull extends Octo {
 
         return false;
     }
-
-//    protected void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
-//        scheduler.scheduleEvent(this,
-//                scheduler.createActivityAction(this, world, imageStore), getActionPeriod());
-//        scheduler.scheduleEvent(this,
-//                scheduler.createAnimationAction(this, 0), getAnimationPeriod());
-//    }
 }
