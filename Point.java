@@ -2,11 +2,51 @@ final class Point
 {
    public final int x;
    public final int y;
+   private double g;
+   private double h;
+   private double f;
+   private Point priorNode;
 
    public Point(int x, int y)
    {
       this.x = x;
       this.y = y;
+      this.g = 0;
+      this.h = 0;
+      this.f = 0;
+      this.priorNode = null;
+   }
+
+   public double getG() {
+      return this.g;
+   }
+
+   public void setG(double n) {
+      this.g = n;
+   }
+
+   public double getH() {
+      return this.h;
+   }
+
+   public void setH(double n) {
+      this.h = n;
+   }
+
+   public double getF() {
+      return this.f;
+   }
+
+   public void setF(double n) {
+      this.f = n;
+   }
+
+   public Point getPriorNode() {
+      return this.priorNode;
+   }
+
+   public void setPriorNode(Point p) {
+      this.priorNode = p;
    }
 
    public String toString()
@@ -29,10 +69,10 @@ final class Point
       return result;
    }
 
-   public boolean adjacent(Point other)
+   public boolean adjacent(Point p)
    {
-      return (this.x == other.x && Math.abs(this.y - other.y) == 1) ||
-              (this.y == other.y && Math.abs(this.x - other.x) == 1);
+      return (x == p.x && Math.abs(y - p.y) == 1) ||
+              (y == p.y && Math.abs(x - p.x) == 1);
    }
 
    public int distanceSquared(Point p2)

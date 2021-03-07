@@ -12,7 +12,7 @@ public class Crab extends MovingEntity {
     public static final int CRAB_ANIMATION_MAX = 150;
 
     public Crab(String id, Point position, int actionPeriod, int animationPeriod, List<PImage> images) {
-        super(id, position, images, actionPeriod, animationPeriod);
+        super(id, position, images, actionPeriod, animationPeriod, new SingleStepPathingStrategy());
     }
 
     protected void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
@@ -27,12 +27,10 @@ public class Crab extends MovingEntity {
                 getPosition(), Sgrass.class);
         long nextPeriod = getActionPeriod();
 
-        if (crabTarget.isPresent())
-        {
+        if (crabTarget.isPresent()) {
             Point tgtPos = crabTarget.get().getPosition();
 
-            if (moveTo(world, crabTarget.get(), scheduler))
-            {
+            if (moveTo(world, crabTarget.get(), scheduler)) {
                 Quake quake = new Quake(tgtPos,
                         imageStore.getImageList(Quake.QUAKE_KEY));
 
@@ -48,23 +46,17 @@ public class Crab extends MovingEntity {
     }
 
     protected boolean moveTo(WorldModel world,
-                               Entity target, EventScheduler scheduler)
-    {
-        if (getPosition().adjacent(target.getPosition()))
-        {
+                             Entity target, EventScheduler scheduler) {
+        if (getPosition().adjacent(target.getPosition())) {
             world.removeEntity(target);
             scheduler.unscheduleAllEvents(target);
             return true;
-        }
-        else
-        {
+        } else {
             Point nextPos = nextPosition(world, target.getPosition());
 
-            if (!getPosition().equals(nextPos))
-            {
+            if (!getPosition().equals(nextPos)) {
                 Optional<Entity> occupant = world.getOccupant(nextPos);
-                if (occupant.isPresent())
-                {
+                if (occupant.isPresent()) {
                     scheduler.unscheduleAllEvents(occupant.get());
                 }
 
@@ -75,28 +67,25 @@ public class Crab extends MovingEntity {
     }
 
     protected Point nextPosition(WorldModel world,
-                                   Point destPos)
-    {
-        int horiz = Integer.signum(destPos.x - getPosition().x);
-        Point newPos = new Point(getPosition().x + horiz,
-                getPosition().y);
+                                 Point destPos) {
+        List<Point> points;
 
-        Optional<Entity> occupant = world.getOccupant(newPos);
+//      while (!neighbors(pos, goal))
+//      {
+        points = getStrategy().computePath(getPosition(), destPos,
+                p ->  world.withinBounds(p) && (!world.getOccupant(p).isPresent() ||
+                            (world.getOccupant(p).isPresent()
+                                && world.getOccupant(p).get().getClass() == Fish.class)),
+                (p1, p2) -> p1.adjacent(p2),
+                PathingStrategy.CARDINAL_NEIGHBORS);
+//                PathingStrategy.DIAGONAL_NEIGHBORS);
+//                PathingStrategy.DIAGONAL_CARDINAL_NEIGHBORS);
 
-        if (horiz == 0 ||
-                (occupant.isPresent() && !(occupant.get().getClass() == Fish.class)))
+        if (points.size() == 0)
         {
-            int vert = Integer.signum(destPos.y - getPosition().y);
-            newPos = new Point(getPosition().x, getPosition().y + vert);
-            occupant = world.getOccupant(newPos);
-
-            if (vert == 0 ||
-                    (occupant.isPresent() && !(occupant.get().getClass() == Fish.class)))
-            {
-                newPos = getPosition();
-            }
+            return getPosition();
         }
 
-        return newPos;
+        return points.get(0);
     }
 }

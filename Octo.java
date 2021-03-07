@@ -11,7 +11,7 @@ public abstract class Octo extends MovingEntity {
 
     public Octo(String id, Point position, List<PImage> images, int actionPeriod, int animationPeriod,
                 int resourceLimit, int resourceCount) {
-        super(id, position, images, actionPeriod, animationPeriod);
+        super(id, position, images, actionPeriod, animationPeriod, new AStarPathingStrategy());
         this.resourceLimit = resourceLimit;
         this.resourceCount = resourceCount;
     }
@@ -38,22 +38,24 @@ public abstract class Octo extends MovingEntity {
     protected Point nextPosition(WorldModel world,
                                    Point destPos)
     {
-        int horiz = Integer.signum(destPos.x - getPosition().x);
-        Point newPos = new Point(getPosition().x + horiz,
-                getPosition().y);
+        List<Point> points;
 
-        if (horiz == 0 || world.isOccupied(newPos))
+//      while (!neighbors(pos, goal))
+//      {
+        points = getStrategy().computePath(getPosition(), destPos,
+                p -> world.withinBounds(p) && !world.isOccupied(p),
+                (p1, p2) -> p1.adjacent(p2),
+                PathingStrategy.CARDINAL_NEIGHBORS);
+//                PathingStrategy.DIAGONAL_NEIGHBORS);
+//                PathingStrategy.DIAGONAL_CARDINAL_NEIGHBORS);
+
+        if (points.size() == 0)
         {
-            int vert = Integer.signum(destPos.y - getPosition().y);
-            newPos = new Point(getPosition().x,
-                    getPosition().y + vert);
-
-            if (vert == 0 || world.isOccupied(newPos))
-            {
-                newPos = getPosition();
-            }
+            return getPosition();
         }
 
-        return newPos;
+        Point endPoint = points.get(0);
+        endPoint.setPriorNode(null);
+        return endPoint;
     }
 }
