@@ -1,0 +1,22 @@
+WORLD EVENT: Rogue Motorcyclist
+
+1. How to trigger the event:
+	
+	The event is triggered by a mouse click on the racetrack.
+
+2. What should happen when the event is triggered:
+
+	When the event is triggered, a motorcycle spawns where the mouse was clicked and oil hazards also spawn on two of the tiles next to where the mouse was clicked.
+	The motorcycle will travel in the direction opposite to the direction the rest of the cars are travelling in.
+
+3. What the affected entities should do:
+	
+	If a car (your own or computer-controlled) lands on the oil, the car will explode and turn into fire.
+	If a car (your own or computer-controlled) collides with the motorcycle, the car will explode and turn into fire.
+
+4. What the new entity is and how it should behave
+
+	The new entity is a motorcycle. It moves along the track in the direction opposite to the direction the rest of the cars are travelling in.
+	If the motorcycle happens to hit another car, both the motorcycle and the other car will crash and turn into fire.
+
+(if applicable) the names of each partner and what each partner was responsible for
