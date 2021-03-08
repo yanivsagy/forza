@@ -261,14 +261,14 @@ final class WorldModel
                                  ImageStore imageStore)
    {
       try {
-         Point pt = new Point(Integer.parseInt(properties[2]),
-                 Integer.parseInt(properties[3]));
-         PlayerCar playerCar = new PlayerCar(properties[1],
-                 pt, imageStore.getImageList(PLAYER_CAR));
-         world.tryAddEntity(playerCar);
-      }
+            Point pt = new Point(Integer.parseInt(properties[2]),
+                    Integer.parseInt(properties[3]));
+            PlayerCar playerCar = new PlayerCar(properties[1],
+                    pt, imageStore.getImageList(PLAYER_CAR));
+            world.tryAddEntity(playerCar);
+         }
       catch (Exception e) {
-         System.out.println("Cannot make instance of PlayerCar: " + e.getMessage());
+            System.out.println("Cannot make instance of PlayerCar: " + e.getMessage());
       }
    }
 
