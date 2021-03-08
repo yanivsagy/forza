@@ -13,10 +13,6 @@ class DijkstraPathingStrategy implements PathingStrategy {
                                    Function<Point, Stream<Point>> potentialNeighbors)
     {
         // Change to Dijkstra
-
-        // Change to Dijkstra
-
-        // Change to Dijkstra
         return potentialNeighbors.apply(start)
                 .filter(canPassThrough)
                 .filter(pt ->

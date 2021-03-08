@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public class Barrel extends MovingObstacle {
 
-    public Barrel (String id, Point position, List<PImage> images, int actionPeriod, int animationPeriod, PathingStrategy strategy) {
+    public Barrel (String id, Point position, List<PImage> images, int actionPeriod, int animationPeriod) {
         super(id, position, images, actionPeriod, animationPeriod, new DijkstraPathingStrategy());
     }
     //implement Dijkstra
