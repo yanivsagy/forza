@@ -2,7 +2,7 @@ import processing.core.PImage;
 
 import java.util.List;
 
-public abstract class GameMovingEntity extends GameAnimatedEntity {
+public abstract class GameMovingEntity extends AnimatedEntity {
     private PathingStrategy strategy;
 
     public GameMovingEntity(String id, Point position, List<PImage> images, int actionPeriod, int animationPeriod, PathingStrategy strategy) {

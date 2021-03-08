@@ -53,6 +53,7 @@ final class WorldModel
    public static final String FIRE = "fire";
    public static final String BARREL = "barrel";
    public static final String PEOPLE = "people";
+   public static final String GRASS = "grass";
 
    private final int numRows;
    private final int numCols;
@@ -272,22 +273,22 @@ final class WorldModel
       }
    }
 
-//   private boolean parseComputerCar(String [] properties, WorldModel world,
-//                                 ImageStore imageStore)
-//   {
-//      try {
-//         Point pt = new Point(Integer.parseInt(properties[2]),
-//                 Integer.parseInt(properties[3]));
-//         ComputerCar computerCar = new ComputerCar(properties[0],
-//                 pt, imageStore.getImageList(properties[0]), 0, 0);
-//         return true;
-//      }
-//      catch (Exception e) {
-//         return false;
-//      }
-//
-//   }
-//
+   private boolean parseComputerCar(String [] properties, WorldModel world,
+                                 ImageStore imageStore)
+   {
+      try {
+         Point pt = new Point(Integer.parseInt(properties[2]),
+                 Integer.parseInt(properties[3]));
+         ComputerCar computerCar = new ComputerCar(properties[1],
+                 pt, imageStore.getImageList(properties[1]), 2, 2);
+         return true;
+      }
+      catch (Exception e) {
+         return false;
+      }
+
+   }
+
 //   private boolean parseBarrel(String [] properties, WorldModel world,
 //                                 ImageStore imageStore)
 //   {
@@ -303,21 +304,37 @@ final class WorldModel
 //      }
 //   }
 //
-//   private boolean parsePeople(String [] properties, WorldModel world,
-//                               ImageStore imageStore)
-//   {
-//      try {
-//         Point pt = new Point(Integer.parseInt(properties[2]),
-//                 Integer.parseInt(properties[3]));
-//         People people = new People(properties[0],
-//                 pt, imageStore.getImageList(PEOPLE), 0, 0);
-//         return true;
-//      }
-//      catch (Exception e) {
-//         return false;
-//      }
-//
-//   }
+   private void parsePeople(String [] properties, WorldModel world,
+                               ImageStore imageStore)
+   {
+      try {
+         Point pt = new Point(Integer.parseInt(properties[2]),
+                 Integer.parseInt(properties[3]));
+         People people = new People(properties[0],
+                 pt, imageStore.getImageList(PEOPLE));
+         tryAddEntity(people);
+      }
+      catch (Exception e) {
+         System.out.println("Cannot make instance of PlayerCar: " + e.getMessage());
+      }
+
+   }
+
+   private void parseGrass(String [] properties, WorldModel world,
+                            ImageStore imageStore)
+   {
+      try {
+         Point pt = new Point(Integer.parseInt(properties[2]),
+                 Integer.parseInt(properties[3]));
+         Grass grass = new Grass(properties[0],
+                 pt, imageStore.getImageList(GRASS));
+         tryAddEntity(grass);
+      }
+      catch (Exception e) {
+         System.out.println("Cannot make instance of PlayerCar: " + e.getMessage());
+      }
+
+   }
 
    private boolean processLine(String line, WorldModel world,
                                      ImageStore imageStore)
@@ -330,6 +347,15 @@ final class WorldModel
             case Background.BGND_KEY:
                if (properties[1].equals(PLAYER_CAR)) {
                   parsePlayerCar(properties, world, imageStore);
+               }
+               else if (properties[1].equals(PEOPLE)) {
+                  parsePeople(properties, world, imageStore);
+               }
+               else if (properties[1].equals(GRASS)) {
+                  parseGrass(properties, world, imageStore);
+               }
+               else if (properties[1].substring(properties[1].length() - 3).equals("Car")) {
+                  parseComputerCar(properties, world, imageStore);
                }
                return parseBackground(properties, world, imageStore);
             case Octo.OCTO_KEY:

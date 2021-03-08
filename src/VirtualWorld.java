@@ -119,7 +119,8 @@ public final class VirtualWorld
                  .collect(Collectors.toList()).get(0);
 
          if (!(p1.getPosition().x + dx > 39) && !(p1.getPosition().x + dx < 0)
-                 && !(p1.getPosition().y + dy < 0) && !(p1.getPosition().y + dy > 29))
+                 && !(p1.getPosition().y + dy < 0) && !(p1.getPosition().y + dy > 29)
+                  && !(world.isOccupied(new Point(p1.getPosition().x + dx, p1.getPosition().y + dy))))
          {
             p1.setPosition(new Point(p1.getPosition().x + dx, p1.getPosition().y + dy));
             world.moveEntity(p1, p1.getPosition());
