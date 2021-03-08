@@ -46,6 +46,7 @@ public final class VirtualWorld
    private WorldModel world;
    private WorldView view;
    private EventScheduler scheduler;
+   private PlayerCar player;
 
    private long next_time;
 
@@ -110,6 +111,7 @@ public final class VirtualWorld
                break;
          }
          view.shiftView(dx, dy);
+         player.move(dx, dy);
       }
    }
 
