@@ -1,2 +1,4 @@
-public class GameMovingEntity {
+public class GameMovingEntity extends GameAnimatedEntity {
+    private PathingStrategy strategy;
+
 }

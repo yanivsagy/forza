@@ -1,2 +1,2 @@
-public class People {
+public class People extends MovingObstacle {
 }

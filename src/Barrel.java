@@ -1,4 +1,4 @@
-public class Barrel {
+public class Barrel extends MovingObstacle {
 
     //implement Dijkstra
 }

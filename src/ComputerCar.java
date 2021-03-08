@@ -1,4 +1,4 @@
-public class ComputerCar {
+public class ComputerCar extends GameMovingEntity {
 
     //implement AStar
 }

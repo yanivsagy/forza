@@ -1,2 +1,2 @@
-public class PlayerCar {
+public class PlayerCar extends GameMovingEntity {
 }

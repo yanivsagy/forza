@@ -1,2 +1,2 @@
-public class MovingObstacle {
+public class MovingObstacle extends GameMovingEntity {
 }

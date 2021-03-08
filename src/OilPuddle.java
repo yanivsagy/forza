@@ -1,2 +1,2 @@
-public class OilPuddle {
+public class OilPuddle extends NonMovingObstacle {
 }
