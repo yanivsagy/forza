@@ -117,7 +117,22 @@ public final class VirtualWorld
          p1 = world.getEntities().stream()
                  .filter(p -> p.getID().equals("playerCar"))
                  .collect(Collectors.toList()).get(0);
-
+//         Point playPosition = p1.getPosition();
+//
+//         if(p1.getPosition().x > 32) {
+//            playPosition = new Point(31 + dx, p1.getPosition().y + dy);
+//         }
+//         if(p1.getPosition().x < 0) {
+//            playPosition = new Point(dx, p1.getPosition().y + dy);
+//         }
+//         if(p1.getPosition().y > 31) {
+//            playPosition = new Point(p1.getPosition().x + dx, 31 + dy);
+//         }
+//         if(p1.getPosition().x < 0) {
+//            playPosition = new Point(p1.getPosition().x + dx, dy);
+//         }
+//         else { playPosition = new Point(p1.getPosition().x + dx, p1.getPosition().y + dy);}
+//         p1.setPosition(playPosition);
          p1.setPosition(new Point(p1.getPosition().x + dx, p1.getPosition().y + dy));
          world.moveEntity(p1, p1.getPosition());
       }
@@ -126,6 +141,12 @@ public final class VirtualWorld
    public void mousePressed() {
       Motorcycle motor = new Motorcycle("1", new Point(mouseX / 32, mouseY / 32), imageStore.getImageList(WorldModel.MOTORCYCLE), 0, 0);
       world.addEntity(motor);
+      OilPuddle oil1 = new OilPuddle("2",
+              new Point(mouseX / 32, mouseY / 32 + 1), imageStore.getImageList(WorldModel.OIL_PUDDLE));
+      world.addEntity(oil1);
+      OilPuddle oil2 = new OilPuddle("3",
+              new Point(mouseX / 32, mouseY / 32 - 1), imageStore.getImageList(WorldModel.OIL_PUDDLE));
+      world.addEntity(oil2);
    }
 
    private static Background createDefaultBackground(ImageStore imageStore)
