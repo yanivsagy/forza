@@ -115,6 +115,11 @@ public final class VirtualWorld
       }
    }
 
+   public void mousePressed() {
+      Motorcycle motor = new Motorcycle("1", new Point(mouseX / 32, mouseY / 32), imageStore.getImageList(WorldModel.MOTORCYCLE), 0, 0);
+      world.addEntity(motor);
+   }
+
    private static Background createDefaultBackground(ImageStore imageStore)
    {
       return new Background(DEFAULT_IMAGE_NAME,

@@ -2,7 +2,7 @@ import processing.core.PImage;
 
 import java.util.List;
 
-public abstract class GameActionEntity extends GameEntity {
+public abstract class GameActionEntity extends Entity {
 
     private final int actionPeriod;
 

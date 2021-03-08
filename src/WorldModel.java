@@ -272,52 +272,52 @@ final class WorldModel
       }
    }
 
-   private boolean parseComputerCar(String [] properties, WorldModel world,
-                                 ImageStore imageStore)
-   {
-      try {
-         Point pt = new Point(Integer.parseInt(properties[2]),
-                 Integer.parseInt(properties[3]));
-         ComputerCar computerCar = new ComputerCar(properties[0],
-                 pt, imageStore.getImageList(properties[0]), 0, 0);
-         return true;
-      }
-      catch (Exception e) {
-         return false;
-      }
-
-   }
-
-   private boolean parseBarrel(String [] properties, WorldModel world,
-                                 ImageStore imageStore)
-   {
-      try {
-         Point pt = new Point(Integer.parseInt(properties[2]),
-                 Integer.parseInt(properties[3]));
-         Barrel barrel = new Barrel(properties[0],
-                 pt, imageStore.getImageList(BARREL), 0, 0);
-         return true;
-      }
-      catch (Exception e) {
-         return false;
-      }
-   }
-
-   private boolean parsePeople(String [] properties, WorldModel world,
-                               ImageStore imageStore)
-   {
-      try {
-         Point pt = new Point(Integer.parseInt(properties[2]),
-                 Integer.parseInt(properties[3]));
-         People people = new People(properties[0],
-                 pt, imageStore.getImageList(PEOPLE), 0, 0);
-         return true;
-      }
-      catch (Exception e) {
-         return false;
-      }
-
-   }
+//   private boolean parseComputerCar(String [] properties, WorldModel world,
+//                                 ImageStore imageStore)
+//   {
+//      try {
+//         Point pt = new Point(Integer.parseInt(properties[2]),
+//                 Integer.parseInt(properties[3]));
+//         ComputerCar computerCar = new ComputerCar(properties[0],
+//                 pt, imageStore.getImageList(properties[0]), 0, 0);
+//         return true;
+//      }
+//      catch (Exception e) {
+//         return false;
+//      }
+//
+//   }
+//
+//   private boolean parseBarrel(String [] properties, WorldModel world,
+//                                 ImageStore imageStore)
+//   {
+//      try {
+//         Point pt = new Point(Integer.parseInt(properties[2]),
+//                 Integer.parseInt(properties[3]));
+//         Barrel barrel = new Barrel(properties[0],
+//                 pt, imageStore.getImageList(BARREL), 0, 0);
+//         return true;
+//      }
+//      catch (Exception e) {
+//         return false;
+//      }
+//   }
+//
+//   private boolean parsePeople(String [] properties, WorldModel world,
+//                               ImageStore imageStore)
+//   {
+//      try {
+//         Point pt = new Point(Integer.parseInt(properties[2]),
+//                 Integer.parseInt(properties[3]));
+//         People people = new People(properties[0],
+//                 pt, imageStore.getImageList(PEOPLE), 0, 0);
+//         return true;
+//      }
+//      catch (Exception e) {
+//         return false;
+//      }
+//
+//   }
 
    private boolean processLine(String line, WorldModel world,
                                      ImageStore imageStore)
@@ -341,16 +341,16 @@ final class WorldModel
                return parseSgrass(properties, world, imageStore);
             case PLAYER_CAR:
                return parsePlayerCar(properties, world, imageStore);
-            case BLACK_COMPUTER_CAR:
-            case BLUE_COMPUTER_CAR:
-            case GREEN_COMPUTER_CAR:
-            case YELLOW_COMPUTER_CAR:
-            case RED_COMPUTER_CAR:
-               return parseComputerCar(properties, world, imageStore);
-            case BARREL:
-               return parseBarrel(properties, world, imageStore);
-            case PEOPLE:
-               return parsePeople(properties, world, imageStore);
+//            case BLACK_COMPUTER_CAR:
+//            case BLUE_COMPUTER_CAR:
+//            case GREEN_COMPUTER_CAR:
+//            case YELLOW_COMPUTER_CAR:
+//            case RED_COMPUTER_CAR:
+//               return parseComputerCar(properties, world, imageStore);
+//            case BARREL:
+//               return parseBarrel(properties, world, imageStore);
+//            case PEOPLE:
+//               return parsePeople(properties, world, imageStore);
          }
       }
 
