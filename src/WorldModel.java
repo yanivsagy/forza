@@ -257,18 +257,18 @@ final class WorldModel
       return properties.length == SGRASS_NUM_PROPERTIES;
    }
 
-   private boolean parsePlayerCar(String [] properties, WorldModel world,
+   private void parsePlayerCar(String [] properties, WorldModel world,
                                  ImageStore imageStore)
    {
       try {
          Point pt = new Point(Integer.parseInt(properties[2]),
                  Integer.parseInt(properties[3]));
-         PlayerCar playerCar = new PlayerCar(properties[0],
+         PlayerCar playerCar = new PlayerCar(properties[1],
                  pt, imageStore.getImageList(PLAYER_CAR));
-         return true;
+         world.tryAddEntity(playerCar);
       }
       catch (Exception e) {
-         return false;
+         System.out.println("Cannot make instance of PlayerCar: " + e.getMessage());
       }
    }
 
@@ -328,6 +328,9 @@ final class WorldModel
          switch (properties[WorldModel.PROPERTY_KEY])
          {
             case Background.BGND_KEY:
+               if (properties[1].equals(PLAYER_CAR)) {
+                  parsePlayerCar(properties, world, imageStore);
+               }
                return parseBackground(properties, world, imageStore);
             case Octo.OCTO_KEY:
                return parseOcto(properties, world, imageStore);
@@ -339,8 +342,6 @@ final class WorldModel
                return parseAtlantis(properties, world, imageStore);
             case Sgrass.SGRASS_KEY:
                return parseSgrass(properties, world, imageStore);
-            case PLAYER_CAR:
-               return parsePlayerCar(properties, world, imageStore);
 //            case BLACK_COMPUTER_CAR:
 //            case BLUE_COMPUTER_CAR:
 //            case GREEN_COMPUTER_CAR:
@@ -401,7 +402,7 @@ final class WorldModel
       removeEntityAt(entity.getPosition());
    }
 
-   private void removeEntityAt(Point pos)
+   public void removeEntityAt(Point pos)
    {
       if (withinBounds(pos)
               && getOccupancyCell(pos) != null)

@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+
 import processing.core.*;
 
 /*
@@ -46,7 +48,7 @@ public final class VirtualWorld
    private WorldModel world;
    private WorldView view;
    private EventScheduler scheduler;
-   private PlayerCar player;
+   private Entity p1;
 
    private long next_time;
 
@@ -111,7 +113,13 @@ public final class VirtualWorld
                break;
          }
          view.shiftView(dx, dy);
-//         player.move(dx, dy);
+
+         p1 = world.getEntities().stream()
+                 .filter(p -> p.getID().equals("playerCar"))
+                 .collect(Collectors.toList()).get(0);
+
+         p1.setPosition(new Point(p1.getPosition().x + dx, p1.getPosition().y + dy));
+         world.moveEntity(p1, p1.getPosition());
       }
    }
 
