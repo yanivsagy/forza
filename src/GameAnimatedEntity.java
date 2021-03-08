@@ -1,2 +1,3 @@
-public class GameAnimatedEntity extends GameActionEntity{
+public class GameAnimatedEntity extends GameActionEntity {
+
 }

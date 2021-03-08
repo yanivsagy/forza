@@ -3,6 +3,7 @@ import processing.core.PImage;
 import java.util.List;
 
 public class GameEntity {
+
     private final String id;
     private Point position;
     private final List<PImage> images;
@@ -43,4 +44,5 @@ public class GameEntity {
     {
         return images.get(this.imageIndex);
     }
+
 }
