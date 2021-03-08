@@ -42,6 +42,18 @@ final class WorldModel
    public static final int BGND_ROW = 3;
    public static final int FISH_REACH = 1;
 
+   public static final String PLAYER_CAR = "playerCar";
+   public static final String MOTORCYCLE = "motorcycle";
+   public static final String OIL_PUDDLE = "oilPuddle";
+   public static final String BLACK_COMPUTER_CAR = "blackComputerCar";
+   public static final String BLUE_COMPUTER_CAR = "blueComputerCar";
+   public static final String GREEN_COMPUTER_CAR = "greenComputerCar";
+   public static final String RED_COMPUTER_CAR = "redComputerCar";
+   public static final String YELLOW_COMPUTER_CAR = "yellowComputerCar";
+   public static final String FIRE = "fire";
+   public static final String BARREL = "barrel";
+   public static final String PEOPLE = "people";
+
    private final int numRows;
    private final int numCols;
    private final Background[][] background;
@@ -245,6 +257,68 @@ final class WorldModel
       return properties.length == SGRASS_NUM_PROPERTIES;
    }
 
+   private boolean parsePlayerCar(String [] properties, WorldModel world,
+                                 ImageStore imageStore)
+   {
+      try {
+         Point pt = new Point(Integer.parseInt(properties[2]),
+                 Integer.parseInt(properties[3]));
+         PlayerCar playerCar = new PlayerCar(properties[0],
+                 pt, imageStore.getImageList(PLAYER_CAR));
+         return true;
+      }
+      catch (Exception e) {
+         return false;
+      }
+   }
+
+   private boolean parseComputerCar(String [] properties, WorldModel world,
+                                 ImageStore imageStore)
+   {
+      try {
+         Point pt = new Point(Integer.parseInt(properties[2]),
+                 Integer.parseInt(properties[3]));
+         ComputerCar computerCar = new ComputerCar(properties[0],
+                 pt, imageStore.getImageList(properties[0]), 0, 0);
+         return true;
+      }
+      catch (Exception e) {
+         return false;
+      }
+
+   }
+
+   private boolean parseBarrel(String [] properties, WorldModel world,
+                                 ImageStore imageStore)
+   {
+      try {
+         Point pt = new Point(Integer.parseInt(properties[2]),
+                 Integer.parseInt(properties[3]));
+         Barrel barrel = new Barrel(properties[0],
+                 pt, imageStore.getImageList(BARREL), 0, 0);
+         return true;
+      }
+      catch (Exception e) {
+         return false;
+      }
+   }
+
+   private boolean parsePeople(String [] properties, WorldModel world,
+                               ImageStore imageStore)
+   {
+      try {
+         Point pt = new Point(Integer.parseInt(properties[2]),
+                 Integer.parseInt(properties[3]));
+         People people = new People(properties[0],
+                 pt, imageStore.getImageList(PEOPLE), 0, 0);
+         return true;
+      }
+      catch (Exception e) {
+         return false;
+      }
+
+   }
+
    private boolean processLine(String line, WorldModel world,
                                      ImageStore imageStore)
    {
@@ -265,6 +339,18 @@ final class WorldModel
                return parseAtlantis(properties, world, imageStore);
             case Sgrass.SGRASS_KEY:
                return parseSgrass(properties, world, imageStore);
+            case PLAYER_CAR:
+               return parsePlayerCar(properties, world, imageStore);
+            case BLACK_COMPUTER_CAR:
+            case BLUE_COMPUTER_CAR:
+            case GREEN_COMPUTER_CAR:
+            case YELLOW_COMPUTER_CAR:
+            case RED_COMPUTER_CAR:
+               return parseComputerCar(properties, world, imageStore);
+            case BARREL:
+               return parseBarrel(properties, world, imageStore);
+            case PEOPLE:
+               return parsePeople(properties, world, imageStore);
          }
       }
 
