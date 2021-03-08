@@ -1,3 +1,3 @@
-public interface EntityFactory {
-    public static Entity createEntity();
-}
+//public interface EntityFactory {
+//    public static Entity createEntity();
+//}
