@@ -281,6 +281,7 @@ final class WorldModel
                  Integer.parseInt(properties[3]));
          ComputerCar computerCar = new ComputerCar(properties[1],
                  pt, imageStore.getImageList(properties[1]), 2, 2);
+         world.tryAddEntity(computerCar);
          return true;
       }
       catch (Exception e) {
@@ -310,7 +311,7 @@ final class WorldModel
       try {
          Point pt = new Point(Integer.parseInt(properties[2]),
                  Integer.parseInt(properties[3]));
-         People people = new People(properties[0],
+         People people = new People(properties[1],
                  pt, imageStore.getImageList(PEOPLE));
          tryAddEntity(people);
       }
