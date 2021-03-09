@@ -134,7 +134,6 @@ public final class VirtualWorld
                   && !(world.isOccupied(new Point(p1.getPosition().x + dx, p1.getPosition().y + dy))))
          {
             p1.setPosition(new Point(p1.getPosition().x + dx, p1.getPosition().y + dy));
-//            world.rotateImage(p1, p1.getPosition(), imageStore);
             world.moveEntity(p1, p1.getPosition());
          }
       }
