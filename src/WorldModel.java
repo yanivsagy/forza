@@ -42,7 +42,10 @@ final class WorldModel
    public static final int BGND_ROW = 3;
    public static final int FISH_REACH = 1;
 
-   public static final String PLAYER_CAR = "playerCar";
+   public static final String PLAYER_CAR_RIGHT = "playerCarRight";
+   public static final String PLAYER_CAR_LEFT = "playerCarLeft";
+   public static final String PLAYER_CAR_DOWN = "playerCarDown";
+   public static final String PLAYER_CAR_UP = "playerCarUp";
    public static final String MOTORCYCLE = "motorcycle";
    public static final String OIL_PUDDLE = "oilPuddle";
    public static final String BLACK_COMPUTER_CAR = "blackComputerCar";
@@ -265,7 +268,7 @@ final class WorldModel
             Point pt = new Point(Integer.parseInt(properties[2]),
                     Integer.parseInt(properties[3]));
             PlayerCar playerCar = new PlayerCar(properties[1],
-                    pt, imageStore.getImageList(PLAYER_CAR));
+                    pt, imageStore.getImageList(PLAYER_CAR_RIGHT));
             world.tryAddEntity(playerCar);
          }
       catch (Exception e) {
@@ -346,17 +349,11 @@ final class WorldModel
          switch (properties[WorldModel.PROPERTY_KEY])
          {
             case Background.BGND_KEY:
-               if (properties[1].equals(PLAYER_CAR)) {
-                  parsePlayerCar(properties, world, imageStore);
-               }
-               else if (properties[1].equals(PEOPLE)) {
+               if (properties[1].equals(PEOPLE)) {
                   parsePeople(properties, world, imageStore);
                }
                else if (properties[1].equals(GRASS)) {
                   parseGrass(properties, world, imageStore);
-               }
-               else if (properties[1].substring(properties[1].length() - 3).equals("Car")) {
-                  parseComputerCar(properties, world, imageStore);
                }
                return parseBackground(properties, world, imageStore);
             case Octo.OCTO_KEY:
@@ -369,6 +366,15 @@ final class WorldModel
                return parseAtlantis(properties, world, imageStore);
             case Sgrass.SGRASS_KEY:
                return parseSgrass(properties, world, imageStore);
+            case PlayerCar.PLAYER_CAR_KEY:
+               if (properties[1].equals(PLAYER_CAR_RIGHT)) {
+                  parsePlayerCar(properties, world, imageStore);
+               }
+            case ComputerCar.COMPUTER_CAR_KEY:
+               if (properties[1].substring(properties[1].length() - 11).equals("ComputerCar")) {
+                  parseComputerCar(properties, world, imageStore);
+               }
+
 //            case BLACK_COMPUTER_CAR:
 //            case BLUE_COMPUTER_CAR:
 //            case GREEN_COMPUTER_CAR:

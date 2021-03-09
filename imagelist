@@ -37,10 +37,10 @@ background_default images/none.bmp
 grass images/land_grass11.bmp
 roadstart images/road_asphalt88.bmp
 road images/road_asphalt90.bmp
-playerCar images/Daco_520361-right.bmp 255 255 255 128
-playerCar images/Daco_520361-left.bmp 255 255 255 128
-playerCar images/Daco_520361-down.bmp 255 255 255 128
-playerCar images/Daco_520361-up.bmp 255 255 255 128
+playerCarRight images/Daco_520361-right.bmp 255 255 255 128
+playerCarLeft images/Daco_520361-left.bmp 255 255 255 128
+playerCarDown images/Daco_520361-down.bmp 255 255 255 128
+playerCarUp images/Daco_520361-up.bmp 255 255 255 128
 oilPuddle images/oilspill.bmp
 motorcycle images/motorcycle_blue_right.bmp
 motorcycle images/motorcycle_blue_left.bmp

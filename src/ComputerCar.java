@@ -4,6 +4,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ComputerCar extends GameMovingEntity {
+
+    public static final String COMPUTER_CAR_KEY = "computerCar";
+
     public ComputerCar(String id, Point position, List<PImage> images, int actionPeriod, int animationPeriod) {
         super(id, position, images, actionPeriod, animationPeriod, new AStarPathingStrategy());
     }

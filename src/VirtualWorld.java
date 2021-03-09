@@ -42,6 +42,11 @@ public final class VirtualWorld
    public static final double FASTER_SCALE = 0.25;
    public static final double FASTEST_SCALE = 0.10;
 
+   public static final String PLAYER_CAR_RIGHT = "playerCarRight";
+   public static final String PLAYER_CAR_LEFT = "playerCarLeft";
+   public static final String PLAYER_CAR_DOWN = "playerCarDown";
+   public static final String PLAYER_CAR_UP = "playerCarUp";
+
    public static double timeScale = 1.0;
 
    private ImageStore imageStore;
@@ -92,6 +97,10 @@ public final class VirtualWorld
 
    public void keyPressed()
    {
+      p1 = world.getEntities().stream()
+              .filter(p -> p.getID().equals("playerCarRight"))
+              .collect(Collectors.toList()).get(0);
+
       if (key == CODED)
       {
          int dx = 0;
@@ -101,28 +110,31 @@ public final class VirtualWorld
          {
             case UP:
                dy = -1;
+               p1.setImages(imageStore.getImageList(PLAYER_CAR_UP));
                break;
             case DOWN:
                dy = 1;
+               p1.setImages(imageStore.getImageList(PLAYER_CAR_DOWN));
                break;
             case LEFT:
                dx = -1;
+               p1.setImages(imageStore.getImageList(PLAYER_CAR_LEFT));
                break;
             case RIGHT:
                dx = 1;
+               p1.setImages(imageStore.getImageList(PLAYER_CAR_RIGHT));
                break;
          }
          view.shiftView(dx, dy);
 
-         p1 = world.getEntities().stream()
-                 .filter(p -> p.getID().equals("playerCar"))
-                 .collect(Collectors.toList()).get(0);
+
 
          if (!(p1.getPosition().x + dx > 39) && !(p1.getPosition().x + dx < 0)
                  && !(p1.getPosition().y + dy < 0) && !(p1.getPosition().y + dy > 29)
                   && !(world.isOccupied(new Point(p1.getPosition().x + dx, p1.getPosition().y + dy))))
          {
             p1.setPosition(new Point(p1.getPosition().x + dx, p1.getPosition().y + dy));
+//            world.rotateImage(p1, p1.getPosition(), imageStore);
             world.moveEntity(p1, p1.getPosition());
          }
       }
