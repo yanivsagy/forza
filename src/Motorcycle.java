@@ -47,7 +47,7 @@ public class Motorcycle extends GameMovingEntity {
         }
     }
 
-    private void changeDirection(Point pos, ImageStore imageStore) {
+    protected void changeDirection(Point pos, ImageStore imageStore) {
         if (pos.x > getPosition().x) {
             setImages(imageStore.getImageList("motorcycleRight"));
         }
