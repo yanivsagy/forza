@@ -5,8 +5,8 @@ background people 3 0
 background grass 4 0
 background grass 5 0
 background roadstart 6 0
-computerCar blackComputerCarRight 7 0 black_target
-background road 7 0
+computerCar blackComputerCarRight 7 1 black_target
+background road 7 1
 background road 8 0
 background road 9 0
 background road 10 0
@@ -46,8 +46,8 @@ background people 3 1
 background grass 4 1
 background grass 5 1
 background roadstart 6 1
-playerCarRight playerCarRight 7 1
-background road 7 1
+playerCarRight playerCarRight 7 0
+background road 7 0
 background road 8 1
 background road 9 1
 background road 10 1

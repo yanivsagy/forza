@@ -56,9 +56,10 @@ public final class VirtualWorld
    private WorldView view;
    private EventScheduler scheduler;
    private Entity p1;
-   private Point respawnPt = new Point(5, 0);
+   private Point respawnPt = new Point(7, 0);
    private boolean noMovement = false;
    private boolean respawnMessage = false;
+   private int motoClickCount = 0;
 
    private long next_time;
 
@@ -204,18 +205,21 @@ public final class VirtualWorld
    }
 
    public void mousePressed() {
-      Point spawnPt = new Point(mouseX / 32, mouseY / 32);
-      if(!world.isOccupied(spawnPt)) {
-         Motorcycle motor = new Motorcycle("1", spawnPt,
-                 imageStore.getImageList(WorldModel.MOTORCYCLE), 200, 200);
-         motor.scheduleActions(scheduler, world, imageStore);
-         world.addEntity(motor);
-         OilPuddle oil1 = new OilPuddle("2",
-                 new Point(mouseX / 32, mouseY / 32 + 1), imageStore.getImageList(WorldModel.OIL_PUDDLE));
-         world.addEntity(oil1);
-         OilPuddle oil2 = new OilPuddle("3",
-                 new Point(mouseX / 32, mouseY / 32 - 1), imageStore.getImageList(WorldModel.OIL_PUDDLE));
-         world.addEntity(oil2);
+      if (motoClickCount < 2) {
+         Point spawnPt = new Point(mouseX / 32, mouseY / 32);
+         if(!world.isOccupied(spawnPt)) {
+            Motorcycle motor = new Motorcycle("1", spawnPt,
+                    imageStore.getImageList(WorldModel.MOTORCYCLE), 200, 200);
+            motor.scheduleActions(scheduler, world, imageStore);
+            world.addEntity(motor);
+            OilPuddle oil1 = new OilPuddle("2",
+                    new Point(mouseX / 32, mouseY / 32 + 1), imageStore.getImageList(WorldModel.OIL_PUDDLE));
+            world.addEntity(oil1);
+            OilPuddle oil2 = new OilPuddle("3",
+                    new Point(mouseX / 32, mouseY / 32 - 1), imageStore.getImageList(WorldModel.OIL_PUDDLE));
+            world.addEntity(oil2);
+            motoClickCount++;
+         }
       }
    }
 
