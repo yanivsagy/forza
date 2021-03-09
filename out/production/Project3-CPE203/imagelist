@@ -46,26 +46,18 @@ motorcycle images/motorcycle_blue_right.bmp
 motorcycle images/motorcycle_blue_left.bmp
 motorcycle images/motorcycle_blue_down.bmp
 motorcycle images/motorcycle_blue_up.bmp
-blackComputerCar images/car_black_right.bmp
-blackComputerCar images/car_black_left.bmp 255 255 255 128
-blackComputerCar images/car_black_down.bmp 255 255 255 128
-blackComputerCar images/car_black_up.bmp
-blueComputerCar images/car_blue_right.bmp
-blueComputerCar images/car_blue_left.bmp
-blueComputerCar images/car_blue_down.bmp
-blueComputerCar images/car_blue_up.bmp
-greenComputerCar images/car_green_right.bmp
-greenComputerCar images/car_green_left.bmp
-greenComputerCar images/car_green_down.bmp
-greenComputerCar images/car_green_up.bmp
-redComputerCar images/car_red_right.bmp
-redComputerCar images/car_red_left.bmp
-redComputerCar images/car_red_down.bmp
-redComputerCar images/car_red_up.bmp
-yellowComputerCar images/car_yellow_right.bmp
-yellowComputerCar images/car_yellow_left.bmp
-yellowComputerCar images/car_yellow_down.bmp
-yellowComputerCar images/car_yellow_up.bmp
+blackComputerCarRight images/car_black_right.bmp
+blackComputerCarLeft images/car_black_left.bmp 255 255 255 128
+blackComputerCarDown images/car_black_down.bmp 255 255 255 128
+blackComputerCarUp images/car_black_up.bmp
+blueComputerCarRight images/car_blue_right.bmp
+blueComputerCarLeft images/car_blue_left.bmp
+blueComputerCarDown images/car_blue_down.bmp
+blueComputerCarUp images/car_blue_up.bmp
+yellowComputerCarRight images/car_yellow_right.bmp
+yellowComputerCarLeft images/car_yellow_left.bmp
+yellowComputerCarDown images/car_yellow_down.bmp
+yellowComputerCarUp images/car_yellow_up.bmp
 fire images/fire.bmp
 barrel images/barrel_blue_rolling.bmp
 barrel images/barrel_red_rolling.bmp
