@@ -19,7 +19,7 @@ public class Barrel extends MovingObstacle {
     }
 
     public boolean moveTo(WorldModel world,
-                          Entity target, EventScheduler scheduler)
+                          Entity target, EventScheduler scheduler, ImageStore imageStore)
     {
         if (getPosition().adjacent(target.getPosition()))
         {

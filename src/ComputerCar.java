@@ -1,5 +1,6 @@
 import processing.core.PImage;
 
+import javax.swing.text.Position;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,9 +28,19 @@ public class ComputerCar extends GameMovingEntity {
 
         Collections.sort(peopleList);
 
-        People ppl = peopleList.get(0);
+        People target;
 
-        moveTo(world, ppl, scheduler);
+        if (getID().startsWith("black")) {
+            target = peopleList.get(0);
+        }
+        else if (getID().startsWith("blue")) {
+            target = peopleList.get(1);
+        }
+        else {
+            target = peopleList.get(2);
+        }
+
+        moveTo(world, target, scheduler, imageStore);
 
         scheduler.scheduleEvent(this,
                 new Activity(this, world, imageStore),
@@ -37,7 +48,7 @@ public class ComputerCar extends GameMovingEntity {
     }
 
     public boolean moveTo(WorldModel world,
-                             Entity target, EventScheduler scheduler)
+                             Entity target, EventScheduler scheduler, ImageStore imageStore)
     {
         if (getPosition().adjacent(target.getPosition()))
         {
@@ -55,9 +66,57 @@ public class ComputerCar extends GameMovingEntity {
                     scheduler.unscheduleAllEvents(occupant.get());
                 }
 
+                changeDirection(nextPos, imageStore);
                 world.moveEntity(this, nextPos);
             }
             return false;
+        }
+    }
+
+    private void changeDirection(Point pos, ImageStore imageStore) {
+        if (pos.x > getPosition().x) {
+            if (getID().startsWith("black")) {
+                setImages(imageStore.getImageList("blackComputerCarRight"));
+            }
+            else if (getID().startsWith("blue")) {
+                setImages(imageStore.getImageList("blueComputerCarRight"));
+            }
+            else {
+                setImages(imageStore.getImageList("yellowComputerCarRight"));
+            }
+        }
+        else if (pos.x < getPosition().x) {
+            if (getID().startsWith("black")) {
+                setImages(imageStore.getImageList("blackComputerCarLeft"));
+            }
+            else if (getID().startsWith("blue")) {
+                setImages(imageStore.getImageList("blueComputerCarLeft"));
+            }
+            else {
+                setImages(imageStore.getImageList("yellowComputerCarLeft"));
+            }
+        }
+        else if (pos.y > getPosition().y) {
+            if (getID().startsWith("black")) {
+                setImages(imageStore.getImageList("blackComputerCarDown"));
+            }
+            else if (getID().startsWith("blue")) {
+                setImages(imageStore.getImageList("blueComputerCarDown"));
+            }
+            else {
+                setImages(imageStore.getImageList("yellowComputerCarDown"));
+            }
+        }
+        else if (pos.y < getPosition().y) {
+            if (getID().startsWith("black")) {
+                setImages(imageStore.getImageList("blackComputerCarUp"));
+            }
+            else if (getID().startsWith("blue")) {
+                setImages(imageStore.getImageList("blueComputerCarUp"));
+            }
+            else {
+                setImages(imageStore.getImageList("yellowComputerCarUp"));
+            }
         }
     }
 

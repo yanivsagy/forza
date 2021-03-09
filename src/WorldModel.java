@@ -280,7 +280,7 @@ final class WorldModel
          Point pt = new Point(Integer.parseInt(properties[2]),
                  Integer.parseInt(properties[3]));
          ComputerCar computerCar = new ComputerCar(properties[1],
-                 pt, imageStore.getImageList(properties[1]), 2, 2);
+                 pt, imageStore.getImageList(properties[1]), 150, 150);
          world.tryAddEntity(computerCar);
          return true;
       }
@@ -369,7 +369,7 @@ final class WorldModel
                   parsePlayerCar(properties, world, imageStore);
                }
             case ComputerCar.COMPUTER_CAR_KEY:
-               if (properties[1].substring(properties[1].length() - 11).equals("ComputerCar")) {
+               if (properties[1].endsWith("ComputerCarRight")) {
                   parseComputerCar(properties, world, imageStore);
                }
             case Barrel.BARREL_KEY:

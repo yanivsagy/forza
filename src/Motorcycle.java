@@ -2,6 +2,7 @@ import processing.core.PImage;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class Motorcycle extends GameMovingEntity {
     //implement single
@@ -10,13 +11,19 @@ public class Motorcycle extends GameMovingEntity {
     }
 
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
-//        scheduler.scheduleEvent(this,
-//                new Activity(this, world, imageStore),
-//                getActionPeriod());
+        Entity car = world.getEntities().stream()
+                .filter(p -> p.getID().endsWith("ComputerCar"))
+                .collect(Collectors.toList()).get(0);
+
+        moveTo(world, car, scheduler, imageStore);
+
+        scheduler.scheduleEvent(this,
+                new Activity(this, world, imageStore),
+                getActionPeriod());
     }
 
     public boolean moveTo(WorldModel world,
-                          Entity target, EventScheduler scheduler)
+                          Entity target, EventScheduler scheduler, ImageStore imageStore)
     {
         if (getPosition().adjacent(target.getPosition()))
         {
@@ -65,9 +72,9 @@ public class Motorcycle extends GameMovingEntity {
     }
 
     public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
-//        scheduler.scheduleEvent(this,
-//                new Activity(this, world, imageStore), getActionPeriod());
-//        scheduler.scheduleEvent(this, new Animation(this, 0),
-//                getAnimationPeriod());
+        scheduler.scheduleEvent(this,
+                new Activity(this, world, imageStore), getActionPeriod());
+        scheduler.scheduleEvent(this, new Animation(this, 0),
+                getAnimationPeriod());
     }
 }

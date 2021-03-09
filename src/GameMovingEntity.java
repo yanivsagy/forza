@@ -14,7 +14,7 @@ public abstract class GameMovingEntity extends AnimatedEntity {
         return this.strategy;
     }
 
-    protected abstract boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler);
+    protected abstract boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler, ImageStore imageStore);
 
     protected abstract Point nextPosition(WorldModel world, Point destPos);
 

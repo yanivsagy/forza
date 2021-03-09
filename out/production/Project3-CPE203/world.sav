@@ -3,7 +3,7 @@ background people 1 0
 background people 2 0
 background people 3 0
 background grass 4 0
-computerCar blackComputerCar 5 0
+computerCar blackComputerCarRight 5 0 black_target
 background grass 5 0
 background roadstart 6 0
 background road 7 0
@@ -85,7 +85,7 @@ background people 1 2
 background people 2 2
 background people 3 2
 background grass 4 2
-computerCar yellowComputerCar 5 2
+computerCar yellowComputerCarRight 5 2 yellow_target
 background grass 5 2
 background roadstart 6 2
 background road 7 2
@@ -121,12 +121,12 @@ background road 36 2
 background road 37 2
 background road 38 2
 background road 39 2
-background people 0 3
+background people 0 3 black_target
 background people 1 3
-background people 2 3
-background people 3 3
+background people 2 3 blue_target
+background people 3 3 yellow_target
 background grass 4 3
-computerCar blueComputerCar 5 3
+computerCar blueComputerCarRight 5 3 blue_target
 background grass 5 3
 background roadstart 6 3
 background road 7 3
@@ -683,7 +683,7 @@ background road 37 16
 background road 38 16
 background road 39 16
 background road 0 17
-background road 1 17
+barrel barrel 1 17
 background road 2 17
 background road 3 17
 background grass 4 17
