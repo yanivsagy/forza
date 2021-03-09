@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -55,6 +56,8 @@ public final class VirtualWorld
    private WorldView view;
    private EventScheduler scheduler;
    private Entity p1;
+   private Point respawnPt = new Point(5, 0);
+   private boolean noMovement = false;
 
    private long next_time;
 
@@ -102,7 +105,7 @@ public final class VirtualWorld
               .filter(p -> p.getID().equals("playerCarRight"))
               .collect(Collectors.toList()).get(0);
 
-      if (key == CODED)
+      if (key == CODED && !noMovement)
       {
          int dx = 0;
          int dy = 0;
@@ -125,6 +128,7 @@ public final class VirtualWorld
                dx = 1;
                p1.setImages(imageStore.getImageList(PLAYER_CAR_RIGHT));
                break;
+
          }
 
 
@@ -177,21 +181,34 @@ public final class VirtualWorld
          }
          else {
             p1.setImages(imageStore.getImageList(FIRE));
+            noMovement = true;
          }
+
+      }
+      else if(key == 'r') {
+         p1.setPosition(respawnPt);
+         world.moveEntity(p1, p1.getPosition());
+         this.view = new WorldView(VIEW_ROWS, VIEW_COLS, this, world,
+                 TILE_WIDTH, TILE_HEIGHT);
+         p1.setImages(imageStore.getImageList(PLAYER_CAR_RIGHT));
+         noMovement = false;
       }
    }
 
    public void mousePressed() {
-      Motorcycle motor = new Motorcycle("1", new Point(mouseX / 32, mouseY / 32),
-              imageStore.getImageList(WorldModel.MOTORCYCLE), 200, 200);
-      motor.scheduleActions(scheduler, world, imageStore);
-      world.addEntity(motor);
-      OilPuddle oil1 = new OilPuddle("2",
-              new Point(mouseX / 32, mouseY / 32 + 1), imageStore.getImageList(WorldModel.OIL_PUDDLE));
-      world.addEntity(oil1);
-      OilPuddle oil2 = new OilPuddle("3",
-              new Point(mouseX / 32, mouseY / 32 - 1), imageStore.getImageList(WorldModel.OIL_PUDDLE));
-      world.addEntity(oil2);
+      Point spawnPt = new Point(mouseX / 32, mouseY / 32);
+      if(!world.isOccupied(spawnPt)) {
+         Motorcycle motor = new Motorcycle("1", spawnPt,
+                 imageStore.getImageList(WorldModel.MOTORCYCLE), 200, 200);
+         motor.scheduleActions(scheduler, world, imageStore);
+         world.addEntity(motor);
+         OilPuddle oil1 = new OilPuddle("2",
+                 new Point(mouseX / 32, mouseY / 32 + 1), imageStore.getImageList(WorldModel.OIL_PUDDLE));
+         world.addEntity(oil1);
+         OilPuddle oil2 = new OilPuddle("3",
+                 new Point(mouseX / 32, mouseY / 32 - 1), imageStore.getImageList(WorldModel.OIL_PUDDLE));
+         world.addEntity(oil2);
+      }
    }
 
    private static Background createDefaultBackground(ImageStore imageStore)
