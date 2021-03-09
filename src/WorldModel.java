@@ -290,7 +290,6 @@ final class WorldModel
       catch (Exception e) {
          return false;
       }
-
    }
 
 //   private boolean parseBarrel(String [] properties, WorldModel world,
@@ -321,7 +320,6 @@ final class WorldModel
       catch (Exception e) {
          System.out.println("Cannot make instance of PlayerCar: " + e.getMessage());
       }
-
    }
 
    private void parseGrass(String [] properties, WorldModel world,
@@ -337,7 +335,6 @@ final class WorldModel
       catch (Exception e) {
          System.out.println("Cannot make instance of PlayerCar: " + e.getMessage());
       }
-
    }
 
    private boolean processLine(String line, WorldModel world,
@@ -371,16 +368,9 @@ final class WorldModel
                   parsePlayerCar(properties, world, imageStore);
                }
             case ComputerCar.COMPUTER_CAR_KEY:
-               if (properties[1].substring(properties[1].length() - 11).equals("ComputerCar")) {
+               if (properties[1].endsWith("ComputerCar")) {
                   parseComputerCar(properties, world, imageStore);
                }
-
-//            case BLACK_COMPUTER_CAR:
-//            case BLUE_COMPUTER_CAR:
-//            case GREEN_COMPUTER_CAR:
-//            case YELLOW_COMPUTER_CAR:
-//            case RED_COMPUTER_CAR:
-//               return parseComputerCar(properties, world, imageStore);
 //            case BARREL:
 //               return parseBarrel(properties, world, imageStore);
 //            case PEOPLE:

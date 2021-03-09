@@ -1,4 +1,7 @@
 import processing.core.PImage;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -12,9 +15,19 @@ public class ComputerCar extends GameMovingEntity {
     }
 
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
-        Entity ppl = world.getEntities().stream()
+        List<Entity> entityPeople = world.getEntities().stream()
                 .filter(p -> p.getID().equals("people"))
-                .collect(Collectors.toList()).get(0);
+                .collect(Collectors.toList());
+
+        List<People> peopleList = new ArrayList<>();
+
+        for (int i = 0; i < entityPeople.size(); i++) {
+            peopleList.add((People)entityPeople.get(i));
+        }
+
+        Collections.sort(peopleList);
+
+        People ppl = peopleList.get(0);
 
         moveTo(world, ppl, scheduler);
 
