@@ -5,6 +5,8 @@ import java.util.Optional;
 
 public class People extends NonMovingObstacle implements Comparable<People> {
 
+    public static final String PEOPLE_KEY = "people";
+
     public People (String id, Point position, List<PImage> images) {
         super(id, position, images);
     }

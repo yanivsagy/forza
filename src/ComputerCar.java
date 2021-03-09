@@ -28,9 +28,19 @@ public class ComputerCar extends GameMovingEntity {
 
         Collections.sort(peopleList);
 
-        People ppl = peopleList.get(0);
+        People target;
 
-        moveTo(world, ppl, scheduler, imageStore);
+        if (getID().startsWith("black")) {
+            target = peopleList.get(0);
+        }
+        else if (getID().startsWith("blue")) {
+            target = peopleList.get(1);
+        }
+        else {
+            target = peopleList.get(2);
+        }
+
+        moveTo(world, target, scheduler, imageStore);
 
         scheduler.scheduleEvent(this,
                 new Activity(this, world, imageStore),

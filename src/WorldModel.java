@@ -43,9 +43,6 @@ final class WorldModel
    public static final int FISH_REACH = 1;
 
    public static final String PLAYER_CAR_RIGHT = "playerCarRight";
-   public static final String PLAYER_CAR_LEFT = "playerCarLeft";
-   public static final String PLAYER_CAR_DOWN = "playerCarDown";
-   public static final String PLAYER_CAR_UP = "playerCarUp";
    public static final String MOTORCYCLE = "motorcycle";
    public static final String OIL_PUDDLE = "oilPuddle";
    public static final String BLACK_COMPUTER_CAR = "blackComputerCar";
@@ -283,8 +280,25 @@ final class WorldModel
          Point pt = new Point(Integer.parseInt(properties[2]),
                  Integer.parseInt(properties[3]));
          ComputerCar computerCar = new ComputerCar(properties[1],
-                 pt, imageStore.getImageList(properties[1]), 100, 100);
+                 pt, imageStore.getImageList(properties[1]), 150, 150);
          world.tryAddEntity(computerCar);
+         return true;
+      }
+      catch (Exception e) {
+         return false;
+      }
+
+   }
+
+   private boolean parseBarrel(String [] properties, WorldModel world,
+                                 ImageStore imageStore)
+   {
+      try {
+         Point pt = new Point(Integer.parseInt(properties[2]),
+                 Integer.parseInt(properties[3]));
+         Barrel barrel = new Barrel(properties[0],
+                 pt, imageStore.getImageList(BARREL), 0, 0);
+         world.tryAddEntity(barrel);
          return true;
       }
       catch (Exception e) {
@@ -292,21 +306,6 @@ final class WorldModel
       }
    }
 
-//   private boolean parseBarrel(String [] properties, WorldModel world,
-//                                 ImageStore imageStore)
-//   {
-//      try {
-//         Point pt = new Point(Integer.parseInt(properties[2]),
-//                 Integer.parseInt(properties[3]));
-//         Barrel barrel = new Barrel(properties[0],
-//                 pt, imageStore.getImageList(BARREL), 0, 0);
-//         return true;
-//      }
-//      catch (Exception e) {
-//         return false;
-//      }
-//   }
-//
    private void parsePeople(String [] properties, WorldModel world,
                                ImageStore imageStore)
    {
@@ -320,6 +319,7 @@ final class WorldModel
       catch (Exception e) {
          System.out.println("Cannot make instance of PlayerCar: " + e.getMessage());
       }
+
    }
 
    private void parseGrass(String [] properties, WorldModel world,
@@ -335,6 +335,7 @@ final class WorldModel
       catch (Exception e) {
          System.out.println("Cannot make instance of PlayerCar: " + e.getMessage());
       }
+
    }
 
    private boolean processLine(String line, WorldModel world,
@@ -371,6 +372,22 @@ final class WorldModel
                if (properties[1].endsWith("ComputerCarRight")) {
                   parseComputerCar(properties, world, imageStore);
                }
+            case Barrel.BARREL_KEY:
+               if (properties[1].equals(BARREL)) {
+                  parseBarrel(properties, world, imageStore);
+               }
+            case People.PEOPLE_KEY:
+               if (properties[1].equals(PEOPLE)) {
+                  parseBarrel(properties, world, imageStore);
+               }
+
+
+//            case BLACK_COMPUTER_CAR:
+//            case BLUE_COMPUTER_CAR:
+//            case GREEN_COMPUTER_CAR:
+//            case YELLOW_COMPUTER_CAR:
+//            case RED_COMPUTER_CAR:
+//               return parseComputerCar(properties, world, imageStore);
 //            case BARREL:
 //               return parseBarrel(properties, world, imageStore);
 //            case PEOPLE:
