@@ -298,6 +298,7 @@ final class WorldModel
                  Integer.parseInt(properties[3]));
          Barrel barrel = new Barrel(properties[0],
                  pt, imageStore.getImageList(BARREL), 0, 0);
+         world.tryAddEntity(barrel);
          return true;
       }
       catch (Exception e) {
@@ -373,6 +374,10 @@ final class WorldModel
                }
             case Barrel.BARREL_KEY:
                if (properties[1].equals(BARREL)) {
+                  parseBarrel(properties, world, imageStore);
+               }
+            case People.PEOPLE_KEY:
+               if (properties[1].equals(PEOPLE)) {
                   parseBarrel(properties, world, imageStore);
                }
 
