@@ -58,6 +58,7 @@ public final class VirtualWorld
    private Entity p1;
    private Point respawnPt = new Point(5, 0);
    private boolean noMovement = false;
+   private boolean respawnMessage = false;
 
    private long next_time;
 
@@ -97,6 +98,10 @@ public final class VirtualWorld
       }
 
       view.drawViewport();
+
+      if(respawnMessage) {textSize(30);
+         fill(255, 0, 153, 255);
+         text("You crashed! Press r to respawn.", 75, 25);}
    }
 
    public void keyPressed()
@@ -182,9 +187,11 @@ public final class VirtualWorld
          else {
             p1.setImages(imageStore.getImageList(FIRE));
             noMovement = true;
-         }
+            respawnMessage = true;
 
+         }
       }
+
       else if(key == 'r') {
          p1.setPosition(respawnPt);
          world.moveEntity(p1, p1.getPosition());
@@ -192,6 +199,7 @@ public final class VirtualWorld
                  TILE_WIDTH, TILE_HEIGHT);
          p1.setImages(imageStore.getImageList(PLAYER_CAR_RIGHT));
          noMovement = false;
+         respawnMessage = false;
       }
    }
 
