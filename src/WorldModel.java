@@ -291,7 +291,7 @@ final class WorldModel
          Point pt = new Point(Integer.parseInt(properties[2]),
                  Integer.parseInt(properties[3]));
          Barrel barrel = new Barrel(properties[0],
-                 pt, imageStore.getImageList(BARREL), 0, 0);
+                 pt, imageStore.getImageList(BARREL), 20, 20);
          world.tryAddEntity(barrel);
          return true;
       }

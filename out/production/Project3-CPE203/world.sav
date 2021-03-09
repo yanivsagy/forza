@@ -75,7 +75,8 @@ background road 31 1
 background road 32 1
 background road 33 1
 background road 34 1
-background road 35 1
+barrel barrel 35 1
+background 35 1
 background road 36 1
 background road 37 1
 background road 38 1
@@ -492,7 +493,8 @@ background road 6 12
 background road 7 12
 background road 8 12
 background grass 9 12
-background road 10 12
+barrel barrel 10 12
+background 10 12
 background road 11 12
 background road 12 12
 background road 13 12
@@ -544,7 +546,8 @@ background road 18 13
 background road 19 13
 background road 20 13
 background road 21 13
-background road 22 13
+barrel barrel 22 13
+background 22 13
 background road 23 13
 background road 24 13
 background road 25 13
@@ -684,6 +687,7 @@ background road 38 16
 background road 39 16
 background road 0 17
 barrel barrel 1 17
+background 1 17
 background road 2 17
 background road 3 17
 background grass 4 17
@@ -720,7 +724,8 @@ background road 34 17
 background road 35 17
 background road 36 17
 background road 37 17
-background road 38 17
+barrel barrel 38 17
+background 38 17
 background road 39 17
 background road 0 18
 background road 1 18
@@ -769,6 +774,8 @@ background road 3 19
 background grass 4 19
 background road 5 19
 background road 6 19
+barrel barrel 6 21
+background 6 21
 background road 7 19
 background road 8 19
 background grass 9 19
@@ -1040,7 +1047,8 @@ background grass 34 25
 background grass 35 25
 background road 36 25
 background road 37 25
-background road 38 25
+barrel barrel 38 25
+background 38 25
 background road 39 25
 background road 0 26
 background road 1 26
@@ -1143,7 +1151,8 @@ background grass 17 28
 background grass 18 28
 background road 19 28
 background road 20 28
-background road 21 28
+barrel barrel 21 28
+background 21 28
 background road 22 28
 background road 23 28
 background road 24 28

@@ -1,7 +1,7 @@
 import processing.core.PImage;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Barrel extends MovingObstacle {
 
@@ -12,6 +12,32 @@ public class Barrel extends MovingObstacle {
     }
 
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
+        List<Entity> entityPeople = world.getEntities().stream()
+                .filter(p -> p.getID().equals("people"))
+                .collect(Collectors.toList());
+
+        List<People> peopleList = new ArrayList<>();
+
+        for (int i = 0; i < entityPeople.size(); i++) {
+            peopleList.add((People)entityPeople.get(i));
+        }
+
+        Comparator<People> compPplX = (p1, p2) -> {
+            if (p1.getPosition().x - p2.getPosition().x > 0) return -1;
+            else if (p1.getPosition().x - p2.getPosition().x < 0) return 1;
+            else return 0;
+        };
+
+        Comparator<People> compPplY = (p1, p2) -> {
+            if (p1.getPosition().y - p2.getPosition().y > 0) return 1;
+            else if (p1.getPosition().y - p2.getPosition().y < 0) return -1;
+            else return 0;
+        };
+
+        Collections.sort(peopleList, compPplX.thenComparing(compPplY));
+
+        moveTo(world, peopleList.get(0), scheduler, imageStore);
+
         scheduler.scheduleEvent(this,
                 new Activity(this, world, imageStore),
                 getActionPeriod());
@@ -60,6 +86,8 @@ public class Barrel extends MovingObstacle {
         {
             return getPosition();
         }
+
+        System.out.println(points.get(0));
 
         Point endPoint = points.get(0);
         endPoint.setPriorNode(null);

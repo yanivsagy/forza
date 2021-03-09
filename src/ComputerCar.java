@@ -140,7 +140,7 @@ public class ComputerCar extends GameMovingEntity {
             return getPosition();
         }
 
-        System.out.println(points.get(0));
+//        System.out.println(points.get(0));
 
         Point endPoint = points.get(0);
         endPoint.setPriorNode(null);
