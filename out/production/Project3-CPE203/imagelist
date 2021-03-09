@@ -42,10 +42,10 @@ playerCarLeft images/Daco_520361-left.bmp 255 255 255 128
 playerCarDown images/Daco_520361-down.bmp 255 255 255 128
 playerCarUp images/Daco_520361-up.bmp 255 255 255 128
 oilPuddle images/oilspill.bmp
-motorcycle images/motorcycle_blue_right.bmp
-motorcycle images/motorcycle_blue_left.bmp
-motorcycle images/motorcycle_blue_down.bmp
-motorcycle images/motorcycle_blue_up.bmp
+motorcycleRight images/motorcycle_blue_right.bmp
+motorcycleLeft images/motorcycle_blue_left.bmp
+motorcycleDown images/motorcycle_blue_down.bmp
+motorcycleUp images/motorcycle_blue_up.bmp
 blackComputerCarRight images/car_black_right.bmp
 blackComputerCarLeft images/car_black_left.bmp 255 255 255 128
 blackComputerCarDown images/car_black_down.bmp 255 255 255 128

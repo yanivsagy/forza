@@ -5,14 +5,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Motorcycle extends GameMovingEntity {
-    //implement single
     public Motorcycle(String id, Point position, List<PImage> images, int actionPeriod, int animationPeriod) {
         super(id, position, images, actionPeriod, animationPeriod, new SingleStepPathingStrategy());
     }
 
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
         Entity car = world.getEntities().stream()
-                .filter(p -> p.getID().endsWith("ComputerCar"))
+                .filter(p -> p.getID().endsWith("ComputerCarRight"))
                 .collect(Collectors.toList()).get(0);
 
         moveTo(world, car, scheduler, imageStore);
@@ -41,9 +40,25 @@ public class Motorcycle extends GameMovingEntity {
                     scheduler.unscheduleAllEvents(occupant.get());
                 }
 
+                changeDirection(nextPos, imageStore);
                 world.moveEntity(this, nextPos);
             }
             return false;
+        }
+    }
+
+    private void changeDirection(Point pos, ImageStore imageStore) {
+        if (pos.x > getPosition().x) {
+            setImages(imageStore.getImageList("motorcycleRight"));
+        }
+        else if (pos.x < getPosition().x) {
+            setImages(imageStore.getImageList("motorcycleLeft"));
+        }
+        else if (pos.y > getPosition().y) {
+            setImages(imageStore.getImageList("motorcycleDown"));
+        }
+        else if (pos.y < getPosition().y) {
+            setImages(imageStore.getImageList("motorcycleUp"));
         }
     }
 

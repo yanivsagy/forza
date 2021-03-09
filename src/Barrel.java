@@ -10,7 +10,6 @@ public class Barrel extends MovingObstacle {
     public Barrel (String id, Point position, List<PImage> images, int actionPeriod, int animationPeriod) {
         super(id, position, images, actionPeriod, animationPeriod, new DijkstraPathingStrategy());
     }
-    //implement Dijkstra
 
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
         scheduler.scheduleEvent(this,
