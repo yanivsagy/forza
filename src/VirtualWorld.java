@@ -46,6 +46,7 @@ public final class VirtualWorld
    public static final String PLAYER_CAR_LEFT = "playerCarLeft";
    public static final String PLAYER_CAR_DOWN = "playerCarDown";
    public static final String PLAYER_CAR_UP = "playerCarUp";
+   public static final String FIRE = "fire";
 
    public static double timeScale = 1.0;
 
@@ -125,8 +126,6 @@ public final class VirtualWorld
                p1.setImages(imageStore.getImageList(PLAYER_CAR_RIGHT));
                break;
          }
-         view.shiftView(dx, dy);
-
 
 
          if (!(p1.getPosition().x + dx > 39) && !(p1.getPosition().x + dx < 0)
@@ -134,7 +133,50 @@ public final class VirtualWorld
                   && !(world.isOccupied(new Point(p1.getPosition().x + dx, p1.getPosition().y + dy))))
          {
             p1.setPosition(new Point(p1.getPosition().x + dx, p1.getPosition().y + dy));
+            if(p1.getPosition().y < 4 && p1.getPosition().y > 0 &&
+                    (p1.getPosition().x < 39 && p1.getPosition().x > 3)) {
+               view.shiftView(dx, 0);
+            }
+            else if(p1.getPosition().y < 15 && p1.getPosition().y > 3
+                    && (p1.getPosition().x < 19 && p1.getPosition().x > 14)) {
+               view.shiftView(dx, 0);
+            }
+            else if(p1.getPosition().x < 33 && p1.getPosition().x > 20 &&
+                    (p1.getPosition().y < 9 && p1.getPosition().y > -1)) {
+               view.shiftView(0, 0);
+            }
+            else if(p1.getPosition().x < 36 && p1.getPosition().x > 24 &&
+                    (p1.getPosition().y < 25 && p1.getPosition().y > 15)) {
+               view.shiftView(0, 0);
+            }
+            else if(p1.getPosition().y < 27 && p1.getPosition().y > 14 &&
+                    (p1.getPosition().x < 39 && p1.getPosition().x > 34)) {
+               view.shiftView(0, dy);
+            }
+            else if(p1.getPosition().y < 30 && p1.getPosition().y > 14 &&
+                    (p1.getPosition().x < 23 && p1.getPosition().x > 3)) {
+               view.shiftView(dx, dy);
+            }
+            else if(p1.getPosition().y < 30 && p1.getPosition().y > 25 &&
+                    (p1.getPosition().x < 26 && p1.getPosition().x > 22)) {
+               view.shiftView(dx, 0);
+            }
+            else if(p1.getPosition().y < 30 && p1.getPosition().y > 25 &&
+                    (p1.getPosition().x < 40 && p1.getPosition().x > 33)) {
+               view.shiftView(0, 0);
+            }
+            else if(p1.getPosition().x < 4 && p1.getPosition().x > -1 &&
+                    (p1.getPosition().y < 26 && p1.getPosition().y > 4)) {
+               view.shiftView(0, dy);
+            }
+            else {
+               view.shiftView(dx, dy);
+            }
+
             world.moveEntity(p1, p1.getPosition());
+         }
+         else {
+            p1.setImages(imageStore.getImageList(FIRE));
          }
       }
    }
