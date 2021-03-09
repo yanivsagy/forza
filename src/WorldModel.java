@@ -48,6 +48,7 @@ final class WorldModel
    public static final String BARREL = "barrel";
    public static final String PEOPLE = "people";
    public static final String GRASS = "grass";
+   public static final String ROADSTART = "roadstart";
 
    private final int numRows;
    private final int numCols;
@@ -290,8 +291,8 @@ final class WorldModel
       try {
          Point pt = new Point(Integer.parseInt(properties[2]),
                  Integer.parseInt(properties[3]));
-         Barrel barrel = new Barrel(properties[0],
-                 pt, imageStore.getImageList(BARREL), 20, 20);
+         Barrel barrel = new Barrel(properties[1],
+                 pt, imageStore.getImageList(BARREL), 200, 200);
          world.tryAddEntity(barrel);
          return true;
       }
@@ -332,6 +333,22 @@ final class WorldModel
 
    }
 
+   private void parseRoadStart(String [] properties, WorldModel world,
+                           ImageStore imageStore)
+   {
+      try {
+         Point pt = new Point(Integer.parseInt(properties[2]),
+                 Integer.parseInt(properties[3]));
+         RoadStart roadstart = new RoadStart(properties[1],
+                 pt, imageStore.getImageList(ROADSTART));
+         tryAddEntity(roadstart);
+      }
+      catch (Exception e) {
+         System.out.println("Cannot make instance of PlayerCar: " + e.getMessage());
+      }
+
+   }
+
    private boolean processLine(String line, WorldModel world,
                                      ImageStore imageStore)
    {
@@ -346,6 +363,9 @@ final class WorldModel
                }
                else if (properties[1].equals(GRASS)) {
                   parseGrass(properties, world, imageStore);
+               }
+               else if (properties[1].equals(ROADSTART)) {
+                  parseRoadStart(properties, world, imageStore);
                }
                return parseBackground(properties, world, imageStore);
             case Octo.OCTO_KEY:
@@ -367,25 +387,11 @@ final class WorldModel
                   parseComputerCar(properties, world, imageStore);
                }
             case Barrel.BARREL_KEY:
-               if (properties[1].equals(BARREL)) {
-                  parseBarrel(properties, world, imageStore);
-               }
+               parseBarrel(properties, world, imageStore);
             case People.PEOPLE_KEY:
                if (properties[1].equals(PEOPLE)) {
                   parseBarrel(properties, world, imageStore);
                }
-
-
-//            case BLACK_COMPUTER_CAR:
-//            case BLUE_COMPUTER_CAR:
-//            case GREEN_COMPUTER_CAR:
-//            case YELLOW_COMPUTER_CAR:
-//            case RED_COMPUTER_CAR:
-//               return parseComputerCar(properties, world, imageStore);
-//            case BARREL:
-//               return parseBarrel(properties, world, imageStore);
-//            case PEOPLE:
-//               return parsePeople(properties, world, imageStore);
          }
       }
 

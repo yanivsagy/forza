@@ -12,31 +12,28 @@ public class Barrel extends MovingObstacle {
     }
 
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
-        List<Entity> entityPeople = world.getEntities().stream()
-                .filter(p -> p.getID().equals("people"))
+        List<Entity> entityRoadStart = world.getEntities().stream()
+                .filter(p -> p.getID().equals("roadstart"))
                 .collect(Collectors.toList());
 
-        List<People> peopleList = new ArrayList<>();
+        System.out.println(entityRoadStart.size());
 
-        for (int i = 0; i < entityPeople.size(); i++) {
-            peopleList.add((People)entityPeople.get(i));
+        Entity target = null;
+
+        if (getID().endsWith("1")) {
+            target = entityRoadStart.get(0);
+        }
+        else if (getID().endsWith("2")) {
+            target = entityRoadStart.get(1);
+        }
+        else if (getID().endsWith("3")) {
+            target = entityRoadStart.get(2);
+        }
+        else if (getID().endsWith("4")) {
+            target = entityRoadStart.get(3);
         }
 
-        Comparator<People> compPplX = (p1, p2) -> {
-            if (p1.getPosition().x - p2.getPosition().x > 0) return -1;
-            else if (p1.getPosition().x - p2.getPosition().x < 0) return 1;
-            else return 0;
-        };
-
-        Comparator<People> compPplY = (p1, p2) -> {
-            if (p1.getPosition().y - p2.getPosition().y > 0) return 1;
-            else if (p1.getPosition().y - p2.getPosition().y < 0) return -1;
-            else return 0;
-        };
-
-        Collections.sort(peopleList, compPplX.thenComparing(compPplY));
-
-        moveTo(world, peopleList.get(0), scheduler, imageStore);
+        moveTo(world, target, scheduler, imageStore);
 
         scheduler.scheduleEvent(this,
                 new Activity(this, world, imageStore),
@@ -82,12 +79,12 @@ public class Barrel extends MovingObstacle {
 //                PathingStrategy.DIAGONAL_NEIGHBORS);
 //                PathingStrategy.DIAGONAL_CARDINAL_NEIGHBORS);
 
+//        System.out.println(points.size());
+
         if (points.size() == 0)
         {
             return getPosition();
         }
-
-        System.out.println(points.get(0));
 
         Point endPoint = points.get(0);
         endPoint.setPriorNode(null);
