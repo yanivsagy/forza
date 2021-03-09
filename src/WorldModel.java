@@ -43,14 +43,8 @@ final class WorldModel
    public static final int FISH_REACH = 1;
 
    public static final String PLAYER_CAR_RIGHT = "playerCarRight";
-   public static final String MOTORCYCLE = "motorcycle";
+   public static final String MOTORCYCLE = "motorcycleRight";
    public static final String OIL_PUDDLE = "oilPuddle";
-   public static final String BLACK_COMPUTER_CAR = "blackComputerCar";
-   public static final String BLUE_COMPUTER_CAR = "blueComputerCar";
-   public static final String GREEN_COMPUTER_CAR = "greenComputerCar";
-   public static final String RED_COMPUTER_CAR = "redComputerCar";
-   public static final String YELLOW_COMPUTER_CAR = "yellowComputerCar";
-   public static final String FIRE = "fire";
    public static final String BARREL = "barrel";
    public static final String PEOPLE = "people";
    public static final String GRASS = "grass";

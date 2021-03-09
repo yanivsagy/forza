@@ -183,7 +183,8 @@ public final class VirtualWorld
 
    public void mousePressed() {
       Motorcycle motor = new Motorcycle("1", new Point(mouseX / 32, mouseY / 32),
-              imageStore.getImageList(WorldModel.MOTORCYCLE), 2, 2);
+              imageStore.getImageList(WorldModel.MOTORCYCLE), 200, 200);
+      motor.scheduleActions(scheduler, world, imageStore);
       world.addEntity(motor);
       OilPuddle oil1 = new OilPuddle("2",
               new Point(mouseX / 32, mouseY / 32 + 1), imageStore.getImageList(WorldModel.OIL_PUDDLE));
