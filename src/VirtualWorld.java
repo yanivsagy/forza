@@ -100,9 +100,10 @@ public final class VirtualWorld
 
       view.drawViewport();
 
-      if(respawnMessage) {textSize(30);
+      if(respawnMessage) {
+         textSize(24);
          fill(255, 0, 153, 255);
-         text("You crashed! Press r to respawn.", 75, 25);}
+         text("You crashed! Press r to respawn or space to reset.", 30, 25);}
    }
 
    public void keyPressed()
@@ -199,6 +200,12 @@ public final class VirtualWorld
          this.view = new WorldView(VIEW_ROWS, VIEW_COLS, this, world,
                  TILE_WIDTH, TILE_HEIGHT);
          p1.setImages(imageStore.getImageList(PLAYER_CAR_RIGHT));
+         noMovement = false;
+         respawnMessage = false;
+      }
+
+      else if(key == ' ') {
+         setup();
          noMovement = false;
          respawnMessage = false;
       }
