@@ -59,7 +59,7 @@ public final class VirtualWorld
    private Point respawnPt = new Point(7, 0);
    private boolean noMovement = false;
    private boolean respawnMessage = false;
-   private String mode = "welcome";
+   private String mode = "begin";
    private int motoClickCount = 0;
    private int scrollCountX = 0;
    private int scrollCountY = 0;
@@ -100,6 +100,14 @@ public final class VirtualWorld
 
    public void draw()
    {
+      if (mode.equals("begin")) {
+         background(26, 209, 86);
+         textSize(40);
+         fill(255, 255, 255);
+         text("Welcome to Car Racing!", 50, 80);
+         text("Click anywhere to begin!", 50, 150);
+      }
+
       if (mode.equals("welcome")) {
          background(26,209,86);
          textSize(40);
@@ -299,24 +307,31 @@ public final class VirtualWorld
    }
 
    public void mousePressed() {
-      System.out.println(motoClickCount);
-      if (motoClickCount < 2) {
-         int x = (scrollCountX * 32 + mouseX) / 32;
-         int y = (scrollCountY * 32 + mouseY) / 32;
-         Point spawnPt = new Point(x, y);
-         System.out.println(spawnPt);
-         if(!world.isOccupied(spawnPt)) {
-            Entity motor = efactory.createEntity("motorcycle", spawnPt,
-                    imageStore.getImageList(WorldModel.MOTORCYCLE));
-            ((Motorcycle)motor).scheduleActions(scheduler, world, imageStore);
-            world.addEntity(motor);
-            Entity oil1 = efactory.createEntity("oilPuddle",
-                    new Point(x, y + 1), imageStore.getImageList(WorldModel.OIL_PUDDLE));
-            world.addEntity(oil1);
-            Entity oil2 = new OilPuddle("oilPuddle",
-                    new Point(x, y - 1), imageStore.getImageList(WorldModel.OIL_PUDDLE));
-            world.addEntity(oil2);
-            motoClickCount++;
+      if (mode.equals("begin")) {
+         draw();
+         mode = "welcome";
+      }
+
+      else {
+         System.out.println(motoClickCount);
+         if (motoClickCount < 2) {
+            int x = (scrollCountX * 32 + mouseX) / 32;
+            int y = (scrollCountY * 32 + mouseY) / 32;
+            Point spawnPt = new Point(x, y);
+            System.out.println(spawnPt);
+            if (!world.isOccupied(spawnPt)) {
+               Entity motor = efactory.createEntity("motorcycle", spawnPt,
+                       imageStore.getImageList(WorldModel.MOTORCYCLE));
+               ((Motorcycle) motor).scheduleActions(scheduler, world, imageStore);
+               world.addEntity(motor);
+               Entity oil1 = efactory.createEntity("oilPuddle",
+                       new Point(x, y + 1), imageStore.getImageList(WorldModel.OIL_PUDDLE));
+               world.addEntity(oil1);
+               Entity oil2 = new OilPuddle("oilPuddle",
+                       new Point(x, y - 1), imageStore.getImageList(WorldModel.OIL_PUDDLE));
+               world.addEntity(oil2);
+               motoClickCount++;
+            }
          }
       }
    }
