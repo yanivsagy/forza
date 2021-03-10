@@ -1,5 +1,5 @@
-//public class EasyEntityFactory implements EntityFactory {
-//    public Entity createEntity() {
-//        return;
-//    }
-//}
+public class EasyEntityFactory implements EntityFactory {
+    public Entity createEntity() {
+        return;
+    }
+}

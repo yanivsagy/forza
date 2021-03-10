@@ -60,6 +60,8 @@ public final class VirtualWorld
    private boolean noMovement = false;
    private boolean respawnMessage = false;
    private int motoClickCount = 0;
+   private int scrollCountX = 0;
+   private int scrollCountY = 0;
 
    private long next_time;
 
@@ -205,22 +207,26 @@ public final class VirtualWorld
    }
 
    public void mousePressed() {
-      if (motoClickCount < 2) {
-         Point spawnPt = new Point(mouseX / 32, mouseY / 32);
+//      System.out.println(motoClickCount);
+//      if (motoClickCount < 2) {
+      int x = (scrollCountX * 32 + mouseX) / 32;
+      int y = (scrollCountY * 32 + mouseY) / 32;
+         Point spawnPt = new Point(x, y);
+         System.out.println(spawnPt);
          if(!world.isOccupied(spawnPt)) {
             Motorcycle motor = new Motorcycle("1", spawnPt,
                     imageStore.getImageList(WorldModel.MOTORCYCLE), 200, 200);
             motor.scheduleActions(scheduler, world, imageStore);
             world.addEntity(motor);
             OilPuddle oil1 = new OilPuddle("2",
-                    new Point(mouseX / 32, mouseY / 32 + 1), imageStore.getImageList(WorldModel.OIL_PUDDLE));
+                    new Point(x, y + 1), imageStore.getImageList(WorldModel.OIL_PUDDLE));
             world.addEntity(oil1);
             OilPuddle oil2 = new OilPuddle("3",
-                    new Point(mouseX / 32, mouseY / 32 - 1), imageStore.getImageList(WorldModel.OIL_PUDDLE));
+                    new Point(x, y - 1), imageStore.getImageList(WorldModel.OIL_PUDDLE));
             world.addEntity(oil2);
             motoClickCount++;
          }
-      }
+//      }
    }
 
    private static Background createDefaultBackground(ImageStore imageStore)

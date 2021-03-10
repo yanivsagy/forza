@@ -16,8 +16,6 @@ public class Barrel extends MovingObstacle {
                 .filter(p -> p.getID().equals("roadstart"))
                 .collect(Collectors.toList());
 
-        System.out.println(entityRoadStart.size());
-
         Entity target = null;
 
         if (getID().endsWith("1")) {
