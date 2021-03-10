@@ -63,7 +63,8 @@ public final class VirtualWorld
    private int motoClickCount = 0;
    private int scrollCountX = 0;
    private int scrollCountY = 0;
-   public static EntityFactory efactory;
+   private static EntityFactory efactory;
+   private List<Entity> compCars;
 
    private long next_time;
 
@@ -91,6 +92,10 @@ public final class VirtualWorld
       scheduleActions(world, scheduler, imageStore);
 
       next_time = System.currentTimeMillis() + TIMER_ACTION_PERIOD;
+
+      noMovement = false;
+      respawnMessage = false;
+      motoClickCount = 0;
    }
 
    public void draw()
@@ -136,6 +141,37 @@ public final class VirtualWorld
             fill(255, 0, 153, 255);
             text("You crashed! Press r to respawn or space to reset.", 30, 25);
          }
+
+         if (p1 != null && compCars.get(0) != null && compCars.get(1) != null && compCars.get(2) != null) {
+            int car1X = compCars.get(0).getPosition().x;
+            int car1Y = compCars.get(0).getPosition().y;
+            int car2X = compCars.get(1).getPosition().x;
+            int car2Y = compCars.get(1).getPosition().y;
+            int car3X = compCars.get(2).getPosition().x;
+            int car3Y = compCars.get(2).getPosition().y;
+
+            if ((p1.getPosition().x >= 0 && p1.getPosition().x <= 3 && p1.getPosition().y == 4) &&
+                 (((car1X >= 0 && car1X <= 3 && car1Y == 4) && (car2X >= 0 && car2X <= 3 && car2Y == 4))
+                  || ((car2X >= 0 && car2X <= 3 && car2Y == 4) && (car3X >= 0 && car3X <= 3 && car3Y == 4))
+                  || ((car1X >= 0 && car1X <= 3 && car1Y == 4) && (car3X >= 0 && car3X <= 3 && car3Y == 4))))
+            {
+               mode = "over";
+               world.removeEntity(p1);
+               world.removeEntity(compCars.get(0));
+               world.removeEntity(compCars.get(1));
+               world.removeEntity(compCars.get(2));
+            }
+         }
+      }
+
+      if (mode.equals("over")) {
+         background(26,209,86);
+         textSize(40);
+         fill(255,255,255);
+         text("Game Over!", 50, 100);
+
+         textSize(25);
+         text("Press 'p' to play again!", 70, 200);
       }
    }
 
@@ -145,6 +181,10 @@ public final class VirtualWorld
          p1 = world.getEntities().stream()
                  .filter(p -> p.getID().equals("playerCarRight"))
                  .collect(Collectors.toList()).get(0);
+
+         compCars = world.getEntities().stream()
+                 .filter(p -> p.getID().endsWith("ComputerCarRight"))
+                 .collect(Collectors.toList());
 
          if (key == CODED && !noMovement)
          {
@@ -240,9 +280,6 @@ public final class VirtualWorld
 
          else if(key == ' ') {
             gameSetup();
-            noMovement = false;
-            respawnMessage = false;
-            motoClickCount = 0;
          }
       }
 
@@ -260,6 +297,12 @@ public final class VirtualWorld
 
          mode = "play";
          gameSetup();
+      }
+
+      if (mode.equals("over")) {
+         if (key == 'p') {
+            mode = "welcome";
+         }
       }
    }
 

@@ -91,7 +91,7 @@ final class WorldModel
               pos.x >= 0 && pos.x < numCols;
    }
 
-   private Entity getOccupancyCell(Point pos)
+   public Entity getOccupancyCell(Point pos)
    {
       return occupancy[pos.y][pos.x];
    }
@@ -326,7 +326,7 @@ final class WorldModel
       try {
          Point pt = new Point(Integer.parseInt(properties[2]),
                  Integer.parseInt(properties[3]));
-         Entity grass = efactory.createEntity(properties[0],
+         Entity grass = efactory.createEntity(properties[1],
                  pt, imageStore.getImageList(GRASS));
          tryAddEntity(grass);
       }
