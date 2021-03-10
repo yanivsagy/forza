@@ -13,7 +13,7 @@ public class EasyEntityFactory implements EntityFactory {
         else if (id.equals("motorcycle")) {
             return new Motorcycle(id, pos, images, 2000, 2000);
         }
-        else if (id.equals("barrel")) {
+        else if (id.startsWith("barrel")) {
             return new Barrel(id, pos, images, 2000, 2000);
         }
         else if (id.equals("people")) {

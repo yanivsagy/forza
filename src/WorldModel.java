@@ -55,14 +55,17 @@ final class WorldModel
    private final Background[][] background;
    private final Entity[][] occupancy;
    private final Set<Entity> entities;
+   private EntityFactory efactory;
 
-   public WorldModel(int numRows, int numCols, Background defaultBackground)
+   public WorldModel(int numRows, int numCols, Background defaultBackground,
+                     EntityFactory efactory)
    {
       this.numRows = numRows;
       this.numCols = numCols;
       this.background = new Background[numRows][numCols];
       this.occupancy = new Entity[numRows][numCols];
       this.entities = new HashSet<>();
+      this.efactory = efactory;
 
       for (int row = 0; row < numRows; row++)
       {
@@ -259,7 +262,7 @@ final class WorldModel
       try {
             Point pt = new Point(Integer.parseInt(properties[2]),
                     Integer.parseInt(properties[3]));
-            PlayerCar playerCar = new PlayerCar(properties[1],
+            Entity playerCar = efactory.createEntity(properties[1],
                     pt, imageStore.getImageList(PLAYER_CAR_RIGHT));
             world.tryAddEntity(playerCar);
          }
@@ -274,8 +277,8 @@ final class WorldModel
       try {
          Point pt = new Point(Integer.parseInt(properties[2]),
                  Integer.parseInt(properties[3]));
-         ComputerCar computerCar = new ComputerCar(properties[1],
-                 pt, imageStore.getImageList(properties[1]), 150, 150);
+         Entity computerCar = efactory.createEntity(properties[1],
+                 pt, imageStore.getImageList(properties[1]));
          world.tryAddEntity(computerCar);
          return true;
       }
@@ -291,8 +294,8 @@ final class WorldModel
       try {
          Point pt = new Point(Integer.parseInt(properties[2]),
                  Integer.parseInt(properties[3]));
-         Barrel barrel = new Barrel(properties[1],
-                 pt, imageStore.getImageList(BARREL), 200, 200);
+         Entity barrel = efactory.createEntity(properties[1],
+                 pt, imageStore.getImageList(BARREL));
          world.tryAddEntity(barrel);
          return true;
       }
@@ -307,7 +310,7 @@ final class WorldModel
       try {
          Point pt = new Point(Integer.parseInt(properties[2]),
                  Integer.parseInt(properties[3]));
-         People people = new People(properties[1],
+         Entity people = efactory.createEntity(properties[1],
                  pt, imageStore.getImageList(PEOPLE));
          tryAddEntity(people);
       }
@@ -323,7 +326,7 @@ final class WorldModel
       try {
          Point pt = new Point(Integer.parseInt(properties[2]),
                  Integer.parseInt(properties[3]));
-         Grass grass = new Grass(properties[0],
+         Entity grass = efactory.createEntity(properties[0],
                  pt, imageStore.getImageList(GRASS));
          tryAddEntity(grass);
       }
@@ -339,7 +342,7 @@ final class WorldModel
       try {
          Point pt = new Point(Integer.parseInt(properties[2]),
                  Integer.parseInt(properties[3]));
-         RoadStart roadstart = new RoadStart(properties[1],
+         Entity roadstart = efactory.createEntity(properties[1],
                  pt, imageStore.getImageList(ROADSTART));
          tryAddEntity(roadstart);
       }

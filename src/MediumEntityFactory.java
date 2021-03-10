@@ -12,7 +12,7 @@ public class MediumEntityFactory implements EntityFactory {
         else if (id.equals("motorcycle")) {
             return new Motorcycle(id, pos, images, 200, 200);
         }
-        else if (id.equals("barrel")) {
+        else if (id.startsWith("barrel")) {
             return new Barrel(id, pos, images, 200, 200);
         }
         else if (id.equals("people")) {
