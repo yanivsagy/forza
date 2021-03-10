@@ -60,6 +60,7 @@ yellowComputerCarDown images/car_yellow_down.bmp
 yellowComputerCarUp images/car_yellow_up.bmp
 fire images/large_fire.bmp
 barrel images/barrel_red_rolling.bmp
+barrelx images/barrel_red_up.bmp
 people images/character_black_blue.bmp
 people images/character_blonde_blue.bmp
 people images/character_blonde_green.bmp

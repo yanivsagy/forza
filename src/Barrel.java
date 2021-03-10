@@ -57,9 +57,25 @@ public class Barrel extends MovingObstacle {
                     scheduler.unscheduleAllEvents(occupant.get());
                 }
 
+                changeDirection(nextPos, imageStore);
                 world.moveEntity(this, nextPos);
             }
             return false;
+        }
+    }
+
+    protected void changeDirection(Point pos, ImageStore imageStore) {
+        if (pos.x > getPosition().x) {
+            setImages(imageStore.getImageList("barrelx"));
+        }
+        else if (pos.x < getPosition().x) {
+            setImages(imageStore.getImageList("barrelx"));
+        }
+        else if (pos.y > getPosition().y) {
+            setImages(imageStore.getImageList("barrel"));
+        }
+        else if (pos.y < getPosition().y) {
+            setImages(imageStore.getImageList("barrel"));
         }
     }
 

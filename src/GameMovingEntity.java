@@ -18,4 +18,6 @@ public abstract class GameMovingEntity extends AnimatedEntity {
 
     protected abstract Point nextPosition(WorldModel world, Point destPos);
 
+    protected abstract void changeDirection(Point pos, ImageStore imageStore);
+
 }

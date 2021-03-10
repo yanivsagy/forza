@@ -73,7 +73,7 @@ public class ComputerCar extends GameMovingEntity {
         }
     }
 
-    private void changeDirection(Point pos, ImageStore imageStore) {
+    protected void changeDirection(Point pos, ImageStore imageStore) {
         if (pos.x > getPosition().x) {
             if (getID().startsWith("black")) {
                 setImages(imageStore.getImageList("blackComputerCarRight"));
