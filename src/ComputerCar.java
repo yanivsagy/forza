@@ -16,6 +16,7 @@ public class ComputerCar extends GameMovingEntity {
     }
 
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
+
         List<Entity> entityPeople = world.getEntities().stream()
                 .filter(p -> p.getID().equals("people"))
                 .collect(Collectors.toList());
@@ -127,6 +128,7 @@ public class ComputerCar extends GameMovingEntity {
 
 //      while (!neighbors(pos, goal))
 //      {
+//        System.out.println("*** class is = " + world.getOccupant(new Point(4, 0)).get().getClass());
         points = getStrategy().computePath(getPosition(), destPos,
                 p -> world.withinBounds(p) && !world.isOccupied(p),
                 (p1, p2) -> p1.adjacent(p2),
