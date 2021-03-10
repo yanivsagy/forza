@@ -1,22 +1,24 @@
-WORLD EVENT: Rogue Motorcyclist
+WORLD EVENT:
 
 1. How to trigger the event:
 	
-	The event is triggered by a mouse click on the racetrack.
+	The event is triggered by a mouse click on the racetrack at the beginning of the game. A maximum of two clicks is allowed before the player can start playing.
 
 2. What should happen when the event is triggered:
 
 	When the event is triggered, a motorcycle spawns where the mouse was clicked and oil hazards also spawn on two of the tiles next to where the mouse was clicked.
-	The motorcycle will travel in the direction opposite to the direction the rest of the cars are travelling in.
+	The motorcycle will travel in the direction opposite to the direction the rest of the computer-controlled cars are travelling in.
 
 3. What the affected entities should do:
 	
-	If a car (your own or computer-controlled) lands on the oil, the car will explode and turn into fire.
-	If a car (your own or computer-controlled) collides with the motorcycle, the car will explode and turn into fire.
+	If a computer-controlled car collides with the motorcycle, the car will have trouble moving around it as it will try to block the car's path.
 
 4. What the new entity is and how it should behave
 
 	The new entity is a motorcycle. It moves along the track in the direction opposite to the direction the rest of the cars are travelling in.
-	If the motorcycle happens to hit another car, both the motorcycle and the other car will crash and turn into fire.
+	The motorcycle will interrupt the path of a nearby computer-controlled car which changes it's behavior by preventing the car from move past it.
 
-(if applicable) the names of each partner and what each partner was responsible for
+5. (If applicable) the names of each partner and what each partner was responsible for:
+
+Charles Snead: Player movement, cycling images on status update, viewport that follows car, game features (respawn, reset), entity behavior
+Yaniv Sagy: Implementing pathing algorithms, collisions with other entities, designing background, game features (difficulty menu), factory design
