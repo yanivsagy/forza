@@ -59,9 +59,11 @@ public final class VirtualWorld
    private Point respawnPt = new Point(7, 0);
    private boolean noMovement = false;
    private boolean respawnMessage = false;
+   private String mode = "welcome";
    private int motoClickCount = 0;
    private int scrollCountX = 0;
    private int scrollCountY = 0;
+   private EntityFactory efactory;
 
    private long next_time;
 
@@ -93,19 +95,40 @@ public final class VirtualWorld
 
    public void draw()
    {
-      long time = System.currentTimeMillis();
-      if (time >= next_time)
-      {
-         Action.updateOnTime(this.scheduler, time);
-         next_time = time + TIMER_ACTION_PERIOD;
+      if (mode.equals("welcome")) {
+         background(26,209,86);
+         textSize(40);
+         fill(255,255,255);
+         text("Welcome to Car Racing!", 50, 80);
+
+         textSize(25);
+         text("Press 'e' for Easy Mode", 70, 150);
+         text("Press 'm' for Medium Mode", 70, 200);
+         text("Press 'h' for Hard Mode", 70, 250);
+
+         fill(0,0,0);
+         text("IMPORTANT NOTE: before moving", 50, 320);
+         text("your vehicle, click on the screen", 50, 350);
+         text("a maximum of two times to spawn", 50, 380);
+         text("motorcycles that interfere with", 50, 410);
+         text("your competition's path to the finish!", 50, 440);
       }
 
-      view.drawViewport();
+      if (mode.equals("play")) {
+         long time = System.currentTimeMillis();
+         if (time >= next_time) {
+            Action.updateOnTime(this.scheduler, time);
+            next_time = time + TIMER_ACTION_PERIOD;
+         }
 
-      if(respawnMessage) {
-         textSize(24);
-         fill(255, 0, 153, 255);
-         text("You crashed! Press r to respawn or space to reset.", 30, 25);}
+         view.drawViewport();
+
+         if (respawnMessage) {
+            textSize(24);
+            fill(255, 0, 153, 255);
+            text("You crashed! Press r to respawn or space to reset.", 30, 25);
+         }
+      }
    }
 
    public void keyPressed()
@@ -210,30 +233,44 @@ public final class VirtualWorld
          setup();
          noMovement = false;
          respawnMessage = false;
+         motoClickCount = 0;
+      }
+
+      else if (key == 'e') {
+         efactory = new EasyEntityFactory();
+         mode = "play";
+      }
+      else if (key == 'm') {
+         efactory = new MediumEntityFactory();
+         mode = "play";
+      }
+      else if (key == 'h') {
+         efactory = new HardEntityFactory();
+         mode = "play";
       }
    }
 
    public void mousePressed() {
-//      System.out.println(motoClickCount);
-//      if (motoClickCount < 2) {
-      int x = (scrollCountX * 32 + mouseX) / 32;
-      int y = (scrollCountY * 32 + mouseY) / 32;
+      System.out.println(motoClickCount);
+      if (motoClickCount < 2) {
+         int x = (scrollCountX * 32 + mouseX) / 32;
+         int y = (scrollCountY * 32 + mouseY) / 32;
          Point spawnPt = new Point(x, y);
          System.out.println(spawnPt);
          if(!world.isOccupied(spawnPt)) {
-            Motorcycle motor = new Motorcycle("1", spawnPt,
-                    imageStore.getImageList(WorldModel.MOTORCYCLE), 200, 200);
-            motor.scheduleActions(scheduler, world, imageStore);
+            Entity motor = efactory.createEntity("motorcycle", spawnPt,
+                    imageStore.getImageList(WorldModel.MOTORCYCLE));
+            ((Motorcycle)motor).scheduleActions(scheduler, world, imageStore);
             world.addEntity(motor);
-            OilPuddle oil1 = new OilPuddle("2",
+            Entity oil1 = efactory.createEntity("oilPuddle",
                     new Point(x, y + 1), imageStore.getImageList(WorldModel.OIL_PUDDLE));
             world.addEntity(oil1);
-            OilPuddle oil2 = new OilPuddle("3",
+            Entity oil2 = new OilPuddle("oilPuddle",
                     new Point(x, y - 1), imageStore.getImageList(WorldModel.OIL_PUDDLE));
             world.addEntity(oil2);
             motoClickCount++;
          }
-//      }
+      }
    }
 
    private static Background createDefaultBackground(ImageStore imageStore)
